@@ -221,7 +221,7 @@ class MainPage extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                "ALAT",
+                                "TOOLS",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 10,
@@ -315,7 +315,7 @@ class MainPage extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                "LAPORAN",
+                                "REPORT",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 10,
