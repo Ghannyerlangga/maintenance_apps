@@ -28,8 +28,9 @@ class MainPage extends StatelessWidget {
         child: new ListView(
           children: <Widget>[
             Container(
-              height: 225.0,
-              padding: EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height * 0.30,
+              width: MediaQuery.of(context).size.width * 0.80,
+              margin: EdgeInsets.all(10),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -37,31 +38,31 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-                      height: 150,
-                      width: 150,
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(5.0, 10.0, 10.0, 10.0),
                     child: Image.asset(
                       "img/logo_industri.png",
-                      height: 150,
-                      width: 150,
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -103,8 +104,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -154,8 +155,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -197,8 +198,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -248,8 +249,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -291,8 +292,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
