@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/Document/document1.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
@@ -162,7 +163,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Maintenance();
+                              return Document1(document_num: 1,);
                             }));
                           },
                           child: Column(
