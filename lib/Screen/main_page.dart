@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent[100],
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text("Main Page"),
         actions: <Widget>[
@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-                      height: MediaQuery.of(context).size.height * 0.20,
+                      height: MediaQuery.of(context).size.height * 0.10,
                       width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),

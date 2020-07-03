@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Weekly extends StatefulWidget {
-  static const String routeName = "/daily";
+  static const String routeName = "/weekly";
   @override
   _WeeklyState createState() => _WeeklyState();
 }
@@ -15,6 +15,7 @@ class _WeeklyState extends State<Weekly> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
+        backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           title: const Text('Weekly Checklist'),
         ),
