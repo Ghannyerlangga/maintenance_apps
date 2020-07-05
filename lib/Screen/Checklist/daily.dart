@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Services/database.dart';
 
 class Daily extends StatefulWidget {
   String value;
@@ -10,19 +13,27 @@ class Daily extends StatefulWidget {
 }
 
 class _DailyState extends State<Daily> {
-  bool checkBoxValue = false;
-  bool checkBoxValue2 = false;
-  bool checkBoxValue3 = false;
-  bool checkBoxValue4 = false;
-  bool checkBoxValue5 = false;
-  bool checkBoxValue6 = false;
-  bool checkBoxValue7 = false;
-  bool checkBoxValue8 = false;
-  bool checkBoxValue9 = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  bool e = false;
+  bool f = false;
+  bool g = false;
+  bool h = false;
+  bool i = false;
+  DatabaseService db = DatabaseService();
+  String nama = "";
+  String error = "";
+
+  final CollectionReference pengguna = Firestore.instance.collection('data');
+
+  DateTime _dueDate = DateTime.now();
+  String _dateText = '';
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
@@ -63,22 +74,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue,
+                          value: a,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue = value;
+                              a = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue,
+                          value: !a,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue = !value;
+                              a = !value;
                             });
                           }),
                     ),
@@ -96,22 +107,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue2,
+                          value: b,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue2 = value;
+                              b = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue2,
+                          value: !b,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue2 = !value;
+                              b = !value;
                             });
                           }),
                     ),
@@ -129,22 +140,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue3,
+                          value: c,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue3 = value;
+                              c = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue3,
+                          value: !c,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue3 = !value;
+                              c = !value;
                             });
                           }),
                     ),
@@ -162,22 +173,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue4,
+                          value: d,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue4 = value;
+                              d = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue4,
+                          value: !d,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue4 = !value;
+                              d = !value;
                             });
                           }),
                     ),
@@ -195,22 +206,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue5,
+                          value: e,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue5 = value;
+                              e = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue5,
+                          value: !e,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue5 = !value;
+                              e = !value;
                             });
                           }),
                     ),
@@ -228,22 +239,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue6,
+                          value: f,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue6 = value;
+                              f = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue6,
+                          value: !f,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue6 = !value;
+                              f = !value;
                             });
                           }),
                     ),
@@ -261,22 +272,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue7,
+                          value: g,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue7 = value;
+                              g = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue7,
+                          value: !g,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue7 = !value;
+                              g = !value;
                             });
                           }),
                     ),
@@ -294,22 +305,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue8,
+                          value: h,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue8 = value;
+                              h = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue8,
+                          value: !h,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue8 = !value;
+                              h = !value;
                             });
                           }),
                     ),
@@ -327,22 +338,22 @@ class _DailyState extends State<Daily> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: checkBoxValue9,
+                          value: i,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue9 = value;
+                              i = value;
                             });
                           }),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Checkbox(
-                          value: !checkBoxValue9,
+                          value: !i,
                           onChanged: (bool value) {
                             print(value);
                             setState(() {
-                              checkBoxValue9 = !value;
+                              i = !value;
                             });
                           }),
                     ),
@@ -356,17 +367,18 @@ class _DailyState extends State<Daily> {
                     child: Text("Submit",
                         style:
                             TextStyle(color: Colors.white38.withOpacity(0.8))),
-                    onPressed: () {
+                    onPressed: () async {
+                      _dateText =
+                          "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
+                      var firebaseUser =
+                          await FirebaseAuth.instance.currentUser();
+                      var nama =
+                          await pengguna.document(firebaseUser.uid).get();
+                      await db.createUpdateDaily(nama["name"], a, b, c, d, e, f,
+                          g, h, i, widget.hasil, _dateText);
                       Navigator.pop(context);
                     }),
               ),
-              Container(
-                child: Column(children: <Widget>[
-                  // Text(checkBoxValue2.toString()),
-
-                  Text(checkBoxValue.toString()),
-                ]),
-              )
             ],
           ),
         ),
