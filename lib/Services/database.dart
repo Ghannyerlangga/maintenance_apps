@@ -24,6 +24,18 @@ class DatabaseService{
     return snapshot;
   }
 
+  Future<void> addMesain(String kode, String nama, String jenis, String kapasitas, String jumlah, String lokasi, String keterangan) async{
+    await mesinCollection.document(kode).setData({
+      'kode' : kode,
+      'nama' : nama,
+      'jenis' : jenis,
+      'kapasitas' : kapasitas,
+      'jumlah' : jumlah,
+      'lokasi' : lokasi,
+      'keterangan' : keterangan
+    });
+  }
+
   Future<void> updateUserData(String name,String position,String address) async{
     return await userCollection.document(uid).setData({
       'name' : name,

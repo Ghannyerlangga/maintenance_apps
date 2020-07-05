@@ -6,10 +6,14 @@ class Mesin {
     String nama;
     String jenis;
     String kode;
+    String kapasitas;
+    String jumlah;
+    String lokasi;
+    String keterangan;
 
     DocumentReference refernce;
 
-    Mesin(this.jenis,this.kode,this.nama);
+    Mesin(this.nama,this.jenis,this.kode,this.kapasitas,this.jumlah,this.lokasi,this.keterangan);
 
     factory Mesin.fromSnapshot(DocumentSnapshot snapshot){
       Mesin newMesin = Mesin.fromJson(snapshot.data);
@@ -27,11 +31,19 @@ Mesin _mesinFromJson(Map<dynamic,dynamic> json){
     json['nama'] as String,
     json['jenis'] as String,
     json['kode'] as String,
+    json['kapasitas'] as String,
+    json['jumlah'] as String,
+    json['lokasi'] as String,
+    json['keterangan'] as String
   );
 }
 
 Map<dynamic,dynamic> _mesinToJson(Mesin instance) => <String, dynamic>{
   'nama' : instance.nama,
   'jenis' : instance.jenis,
-  'kode' : instance.kode
+  'kode' : instance.kode,
+  'keterangan' : instance.keterangan,
+  'jumlah' : instance.jumlah,
+  'lokasi' : instance.lokasi,
+  'keterangan' : instance.keterangan
 };
