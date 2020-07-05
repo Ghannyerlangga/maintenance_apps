@@ -15,6 +15,7 @@ MERGED from [:firebase_core_web] E:\PROYEK\ini_projek\maintenance_apps\build\fir
 MERGED from [:sqflite] E:\PROYEK\ini_projek\maintenance_apps\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_barcode_scanner] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_barcode_scanner\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_full_pdf_viewer] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_full_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_pdfview] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_plugin_pdf_viewer] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_plugin_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] E:\PROYEK\ini_projek\maintenance_apps\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -209,6 +210,8 @@ MERGED from [:flutter_barcode_scanner] E:\PROYEK\ini_projek\maintenance_apps\bui
 MERGED from [:flutter_barcode_scanner] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_barcode_scanner\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_full_pdf_viewer] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_full_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_full_pdf_viewer] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_full_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_pdfview] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_pdfview] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_pdfview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_pdf_viewer] E:\PROYEK\ini_projek\maintenance_apps\build\flutter_plugin_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

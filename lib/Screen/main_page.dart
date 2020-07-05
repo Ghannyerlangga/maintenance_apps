@@ -5,11 +5,14 @@ import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
+import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
 
 class MainPage extends StatelessWidget {
   final FirebaseUser user;
   MainPage(this.user);
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +211,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan();
+                              return Tools();
                             }));
                           },
                           child: Column(
@@ -302,7 +305,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan();
+                              return Laporan(user.uid);
                             }));
                           },
                           child: Column(
