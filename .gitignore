@@ -30,6 +30,9 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.flutter-plugins~report
+.flutter-plugins-dependencies~report
+.packages~report
 .pub-cache/
 .pub/
 /build/
