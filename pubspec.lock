@@ -195,6 +195,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.3"
+<<<<<<< HEAD
   flutter_full_pdf_viewer:
     dependency: "direct main"
     description:
@@ -209,6 +210,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+=======
+>>>>>>> 999bfe42d5f01bf366a66bf4207c35504fa59ab8
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

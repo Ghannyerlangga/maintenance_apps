@@ -3,22 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class Monthly extends StatefulWidget {
-  static const String routeName = "/monthly";
+class Plasma extends StatefulWidget {
+  static const String routeName = "/annual";
   String value;
   String hasil;
-  Monthly({this.hasil, this.value});
+  Plasma({this.hasil, this.value});
   @override
-  _MonthlyState createState() => _MonthlyState();
+  _PlasmaState createState() => _PlasmaState();
 }
 
-class _MonthlyState extends State<Monthly> {
+class _PlasmaState extends State<Plasma> {
   bool a = false;
   bool b = false;
   bool c = false;
   bool d = false;
-  bool e = false;
-  bool f = false;
 
   DatabaseService db = DatabaseService();
   String nama = "";
@@ -35,7 +33,7 @@ class _MonthlyState extends State<Monthly> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text('Monthly Checklist'),
+          title: const Text('Plasma Checklist'),
         ),
         body: Container(
           child: ListView(
@@ -67,7 +65,7 @@ class _MonthlyState extends State<Monthly> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Lubricating Rack & Ponion"),
+                      child: Text("Tekanan Regulator Angin Kompresor"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -100,7 +98,7 @@ class _MonthlyState extends State<Monthly> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Inspect All Gas Hoses"),
+                      child: Text("Tekanan Regulator Angin Kompresor saat Cutflow Test"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -133,7 +131,7 @@ class _MonthlyState extends State<Monthly> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Inspect and Lubricate Z-Axis"),
+                      child: Text("Filters Udara Mesin"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -166,7 +164,7 @@ class _MonthlyState extends State<Monthly> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Coolant Fan Filter"),
+                      child: Text("Level Coolant"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -194,72 +192,6 @@ class _MonthlyState extends State<Monthly> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Lubricating Clamp"),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      child: Checkbox(
-                          value: e,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              e = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      child: Checkbox(
-                          value: !e,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              e = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Dust ProofBaffle"),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      child: Checkbox(
-                          value: f,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              f = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      child: Checkbox(
-                          value: !f,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              f = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: RaisedButton(
                     color: Colors.lightBlueAccent,
@@ -273,8 +205,7 @@ class _MonthlyState extends State<Monthly> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateMonthly(nama["name"], a, b, c, d, e,
-                          f, widget.hasil, _dateText);
+                      await db.createUpdatePlasma(nama["name"], a, b, c, d, widget.hasil, _dateText);
                       Navigator.pop(context);
                     }),
               ),

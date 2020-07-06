@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:maintenance_apps/Screen/Document/document1.dart';
+=======
+>>>>>>> 999bfe42d5f01bf366a66bf4207c35504fa59ab8
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
@@ -17,7 +20,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent[100],
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text("Main Page"),
         actions: <Widget>[
@@ -43,7 +46,11 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
+<<<<<<< HEAD
                       height: MediaQuery.of(context).size.height * 0.20,
+=======
+                      height: MediaQuery.of(context).size.height * 0.10,
+>>>>>>> 999bfe42d5f01bf366a66bf4207c35504fa59ab8
                       width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
