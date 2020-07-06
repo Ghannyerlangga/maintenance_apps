@@ -27,7 +27,7 @@ class _UbahDataState extends State<UbahData> {
         child: FutureBuilder(
       future: getData(),
       builder: (_, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState ==ConnectionState.waiting) {
           return Center(
             child: Loading(),
           );
