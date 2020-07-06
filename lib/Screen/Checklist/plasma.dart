@@ -5,8 +5,8 @@ import 'package:maintenance_apps/Services/database.dart';
 
 class Plasma extends StatefulWidget {
   static const String routeName = "/annual";
-  String value;
-  String hasil;
+  final String value;
+  final String hasil;
   Plasma({this.hasil, this.value});
   @override
   _PlasmaState createState() => _PlasmaState();
@@ -21,6 +21,7 @@ class _PlasmaState extends State<Plasma> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
+  String checklist = "daily-plasma";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -98,7 +99,8 @@ class _PlasmaState extends State<Plasma> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Tekanan Regulator Angin Kompresor saat Cutflow Test"),
+                      child: Text(
+                          "Tekanan Regulator Angin Kompresor saat Cutflow Test"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -205,7 +207,8 @@ class _PlasmaState extends State<Plasma> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdatePlasma(nama["name"], a, b, c, d, widget.hasil, _dateText);
+                      await db.createUpdatePlasma(nama["name"], a, b, c, d,
+                          widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

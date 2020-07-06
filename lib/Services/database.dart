@@ -5,11 +5,7 @@ class DatabaseService {
   DatabaseService({this.uid});
   final CollectionReference myCollection =
       Firestore.instance.collection('data');
-  final CollectionReference myDaily = Firestore.instance.collection('daily');
-  final CollectionReference myMonthly =
-      Firestore.instance.collection('monthly');
-  final CollectionReference myAnnual = Firestore.instance.collection('annual');
-  final CollectionReference myPlasma = Firestore.instance.collection('plasma');
+  final CollectionReference myChecklist = Firestore.instance.collection('checklist');
   final CollectionReference userCollection =
       Firestore.instance.collection('data');
 
@@ -72,10 +68,11 @@ class DatabaseService {
       bool h,
       bool i,
       String jenis,
+      String checklist,
       String waktu,
     ) async {
       try {
-        return await myDaily.add({
+        return await myChecklist.add({
           "user": user,
           "rail": a,
           "machine": b,
@@ -87,6 +84,7 @@ class DatabaseService {
           "elpiji": h,
           "nitrogen": i,
           "jenis mesin": jenis,
+          "checklist" :  checklist,
           "waktu": waktu,
         });
       } catch (e) {
@@ -104,10 +102,11 @@ class DatabaseService {
       bool e,
       bool f,
       String jenis,
+      String checklist,
       String waktu,
     ) async {
       try {
-        return await myMonthly.add({
+        return await myChecklist.add({
           "user": user,
           "rack": a,
           "gas hoses": b,
@@ -116,6 +115,7 @@ class DatabaseService {
           "clamp": e,
           "dust": f,
           "jenis mesin": jenis,
+          "checklist" :  checklist,
           "waktu": waktu,
         });
       } catch (e) {
@@ -129,14 +129,16 @@ class DatabaseService {
       bool a,
       bool b,
       String jenis,
+      String checklist,
       String waktu,
     ) async {
       try {
-        return await myAnnual.add({
+        return await myChecklist.add({
           "user": user,
           "remote control": a,
           "machine angle": b,
           "jenis mesin": jenis,
+          "checklist" :  checklist,
           "waktu": waktu,
         });
       } catch (e) {
@@ -152,16 +154,18 @@ class DatabaseService {
       bool c,
       bool d,
       String jenis,
+      String checklist,
       String waktu,
     ) async {
       try {
-        return await myPlasma.add({
+        return await myChecklist.add({
           "user": user,
           "tekanan angin": a,
           "tekanan angin cutflow": b,
           "filter udara": c,
           "level coolant": d,
           "jenis mesin": jenis,
+          "checklist" :  checklist,
           "waktu": waktu,
         });
       } catch (e) {

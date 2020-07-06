@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
 class Daily extends StatefulWidget {
-  String value;
-  String hasil;
+  final String value;
+  final String hasil;
   Daily({this.value, this.hasil});
   static const String routeName = "/daily";
   @override
@@ -25,6 +25,7 @@ class _DailyState extends State<Daily> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
+  String checklist = "daily";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -375,7 +376,7 @@ class _DailyState extends State<Daily> {
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
                       await db.createUpdateDaily(nama["name"], a, b, c, d, e, f,
-                          g, h, i, widget.hasil, _dateText);
+                          g, h, i, widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

@@ -13,7 +13,7 @@ class _UbahDataState extends State<UbahData> {
     DateTime _dueDate = DateTime.now();
     var _dateText = "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
     QuerySnapshot qn = await firestore
-        .collection("daily")
+        .collection("checklist")
         .where("waktu", isEqualTo: _dateText)
         .getDocuments();
     return qn.documents;
@@ -23,6 +23,10 @@ class _UbahDataState extends State<UbahData> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: Text("Daftar Checklist Hari Ini"),
+          centerTitle: true,
+        ),
       body:Container(
         child: FutureBuilder(
       future: getData(),
@@ -38,8 +42,9 @@ class _UbahDataState extends State<UbahData> {
                 final x = snapshot.data[index];
                 return ListTile(
                   leading: Icon(Icons.assignment),
-                  title: Text(x.data["jenis mesin"]),
-                  subtitle: Text("Tanggal : ${x.data["waktu"]}"),
+                  title: Text(x.data["jenis mesin"]), 
+                  subtitle: Text("Tanggal : ${x.data["checklist"]}"),
+                  trailing: Text(x.data["user"]), 
                   onTap: () {},
                 );
               });

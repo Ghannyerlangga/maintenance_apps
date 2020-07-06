@@ -5,8 +5,8 @@ import 'package:maintenance_apps/Services/database.dart';
 
 class Monthly extends StatefulWidget {
   static const String routeName = "/monthly";
-  String value;
-  String hasil;
+  final String value;
+  final String hasil;
   Monthly({this.hasil, this.value});
   @override
   _MonthlyState createState() => _MonthlyState();
@@ -23,6 +23,7 @@ class _MonthlyState extends State<Monthly> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
+  String checklist = "monthly";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -274,7 +275,7 @@ class _MonthlyState extends State<Monthly> {
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
                       await db.createUpdateMonthly(nama["name"], a, b, c, d, e,
-                          f, widget.hasil, _dateText);
+                          f, widget.hasil,checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

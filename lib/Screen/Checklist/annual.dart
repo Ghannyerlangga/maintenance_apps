@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
 class Annual extends StatefulWidget {
-  static const String routeName = "/annual";
-  String value;
-  String hasil;
+  final String value;
+  final String hasil;
   Annual({this.hasil, this.value});
+  static const String routeName = "/annual";
   @override
   _AnnualState createState() => _AnnualState();
 }
@@ -21,6 +21,7 @@ class _AnnualState extends State<Annual> {
   bool f = false;
 
   DatabaseService db = DatabaseService();
+  String checklist = "annual";
   String nama = "";
   String error = "";
 
@@ -141,7 +142,7 @@ class _AnnualState extends State<Annual> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateAnnual(nama["name"], a, b, widget.hasil, _dateText);
+                      await db.createUpdateAnnual(nama["name"], a, b, widget.hasil,checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

@@ -40,8 +40,7 @@ class _LaporanState extends State<Laporan> {
           DocumentSnapshot listSnapshot = snapshot.data;
           user = User.fromSnapshot(listSnapshot);}
           String namaUser = user.nama;
-          return Scaffold(
-              
+          return Scaffold( 
               body: FutureBuilder<QuerySnapshot>(
               future: getMesin(),
               builder: (builder,snapshot) {
@@ -64,7 +63,7 @@ class _LaporanState extends State<Laporan> {
                    }
                 );
                
-              };
+              }
               }
               ),
           );

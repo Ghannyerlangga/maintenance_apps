@@ -6,6 +6,7 @@ import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
+import 'package:maintenance_apps/Screen/user_data.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
 
 class MainPage extends StatelessWidget {
@@ -19,6 +20,12 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Main Page"),
         actions: <Widget>[
+          FlatButton.icon(onPressed: (){
+            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return UserData();
+                            }));
+          }, icon: Icon(Icons.edit), label: Text("Edit")),
           FlatButton.icon(
               onPressed: () async {
                 await AuthServices.signOut();
