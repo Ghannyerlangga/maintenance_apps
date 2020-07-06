@@ -9,7 +9,7 @@ class Prosedur extends StatefulWidget {
 }
 
 class _ProsedurState extends State<Prosedur> {
-  bool _isLoading = false, _isInit = true;
+  // bool _isLoading = false, _isInit = true;
   PDFDocument document;
 
   @override
@@ -28,7 +28,7 @@ class _ProsedurState extends State<Prosedur> {
                         onPressed: (){
                           Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Document1(document_num: 1,);
+                              return Document1(documentNum: 1,);
                             }));
                           }
                         ),
@@ -44,7 +44,7 @@ class _ProsedurState extends State<Prosedur> {
                         onPressed: (){
                           Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Document1(document_num: 2,);
+                              return Document1(documentNum: 2,);
                             }));
                           }
                         ),

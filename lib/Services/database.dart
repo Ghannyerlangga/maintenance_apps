@@ -3,7 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
-
+  final CollectionReference myCollection =
+      Firestore.instance.collection('data');
+  final CollectionReference myDaily = Firestore.instance.collection('daily');
+  final CollectionReference myMonthly =
+      Firestore.instance.collection('monthly');
+  final CollectionReference myAnnual = Firestore.instance.collection('annual');
+  final CollectionReference myPlasma = Firestore.instance.collection('plasma');
   final CollectionReference userCollection =
       Firestore.instance.collection('data');
 
@@ -13,52 +19,48 @@ class DatabaseService {
   final CollectionReference harianCollection =
       Firestore.instance.collection('harian');
 
-  Future<DocumentSnapshot> getData(String uid) async {
-    final snapshot = await userCollection.document(uid).get();
-    return snapshot;
-  }
-
-  Future<QuerySnapshot> getMesin() {
-    return mesinCollection.getDocuments();
-  }
-
-  Future<QuerySnapshot> addMesin(String kode, String nama, String jenis, String kapasitas, String jumlah, String lokasi, String keterangan) async {
-    await mesinCollection.document(kode).setData({
-      'kode' : kode,
-      'nama' : nama,
-      'jenis' : jenis,
-      'kapasitas' : kapasitas,
-      'jumlah' : jumlah,
-      'lokasi' : lokasi,
-      'keterangan' : keterangan
-    });   
-  }
-
-  Future<DocumentSnapshot> getDataHarian(String id) async {
-    final snapshot = await harianCollection.document(id).get();
-    return snapshot;
-  }
-
   Future<void> updateUserData(
       String name, String position, String address) async {
-    return await userCollection.document(uid).setData({
+    return await myCollection.document(uid).setData({
       'name': name,
       'position': position,
       'address': address,
     });
       }
+    Future<DocumentSnapshot> getData(String uid) async {
+      final snapshot = await userCollection.document(uid).get();
+      return snapshot;
+    }
 
-    final CollectionReference myCollection =
-        Firestore.instance.collection('data');
-    final CollectionReference myDaily = Firestore.instance.collection('daily');
-    final CollectionReference myMonthly =
-        Firestore.instance.collection('monthly');
-    final CollectionReference myAnnual =
-        Firestore.instance.collection('annual');
-    final CollectionReference myPlasma =
-        Firestore.instance.collection('plasma');
+    Future<QuerySnapshot> getMesin() {
+      return mesinCollection.getDocuments();
+    }
 
-  Future<void> createUpdateDaily(
+    Future<DocumentSnapshot> getDataHarian(String id) async {
+      final snapshot = await harianCollection.document(id).get();
+      return snapshot;
+    }
+
+    Future<void> addMesin(
+        String kode,
+        String nama,
+        String jenis,
+        String kapasitas,
+        String jumlah,
+        String lokasi,
+        String keterangan) async {
+      await mesinCollection.document(kode).setData({
+        'kode': kode,
+        'nama': nama,
+        'jenis': jenis,
+        'kapasitas': kapasitas,
+        'jumlah': jumlah,
+        'lokasi': lokasi,
+        'keterangan': keterangan
+      });
+    }
+
+    Future<void> createUpdateDaily(
       String user,
       bool a,
       bool b,
@@ -168,4 +170,3 @@ class DatabaseService {
       }
     }
   }
-

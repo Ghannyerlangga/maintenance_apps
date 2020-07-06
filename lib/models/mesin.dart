@@ -42,7 +42,7 @@ Map<dynamic,dynamic> _mesinToJson(Mesin instance) => <String, dynamic>{
   'nama' : instance.nama,
   'jenis' : instance.jenis,
   'kode' : instance.kode,
-  'keterangan' : instance.keterangan,
+  'kapasitas' : instance.kapasitas,
   'jumlah' : instance.jumlah,
   'lokasi' : instance.lokasi,
   'keterangan' : instance.keterangan
