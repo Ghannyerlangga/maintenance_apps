@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "186004512007",
+    "firebase_url": "https://maintenance-acd46.firebaseio.com",
+    "project_id": "maintenance-acd46",
+    "storage_bucket": "maintenance-acd46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186004512007:android:522b46c195ffb0bae079a2",
+        "android_client_info": {
+          "package_name": "com.example.maintenance_apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186004512007-g2s5b8dh6ijkonjpgk25ffhu5r6e5f3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClaW-EZ9GRkCRE7JwbYhQIjXGBS029A0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186004512007-g2s5b8dh6ijkonjpgk25ffhu5r6e5f3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
