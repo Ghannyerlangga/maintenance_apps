@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/Document/document1.dart';
+import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
+import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
 
 class MainPage extends StatelessWidget {
   final FirebaseUser user;
   MainPage(this.user);
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +33,9 @@ class MainPage extends StatelessWidget {
         child: new ListView(
           children: <Widget>[
             Container(
-              height: 225.0,
-              padding: EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height * 0.30,
+              width: MediaQuery.of(context).size.width * 0.80,
+              margin: EdgeInsets.all(10),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -38,31 +43,31 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-                      height: 150,
-                      width: 150,
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(5.0, 10.0, 10.0, 10.0),
                     child: Image.asset(
                       "img/logo_industri.png",
-                      height: 150,
-                      width: 150,
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -104,8 +109,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -155,8 +160,8 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
@@ -198,15 +203,15 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan();
+                              return Tools();
                             }));
                           },
                           child: Column(
@@ -222,7 +227,7 @@ class MainPage extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                "ALAT",
+                                "TOOLS",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 10,
@@ -249,15 +254,15 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Maintenance();
+                              return Barcode();
                             }));
                           },
                           child: Column(
@@ -292,15 +297,15 @@ class MainPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: ButtonTheme(
-                        minWidth: 150.0,
-                        height: 100,
+                        minWidth: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.20,
                         child: new FlatButton(
                           padding: EdgeInsets.all(0),
                           color: Colors.lightBlueAccent[100],
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan();
+                              return Laporan(user.uid);
                             }));
                           },
                           child: Column(
@@ -316,7 +321,7 @@ class MainPage extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                "LAPORAN",
+                                "REPORT",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                     fontSize: 10,
