@@ -23,6 +23,9 @@
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
+.flutter-plugins~report
+.flutter-plugins-dependencies~report
+.packages~report
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
