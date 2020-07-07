@@ -1,19 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import 'package:maintenance_apps/Screen/Document/document1.dart';
-=======
->>>>>>> 999bfe42d5f01bf366a66bf4207c35504fa59ab8
-=======
-import 'package:maintenance_apps/Screen/Document/document1.dart';
->>>>>>> a976c0e2973af2285267d93ecb45c9973bd3a00c
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
+import 'package:maintenance_apps/Screen/Document/document1.dart';
 
 class MainPage extends StatelessWidget {
   final FirebaseUser user;
@@ -48,15 +41,7 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                      height: MediaQuery.of(context).size.height * 0.20,
-=======
                       height: MediaQuery.of(context).size.height * 0.10,
->>>>>>> 999bfe42d5f01bf366a66bf4207c35504fa59ab8
-=======
-                      height: MediaQuery.of(context).size.height * 0.20,
->>>>>>> a976c0e2973af2285267d93ecb45c9973bd3a00c
                       width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
@@ -181,9 +166,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Document1(
-                                documentNum: 1,
-                              );
+                              return Document1(documentNum: 1,);
                             }));
                           },
                           child: Column(

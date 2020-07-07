@@ -13,6 +13,8 @@ class _ListMesinState extends State<ListMesin> {
 
   Future<QuerySnapshot> data;
   List<DocumentSnapshot> document;
+
+  DaftarMesin mesin;
   
 
 
@@ -52,6 +54,8 @@ class _ListMesinState extends State<ListMesin> {
               child: CircularProgressIndicator(),
             );
           }
+          mesin = DaftarMesin.fromJson(snapshot.data.documents);
+          print(mesin.listMesin[0].nama);
           document = snapshot.data.documents;
           return ListView.builder(
             itemCount: document.length,

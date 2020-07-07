@@ -1,6 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class DaftarMesin{
+  List<Mesin> listMesin = List<Mesin>();
 
+  DaftarMesin(this.listMesin);
+
+  DocumentReference reference;
+
+  // factory DaftarMesin.fromSnapshot(DocumentSnapshot snapshot){
+  //     DaftarMesin newMesin = DaftarMesin.fromJson(snapshot.data);
+  //     newMesin.reference = snapshot.reference;
+  //     return newMesin;
+  //   }
+
+  factory DaftarMesin.fromJson(List<DocumentSnapshot> json) => _listMesinFromJson(json);
+}
+
+DaftarMesin _listMesinFromJson(List<DocumentSnapshot> json){
+  return DaftarMesin(
+    _convertDataMesin(json)
+  );
+}
+
+List<Mesin> _convertDataMesin(List<DocumentSnapshot> dataMap){
+  if (dataMap == null){
+    return null;
+  }
+  List<Mesin> data = List<Mesin>();
+  dataMap.forEach((element) {
+    data.add(Mesin.fromJson(element.data));
+  });
+  return data;
+  }
 
 class Mesin {
     String nama;
@@ -21,9 +52,15 @@ class Mesin {
       return newMesin;
     }
 
+    
+
+
     factory Mesin.fromJson(Map<dynamic,dynamic> json) => _mesinFromJson(json);
 
     Map<dynamic, dynamic> toJson() => _mesinToJson(this);
+
+
+  
 }
 
 Mesin _mesinFromJson(Map<dynamic,dynamic> json){
@@ -47,3 +84,14 @@ Map<dynamic,dynamic> _mesinToJson(Mesin instance) => <String, dynamic>{
   'lokasi' : instance.lokasi,
   'keterangan' : instance.keterangan
 };
+
+List<Mesin> convertDataMesin(List dataMap){
+  if (dataMap == null){
+    return null;
+  }
+  List<Mesin> data = List<Mesin>();
+  dataMap.forEach((value){
+    data.add(Mesin.fromJson(value));
+  });
+  return data;
+}

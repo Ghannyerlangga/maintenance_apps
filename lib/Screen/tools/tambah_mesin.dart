@@ -70,7 +70,7 @@ class _TambahMesinState extends State<TambahMesin> {
               String lokasi = _lokasiController.text;
               String keterangan = _keteranganController.text;
 
-              await database.addMesain(kode, nama, jenis, kapasitas, jumlah, lokasi, keterangan).then((value){
+              await database.addMesin(kode, nama, jenis, kapasitas, jumlah, lokasi, keterangan).then((value){
                 _kodeController.clear();
                 _namaController.clear();
                 _jenisController.clear();
