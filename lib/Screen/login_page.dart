@@ -27,7 +27,10 @@ class _LoginPageState extends State<LoginPage> {
             backgroundColor: Colors.blueAccent[100],
             appBar: AppBar(
               backgroundColor: Colors.blueAccent,
-              title: Text("Sign In to WIKA Maintenance"),
+              title: Text(
+                "Sign In to WIKA Maintenance",
+                style: TextStyle(fontSize: 16.0),
+              ),
               actions: <Widget>[
                 FlatButton.icon(
                     onPressed: () {
@@ -113,8 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text("PT. WIKA Industri dan Konstruksi @2020",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14.0)),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.0)),
                         )
                       ],
                     ))

@@ -25,7 +25,7 @@ class _DailyState extends State<Daily> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
-  String checklist = "daily";
+  String checklist = "Daily";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -38,7 +38,10 @@ class _DailyState extends State<Daily> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text('Daily Checklist'),
+          title: const Text(
+            'Daily Checklist',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         body: Container(
           child: ListView(

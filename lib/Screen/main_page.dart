@@ -18,14 +18,21 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Main Page"),
+        leading: Icon(Icons.home),
+        title: Text(
+          "WIKA MAINTENANCE",
+          style: TextStyle(fontSize: 16.0),
+        ),
+        // centerTitle: true,
         actions: <Widget>[
-          FlatButton.icon(onPressed: (){
-            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return UserData();
-                            }));
-          }, icon: Icon(Icons.edit), label: Text("Edit")),
+          // FlatButton.icon(
+          //     onPressed: () {
+          //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //         return UserData();
+          //       }));
+          //     },
+          //     icon: Icon(Icons.edit),
+          //     label: Text("Edit")),
           FlatButton.icon(
               onPressed: () async {
                 await AuthServices.signOut();
@@ -40,12 +47,13 @@ class MainPage extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * 0.30,
               width: MediaQuery.of(context).size.width * 0.80,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: EdgeInsets.only(bottom: 0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 0),
                     child: Image.asset(
                       "img/logo_wika1.png",
                       height: MediaQuery.of(context).size.height * 0.20,
@@ -53,7 +61,7 @@ class MainPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(5.0, 10.0, 10.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(5.0, 10.0, 10.0, 0),
                     child: Image.asset(
                       "img/logo_industri.png",
                       height: MediaQuery.of(context).size.height * 0.20,
@@ -62,6 +70,21 @@ class MainPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 0, bottom: 30.0),
+                  child: Text(
+                    "Pabrik Fabrikasi Baja Majalengka",
+                    style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),

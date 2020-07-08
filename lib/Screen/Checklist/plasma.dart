@@ -21,7 +21,7 @@ class _PlasmaState extends State<Plasma> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
-  String checklist = "daily-plasma";
+  String checklist = "Daily-Plasma";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -34,7 +34,10 @@ class _PlasmaState extends State<Plasma> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text('Plasma Checklist'),
+          title: const Text(
+            'Plasma Checklist',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         body: Container(
           child: ListView(

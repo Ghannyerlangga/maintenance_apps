@@ -23,7 +23,7 @@ class _MonthlyState extends State<Monthly> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
-  String checklist = "monthly";
+  String checklist = "Monthly";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -36,7 +36,10 @@ class _MonthlyState extends State<Monthly> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text('Monthly Checklist'),
+          title: const Text(
+            'Monthly Checklist',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         body: Container(
           child: ListView(
@@ -275,7 +278,7 @@ class _MonthlyState extends State<Monthly> {
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
                       await db.createUpdateMonthly(nama["name"], a, b, c, d, e,
-                          f, widget.hasil,checklist, _dateText);
+                          f, widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

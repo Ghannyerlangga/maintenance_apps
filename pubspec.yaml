@@ -68,6 +68,9 @@ flutter:
      - img/ToolIcon8.png
      - img/qr-code.png
      - img/ReportIcon8.png
+     - img/MachineFlatIcon.png
+     - img/repairFlatIcon.png
+     - img/ConsumableIcon8.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

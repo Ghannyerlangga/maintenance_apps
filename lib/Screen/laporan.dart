@@ -6,24 +6,22 @@ import 'package:maintenance_apps/models/user.dart';
 
 class Laporan extends StatefulWidget {
   final String id;
-
   Laporan(this.id);
   @override
   _LaporanState createState() => _LaporanState();
 }
 
 class _LaporanState extends State<Laporan> {
-
   final DatabaseService databaseService = DatabaseService();
   List<DocumentSnapshot> document;
 
   User user;
 
-  Future<DocumentSnapshot> getUser(String id){
+  Future<DocumentSnapshot> getUser(String id) {
     return databaseService.getData(id);
   }
 
-  Future<QuerySnapshot> getMesin(){
+  Future<QuerySnapshot> getMesin() {
     return databaseService.getMesin();
   }
 
@@ -31,43 +29,44 @@ class _LaporanState extends State<Laporan> {
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
       future: getUser(widget.id),
-      builder: (builder ,snapshot) {
-        if(!snapshot.hasData){
+      builder: (builder, snapshot) {
+        if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
 
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           DocumentSnapshot listSnapshot = snapshot.data;
-          user = User.fromSnapshot(listSnapshot);}
-          String namaUser = user.nama;
-          return Scaffold( 
-              body: FutureBuilder<QuerySnapshot>(
+          user = User.fromSnapshot(listSnapshot);
+        }
+        String namaUser = user.nama;
+        return Scaffold(
+          body: FutureBuilder<QuerySnapshot>(
               future: getMesin(),
-              builder: (builder,snapshot) {
-               if(!snapshot.hasData){
-                 return Center(child: CircularProgressIndicator());
-               }
+              builder: (builder, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-               if (snapshot.hasData){
-                document = snapshot.data.documents;
-                 return ListView.builder(
-                   itemCount: document.length,
-                   itemBuilder: (context, index){
-                     String nama = document[index].data['nama'];
-                     return RaisedButton(onPressed: (){
-                           Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                             return PilihanLaporan(document[index],namaUser);
-                           } ));
-                         },
-                         child: Text(nama),);
-                   }
-                );
-               
-              }
-              }
-              ),
-          );
-        
-      },);
+                if (snapshot.hasData) {
+                  document = snapshot.data.documents;
+                  return ListView.builder(
+                      itemCount: document.length,
+                      itemBuilder: (context, index) {
+                        String nama = document[index].data['nama'];
+                        return RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return PilihanLaporan(document[index], namaUser);
+                            }));
+                          },
+                          child: Text(nama),
+                        );
+                      });
+                }
+              }),
+        );
+      },
+    );
   }
 }

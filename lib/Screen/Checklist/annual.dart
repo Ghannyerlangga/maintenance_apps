@@ -21,7 +21,7 @@ class _AnnualState extends State<Annual> {
   bool f = false;
 
   DatabaseService db = DatabaseService();
-  String checklist = "annual";
+  String checklist = "Semi-Annual";
   String nama = "";
   String error = "";
 
@@ -36,7 +36,10 @@ class _AnnualState extends State<Annual> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text('Annual Checklist'),
+          title: const Text(
+            'Annual Checklist',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         body: Container(
           child: ListView(
@@ -142,7 +145,8 @@ class _AnnualState extends State<Annual> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateAnnual(nama["name"], a, b, widget.hasil,checklist, _dateText);
+                      await db.createUpdateAnnual(nama["name"], a, b,
+                          widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),
               ),

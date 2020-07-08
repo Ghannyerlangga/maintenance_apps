@@ -15,10 +15,20 @@ class _Document1State extends State<Document1> {
 
   @override
   void initState() {
-    if(widget.documentNum==1){
-      documentPath = "https://firebasestorage.googleapis.com/v0/b/maintenance-acd46.appspot.com/o/Handout%20Farhan%20Reza%20Saputra.pdf?alt=media&token=6a2a3cd9-13f3-4eaf-9feb-c394ac1d9c22";
-    }else{
-      documentPath = "https://firebasestorage.googleapis.com/v0/b/maintenance-acd46.appspot.com/o/ELS%2015%20Februari%202020.pdf?alt=media&token=42af316d-165c-48f4-a79d-ad77d7481a44";
+    switch (widget.documentNum) {
+      case 1:
+        documentPath =
+            "https://firebasestorage.googleapis.com/v0/b/maintenance-acd46.appspot.com/o/Dokumen1.pdf?alt=media&token=0b1d537a-ac3a-46e1-afda-bcb305a03cb6";
+        break;
+      case 2:
+        documentPath =
+            "https://firebasestorage.googleapis.com/v0/b/maintenance-acd46.appspot.com/o/Dokumen2.pdf?alt=media&token=c3d6a1e0-0cde-4bfe-8402-44238569a7ae";
+        break;
+      case 3:
+        documentPath =
+            "https://firebasestorage.googleapis.com/v0/b/maintenance-acd46.appspot.com/o/Dokumen3.pdf?alt=media&token=bd3d14cb-448e-4b7f-9d66-6ffb489aedd6";
+        break;
+      default:
     }
 
     super.initState();

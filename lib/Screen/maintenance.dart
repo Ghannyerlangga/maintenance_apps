@@ -36,6 +36,15 @@ class MaintenanceState extends State<Maintenance> {
       },
       home: new Scaffold(
         appBar: new AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back, // add custom icons also
+            ),
+          ),
+          centerTitle: true,
           title: const Text('Daftar Mesin'),
           actions: <Widget>[
             FlatButton.icon(
@@ -46,8 +55,8 @@ class MaintenanceState extends State<Maintenance> {
                         builder: (context) => UbahData(),
                       ));
                 },
-                icon: Icon(Icons.exit_to_app),
-                label: Text("Logout"))
+                icon: Icon(Icons.check),
+                label: Text("Edit"))
           ],
         ),
         backgroundColor: Colors.blue[100],
