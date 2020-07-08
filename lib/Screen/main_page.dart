@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/Document/document1.dart';
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance.dart';
@@ -8,6 +7,7 @@ import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Screen/user_data.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
+import 'package:maintenance_apps/Screen/Document/document1.dart';
 
 class MainPage extends StatelessWidget {
   final FirebaseUser user;
@@ -56,7 +56,7 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-                      height: MediaQuery.of(context).size.height * 0.20,
+                      height: MediaQuery.of(context).size.height * 0.10,
                       width: MediaQuery.of(context).size.width * 0.40,
                     ),
                   ),
@@ -196,9 +196,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Document1(
-                                documentNum: 1,
-                              );
+                              return Document1(documentNum: 1,);
                             }));
                           },
                           child: Column(

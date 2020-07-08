@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/tools/lihat_repair.dart';
 import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
 
 class Tools extends StatelessWidget {
@@ -75,7 +76,7 @@ class Tools extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (contex) {
-                          return ListMesin();
+                          return ShowRepair();
                         }));
                       },
                       child: Column(
@@ -118,10 +119,10 @@ class Tools extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                       color: Colors.lightBlueAccent[100],
                       onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (contex) {
-                          return ListMesin();
-                        }));
+                        // Navigator.of(context)
+                        //     .push(MaterialPageRoute(builder: (contex) {
+                        //   return ListMesin();
+                        // }));
                       },
                       child: Column(
                         children: <Widget>[

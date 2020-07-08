@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/laporan/bulanan.dart';
 import 'package:maintenance_apps/Screen/laporan/harian.dart';
+import 'package:maintenance_apps/Screen/laporan/plasma-harian.dart';
+import 'package:maintenance_apps/Screen/laporan/tahunan.dart';
 
 class PilihanLaporan extends StatelessWidget {
   final DocumentSnapshot mesin;
@@ -14,9 +17,10 @@ class PilihanLaporan extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          button('Harian',context),
-          button('Mingguan',context),
-          button('bulanan',context),
+          button('Harian',context,),
+          button('Bulanan',context),
+          button('Tahunan',context),
+          button('Plasma',context)
         ],
       ),
     );
@@ -26,7 +30,15 @@ class PilihanLaporan extends StatelessWidget {
     return RaisedButton(
       child: Text(text),
       onPressed: (){
+        if(text == 'Harian'){
         reportHarianView(context, mesin, namaUser);
+        }else if(text == 'Bulanan'){
+          reportBulananView(context, mesin, namaUser);
+        }else if(text == 'Tahunan'){
+          reportTahunanView(context, mesin, namaUser);
+        }else if(text == 'Plasma'){
+          reportPlasmaHarianView(context, mesin, namaUser);
+        }
       },
     );
   }

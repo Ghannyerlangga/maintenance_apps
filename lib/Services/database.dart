@@ -37,7 +37,7 @@ class DatabaseService {
       return snapshot;
     }
 
-    Future<void> addMesain(
+    Future<void> addMesin(
         String kode,
         String nama,
         String jenis,

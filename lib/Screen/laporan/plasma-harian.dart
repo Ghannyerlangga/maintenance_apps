@@ -12,29 +12,24 @@ final DatabaseService database = DatabaseService();
 List<DocumentSnapshot> dataList;
 
 
-reportHarianView(context,DocumentSnapshot mesin, String namaUser) async {
+reportPlasmaHarianView(context,DocumentSnapshot mesin, String namaUser) async {
 
 CollectionReference collectionReference = Firestore.instance.collection('checklist');
 
   final Document pdf = Document();
-  QuerySnapshot data = await collectionReference.where('checklist',isEqualTo: 'daily').where('jenis mesin',isEqualTo: mesin.data['nama']).getDocuments();
+  QuerySnapshot data = await collectionReference.where('checklist',isEqualTo: 'daily-plasma').where('jenis mesin',isEqualTo: mesin.data['nama']).getDocuments();
   //harian = Harian.fromSnapshot(data);
         dataList = data.documents;
- 
+List header = ['Filter Udara','Level Coolant','Tekanan Angin','Tekanan Angin Cutflow','Pengisi','Waktu'];
 
 List<List<String>> listCheck = new List();
 
 for(var indice=0;indice<dataList.length;indice++) {
    List<String> recind = <String>[
-       dataList[indice].data['cable chain'].toString(),
-       dataList[indice].data['elpiji'].toString(),
-       dataList[indice].data['limit switch'].toString(),
-       dataList[indice].data['linear guide'].toString(),
-       dataList[indice].data['machine'].toString(),
-       dataList[indice].data['nitrogen'].toString(),
-       dataList[indice].data['nozzle'].toString(),
-       dataList[indice].data['oxygen'].toString(),
-       dataList[indice].data['rail'].toString(),
+       dataList[indice].data['filter udara'].toString(),
+       dataList[indice].data['level coolant'].toString(),
+       dataList[indice].data['tekanan angin'].toString(),
+       dataList[indice].data['tekanan angin cutflow'].toString(),
        dataList[indice].data['user'],
        dataList[indice].data['waktu'],
    ];
@@ -85,13 +80,13 @@ for(var indice=0;indice<dataList.length;indice++) {
 
             
 
-            Table.fromTextArray(context: context,headers: ['cable chain','elpiji','limit switch','linear guide','machine','nitrogen','nozzle','oxygen','rail','pengisi','waktu'],data:listCheck
+            Table.fromTextArray(context: context,headers: header,data:listCheck
             ),
 
           ]));
   //save PDF
   final String dir = (await getApplicationDocumentsDirectory()).path;
-  final String path = '$dir/report.pdf';
+  final String path = '$dir/report-daily-plasma.pdf';
   final File file = File(path);
   print(path);
   await file.writeAsBytes(pdf.save());

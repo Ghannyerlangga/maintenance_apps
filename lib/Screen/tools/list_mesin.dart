@@ -11,8 +11,10 @@ class ListMesin extends StatefulWidget {
 
 class _ListMesinState extends State<ListMesin> {
 
-  Future<QuerySnapshot> data;
+  Stream<QuerySnapshot> data;
   List<DocumentSnapshot> document;
+
+  DaftarMesin mesin;
   
 
 
@@ -20,8 +22,12 @@ class _ListMesinState extends State<ListMesin> {
   void initState() {
     // TODO: implement initState
 
-    data = database.getMesin();
+    data = getListMesin();
     super.initState();
+  }
+
+  Stream<QuerySnapshot> getListMesin() {
+   return Firestore.instance.collection('mesin').snapshots();
   }
 
   @override
@@ -29,29 +35,28 @@ class _ListMesinState extends State<ListMesin> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GestureDetector(
-              onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Padding(
+          padding: EdgeInsets.all(8.0),
+          child: IconButton(icon: Icon(Icons.add), onPressed: (){
+             Navigator.of(context).push(MaterialPageRoute(
                   builder:(context){
                     return TambahMesin();
                   } ));
-              },
-              child: Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(Icons.add),
-            ),
+          }),
           )
         ],
         title: Text('List Mesin'),
       ),
-      body: FutureBuilder<QuerySnapshot>(
-        future: data,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: data,
         builder: (builder,snapshot){
           if(!snapshot.hasData){
             return Center(
               child: CircularProgressIndicator(),
             );
           }
+          mesin = DaftarMesin.fromJson(snapshot.data.documents);
+          print(mesin.listMesin[0].nama);
           document = snapshot.data.documents;
           return ListView.builder(
             itemCount: document.length,
