@@ -26,7 +26,7 @@ class _ShowRepairState extends State<ShowRepair> {
   void initState() {
     dataRepair = getRepair();
     //listMesin = getMesinData();
-    mesin = DaftarMesin.fromJson(listMesin);
+    //mesin = DaftarMesin.fromJson(listMesin);
     getMesinData();
 
     //print(dataListMesin[0].nama);
