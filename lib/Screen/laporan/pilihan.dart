@@ -8,7 +8,7 @@ import 'package:maintenance_apps/Screen/laporan/tahunan.dart';
 class PilihanLaporan extends StatelessWidget {
   final DocumentSnapshot mesin;
   final String namaUser;
-  PilihanLaporan(this.mesin,this.namaUser);
+  PilihanLaporan(this.mesin, this.namaUser);
 
   @override
   Widget build(BuildContext context) {
@@ -17,26 +17,29 @@ class PilihanLaporan extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          button('Harian',context,),
-          button('Bulanan',context),
-          button('Tahunan',context),
-          button('Plasma',context)
+          button(
+            'Harian',
+            context,
+          ),
+          button('Bulanan', context),
+          button('Tahunan', context),
+          button('Plasma', context)
         ],
       ),
     );
   }
 
-  Widget button(String text,BuildContext context){
+  Widget button(String text, BuildContext context) {
     return RaisedButton(
       child: Text(text),
-      onPressed: (){
-        if(text == 'Harian'){
-        reportHarianView(context, mesin, namaUser);
-        }else if(text == 'Bulanan'){
+      onPressed: () {
+        if (text == 'Harian') {
+          reportHarianView(context, mesin, namaUser);
+        } else if (text == 'Bulanan') {
           reportBulananView(context, mesin, namaUser);
-        }else if(text == 'Tahunan'){
+        } else if (text == 'Tahunan') {
           reportTahunanView(context, mesin, namaUser);
-        }else if(text == 'Plasma'){
+        } else if (text == 'Plasma') {
           reportPlasmaHarianView(context, mesin, namaUser);
         }
       },

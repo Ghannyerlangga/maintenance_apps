@@ -45,7 +45,10 @@ class MaintenanceState extends State<Maintenance> {
             ),
           ),
           centerTitle: true,
-          title: const Text('Daftar Mesin'),
+          title: const Text(
+            'Daftar Mesin',
+            style: TextStyle(fontSize: 16.0),
+          ),
           actions: <Widget>[
             FlatButton.icon(
                 onPressed: () {

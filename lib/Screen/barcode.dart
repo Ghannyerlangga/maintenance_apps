@@ -48,7 +48,10 @@ class _BarcodeState extends State<Barcode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SCAN BARCODE"),
+        title: Text(
+          "SCAN BARCODE",
+          style: TextStyle(fontSize: 16.0),
+        ),
       ),
       backgroundColor: Colors.blue[100],
       body: Center(

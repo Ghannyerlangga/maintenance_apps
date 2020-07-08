@@ -11,35 +11,36 @@ final DatabaseService database = DatabaseService();
 
 List<DocumentSnapshot> dataList;
 
-
-reportHarianView(context,DocumentSnapshot mesin, String namaUser) async {
-
-CollectionReference collectionReference = Firestore.instance.collection('checklist');
+reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
+  CollectionReference collectionReference =
+      Firestore.instance.collection('checklist');
 
   final Document pdf = Document();
-  QuerySnapshot data = await collectionReference.where('checklist',isEqualTo: 'daily').where('jenis mesin',isEqualTo: mesin.data['nama']).getDocuments();
+  QuerySnapshot data = await collectionReference
+      .where('checklist', isEqualTo: 'Daily')
+      .where('jenis mesin', isEqualTo: mesin.data['nama'])
+      .getDocuments();
   //harian = Harian.fromSnapshot(data);
-        dataList = data.documents;
- 
+  dataList = data.documents;
 
-List<List<String>> listCheck = new List();
+  List<List<String>> listCheck = new List();
 
-for(var indice=0;indice<dataList.length;indice++) {
-   List<String> recind = <String>[
-       dataList[indice].data['cable chain'].toString(),
-       dataList[indice].data['elpiji'].toString(),
-       dataList[indice].data['limit switch'].toString(),
-       dataList[indice].data['linear guide'].toString(),
-       dataList[indice].data['machine'].toString(),
-       dataList[indice].data['nitrogen'].toString(),
-       dataList[indice].data['nozzle'].toString(),
-       dataList[indice].data['oxygen'].toString(),
-       dataList[indice].data['rail'].toString(),
-       dataList[indice].data['user'],
-       dataList[indice].data['waktu'],
-   ];
-   listCheck.add(recind);
-}
+  for (var indice = 0; indice < dataList.length; indice++) {
+    List<String> recind = <String>[
+      dataList[indice].data['cable chain'].toString(),
+      dataList[indice].data['elpiji'].toString(),
+      dataList[indice].data['limit switch'].toString(),
+      dataList[indice].data['linear guide'].toString(),
+      dataList[indice].data['machine'].toString(),
+      dataList[indice].data['nitrogen'].toString(),
+      dataList[indice].data['nozzle'].toString(),
+      dataList[indice].data['oxygen'].toString(),
+      dataList[indice].data['rail'].toString(),
+      dataList[indice].data['user'],
+      dataList[indice].data['waktu'],
+    ];
+    listCheck.add(recind);
+  }
 
   pdf.addPage(MultiPage(
       pageFormat:
@@ -76,18 +77,30 @@ for(var indice=0;indice<dataList.length;indice++) {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Laporan Harian Perawatan Mesin '+mesin.data['nama'], textScaleFactor: 2),
+                      Text(
+                          'Laporan Harian Perawatan Mesin ' +
+                              mesin.data['nama'],
+                          textScaleFactor: 2),
                       PdfLogo()
                     ])),
-            Header(level: 1, text: 'Penanggun Jawab Mesin : '+namaUser),
-
+            Header(level: 1, text: 'Penanggun Jawab Mesin : ' + namaUser),
             Padding(padding: const EdgeInsets.all(10)),
-
-            
-
-            Table.fromTextArray(context: context,headers: ['cable chain','elpiji','limit switch','linear guide','machine','nitrogen','nozzle','oxygen','rail','pengisi','waktu'],data:listCheck
-            ),
-
+            Table.fromTextArray(
+                context: context,
+                headers: [
+                  'cable chain',
+                  'elpiji',
+                  'limit switch',
+                  'linear guide',
+                  'machine',
+                  'nitrogen',
+                  'nozzle',
+                  'oxygen',
+                  'rail',
+                  'pengisi',
+                  'waktu'
+                ],
+                data: listCheck),
           ]));
   //save PDF
   final String dir = (await getApplicationDocumentsDirectory()).path;
@@ -99,5 +112,5 @@ for(var indice=0;indice<dataList.length;indice++) {
     material.MaterialPageRoute(
       builder: (_) => PdfViewerPage(path),
     ),
-  ); 
+  );
 }

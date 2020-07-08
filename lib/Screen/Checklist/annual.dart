@@ -145,7 +145,7 @@ class _AnnualState extends State<Annual> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateAnnual(nama["name"], a, b,
+                      await db.createUpdateAnnual(nama["nama"], a, b,
                           widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),

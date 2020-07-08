@@ -20,7 +20,6 @@ class _LaporanState extends State<Laporan> {
   @override
   void initState() {
     getUser();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -36,14 +35,20 @@ class _LaporanState extends State<Laporan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "REPORT",
+          style: TextStyle(fontSize: 16.0),
+        ),
+      ),
+      backgroundColor: Colors.blue[100],
       body: FutureBuilder<QuerySnapshot>(
           future: getMesin(),
           builder: (builder, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: Loading());
-            }
-
-            if (snapshot.hasData) {
+            } else {
               document = snapshot.data.documents;
               return ListView.builder(
                   itemCount: document.length,

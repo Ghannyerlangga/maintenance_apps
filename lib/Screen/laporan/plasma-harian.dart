@@ -11,30 +11,39 @@ final DatabaseService database = DatabaseService();
 
 List<DocumentSnapshot> dataList;
 
-
-reportPlasmaHarianView(context,DocumentSnapshot mesin, String namaUser) async {
-
-CollectionReference collectionReference = Firestore.instance.collection('checklist');
+reportPlasmaHarianView(context, DocumentSnapshot mesin, String namaUser) async {
+  CollectionReference collectionReference =
+      Firestore.instance.collection('checklist');
 
   final Document pdf = Document();
-  QuerySnapshot data = await collectionReference.where('checklist',isEqualTo: 'daily-plasma').where('jenis mesin',isEqualTo: mesin.data['nama']).getDocuments();
+  QuerySnapshot data = await collectionReference
+      .where('checklist', isEqualTo: 'Daily-Plasma')
+      .where('jenis mesin', isEqualTo: mesin.data['nama'])
+      .getDocuments();
   //harian = Harian.fromSnapshot(data);
-        dataList = data.documents;
-List header = ['Filter Udara','Level Coolant','Tekanan Angin','Tekanan Angin Cutflow','Pengisi','Waktu'];
+  dataList = data.documents;
+  List header = [
+    'Filter Udara',
+    'Level Coolant',
+    'Tekanan Angin',
+    'Tekanan Angin Cutflow',
+    'Pengisi',
+    'Waktu'
+  ];
 
-List<List<String>> listCheck = new List();
+  List<List<String>> listCheck = new List();
 
-for(var indice=0;indice<dataList.length;indice++) {
-   List<String> recind = <String>[
-       dataList[indice].data['filter udara'].toString(),
-       dataList[indice].data['level coolant'].toString(),
-       dataList[indice].data['tekanan angin'].toString(),
-       dataList[indice].data['tekanan angin cutflow'].toString(),
-       dataList[indice].data['user'],
-       dataList[indice].data['waktu'],
-   ];
-   listCheck.add(recind);
-}
+  for (var indice = 0; indice < dataList.length; indice++) {
+    List<String> recind = <String>[
+      dataList[indice].data['filter udara'].toString(),
+      dataList[indice].data['level coolant'].toString(),
+      dataList[indice].data['tekanan angin'].toString(),
+      dataList[indice].data['tekanan angin cutflow'].toString(),
+      dataList[indice].data['user'],
+      dataList[indice].data['waktu'],
+    ];
+    listCheck.add(recind);
+  }
 
   pdf.addPage(MultiPage(
       pageFormat:
@@ -71,18 +80,16 @@ for(var indice=0;indice<dataList.length;indice++) {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Laporan Harian Perawatan Mesin '+mesin.data['nama'], textScaleFactor: 2),
+                      Text(
+                          'Laporan Harian Perawatan Mesin ' +
+                              mesin.data['nama'],
+                          textScaleFactor: 2),
                       PdfLogo()
                     ])),
-            Header(level: 1, text: 'Penanggun Jawab Mesin : '+namaUser),
-
+            Header(level: 1, text: 'Penanggun Jawab Mesin : ' + namaUser),
             Padding(padding: const EdgeInsets.all(10)),
-
-            
-
-            Table.fromTextArray(context: context,headers: header,data:listCheck
-            ),
-
+            Table.fromTextArray(
+                context: context, headers: header, data: listCheck),
           ]));
   //save PDF
   final String dir = (await getApplicationDocumentsDirectory()).path;
@@ -94,5 +101,5 @@ for(var indice=0;indice<dataList.length;indice++) {
     material.MaterialPageRoute(
       builder: (_) => PdfViewerPage(path),
     ),
-  ); 
+  );
 }

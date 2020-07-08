@@ -277,7 +277,7 @@ class _MonthlyState extends State<Monthly> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateMonthly(nama["name"], a, b, c, d, e,
+                      await db.createUpdateMonthly(nama["nama"], a, b, c, d, e,
                           f, widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),

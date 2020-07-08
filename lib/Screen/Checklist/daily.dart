@@ -378,7 +378,7 @@ class _DailyState extends State<Daily> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateDaily(nama["name"], a, b, c, d, e, f,
+                      await db.createUpdateDaily(nama["nama"], a, b, c, d, e, f,
                           g, h, i, widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),

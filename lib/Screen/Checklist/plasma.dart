@@ -210,7 +210,7 @@ class _PlasmaState extends State<Plasma> {
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdatePlasma(nama["name"], a, b, c, d,
+                      await db.createUpdatePlasma(nama["nama"], a, b, c, d,
                           widget.hasil, checklist, _dateText);
                       Navigator.pop(context);
                     }),
