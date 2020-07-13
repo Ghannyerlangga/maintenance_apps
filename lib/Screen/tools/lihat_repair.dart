@@ -20,7 +20,7 @@ class _ShowRepairState extends State<ShowRepair> {
 
   List<Mesin> dataListMesin;
 
- DaftarMesin mesin;
+  DaftarMesin mesin;
 
   @override
   void initState() {
@@ -28,23 +28,18 @@ class _ShowRepairState extends State<ShowRepair> {
     //listMesin = getMesinData();
     //mesin = DaftarMesin.fromJson(listMesin);
     getMesinData();
-
     //print(dataListMesin[0].nama);
-
-    
-    // TODO: implement initState
     super.initState();
   }
 
-   getMesinData() async {
+  getMesinData() async {
     dataMesin = await database.getMesin();
     listMesin = dataMesin.documents;
     mesin = DaftarMesin.fromJson(listMesin);
   }
 
-
-  Stream<QuerySnapshot> getRepair()  {
-    return repairCollection.orderBy("time",descending: false).snapshots();
+  Stream<QuerySnapshot> getRepair() {
+    return repairCollection.orderBy("time", descending: false).snapshots();
   }
 
   @override
@@ -53,12 +48,17 @@ class _ShowRepairState extends State<ShowRepair> {
       appBar: AppBar(
         title: Text('Daftar Perbaikan Mesin'),
         actions: [
-          Padding(padding: EdgeInsets.all(8.0),
-          child: IconButton(icon: Icon(Icons.add), onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-              return TambahRepair(mesin);
-            }))
-          ;}),)
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return TambahRepair(mesin);
+                  }));
+                }),
+          )
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -72,22 +72,26 @@ class _ShowRepairState extends State<ShowRepair> {
             return ListView.builder(
                 itemCount: dataList.length,
                 itemBuilder: (context, index) {
-                 return Card(
-                   child: Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text('No : '+(index+1).toString()),
-                         Text('Nama Mesin : '+dataList[index].data['nama']),
-                         Text('Tanggal Kerusakan Mesin : '+dataList[index].data['tanggal rusak']),
-                         Text('Tanggal Perbaikan Mesin : '+dataList[index].data['tanggal perbaikan']),
-                         Text('Consumable : '+dataList[index].data['consumable']),
-                         Text('Keterangan : '+dataList[index].data['keterangan']),
-                       ],
-                     ),
-                   ),
-                 );
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('No : ' + (index + 1).toString()),
+                          Text('Nama Mesin : ' + dataList[index].data['nama']),
+                          Text('Tanggal Kerusakan Mesin : ' +
+                              dataList[index].data['tanggal rusak']),
+                          Text('Tanggal Perbaikan Mesin : ' +
+                              dataList[index].data['tanggal perbaikan']),
+                          Text('Consumable : ' +
+                              dataList[index].data['consumable']),
+                          Text('Keterangan : ' +
+                              dataList[index].data['keterangan']),
+                        ],
+                      ),
+                    ),
+                  );
                 });
           }),
     );

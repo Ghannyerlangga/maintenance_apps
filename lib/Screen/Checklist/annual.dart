@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
 class Annual extends StatefulWidget {
-  final String value;
   final String hasil;
-  Annual({this.hasil, this.value});
+  final String value;
+  Annual({this.value, this.hasil});
   static const String routeName = "/annual";
   @override
   _AnnualState createState() => _AnnualState();

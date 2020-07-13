@@ -9,19 +9,16 @@ class PdfViewerPage extends StatefulWidget {
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  bool _isLoading= false;
-  
+  // bool _isLoading= false;
+
   @override
   Widget build(BuildContext context) {
     return PDFViewerScaffold(
       appBar: AppBar(
-        title : Text('Laporan'),
-        actions: [
-          IconButton(icon: Icon(Icons.save), onPressed: ()=> null)
-        ],
+        title: Text('Laporan'),
+        actions: [IconButton(icon: Icon(Icons.save), onPressed: () => null)],
       ),
       path: widget.path,
     );
   }
-
 }
