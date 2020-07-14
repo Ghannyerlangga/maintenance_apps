@@ -22,16 +22,7 @@ class MainPage extends StatelessWidget {
           "WIKA MAINTENANCE",
           style: TextStyle(fontSize: 16.0),
         ),
-        // centerTitle: true,
         actions: <Widget>[
-          // FlatButton.icon(
-          //     onPressed: () {
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //         return UserData();
-          //       }));
-          //     },
-          //     icon: Icon(Icons.edit),
-          //     label: Text("Edit")),
           FlatButton.icon(
               onPressed: () async {
                 await AuthServices.signOut();

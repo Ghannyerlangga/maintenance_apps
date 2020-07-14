@@ -8,7 +8,6 @@ import 'package:maintenance_apps/Screen/Dialog/daito_dialog.dart';
 import 'package:maintenance_apps/Screen/Dialog/ficep_dialog.dart';
 import 'package:maintenance_apps/Screen/change_data.dart';
 import 'package:maintenance_apps/shared/loading.dart';
-
 import 'Dialog/amg_dialog.dart';
 import 'Dialog/corympex_dialog.dart';
 
