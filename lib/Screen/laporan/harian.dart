@@ -103,6 +103,8 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
                 data: listCheck),
           ]));
   //save PDF
+  final String ext = (await getExternalStorageDirectory()).parent.parent.parent.parent.parent.parent.parent.path;
+  print(ext);
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/report.pdf';
   final File file = File(path);
