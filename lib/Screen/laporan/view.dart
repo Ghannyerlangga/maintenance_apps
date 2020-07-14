@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,7 +13,7 @@ class PdfViewerPage extends StatefulWidget {
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
   String downloadFolderPath;
   DateTime time = DateTime.now();
 
@@ -28,8 +27,14 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         .parent
         .parent
         .path;
-    downloadFolderPath =
-        ext + 'sdcard/Download/report ' + time.toString() + '.pdf';
+    downloadFolderPath = ext +
+        'sdcard/Download/report ' +
+        time.day.toString() +
+        '-' +
+        time.month.toString() +
+        '-' +
+        time.year.toString() +
+        '.pdf';
 
     final File file = File(widget.path);
     await file.copy(downloadFolderPath).whenComplete(() {
