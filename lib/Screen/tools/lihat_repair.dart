@@ -6,6 +6,8 @@ import 'package:maintenance_apps/models/mesin.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class ShowRepair extends StatefulWidget {
+  final String jenisMesin;
+  ShowRepair(this.jenisMesin);
   @override
   _ShowRepairState createState() => _ShowRepairState();
 }
@@ -13,6 +15,7 @@ class ShowRepair extends StatefulWidget {
 class _ShowRepairState extends State<ShowRepair> {
   final CollectionReference repairCollection =
       Firestore.instance.collection('repair');
+
   Stream<QuerySnapshot> dataRepair;
   List<DocumentSnapshot> dataList;
   QuerySnapshot dataMesin;
@@ -20,7 +23,7 @@ class _ShowRepairState extends State<ShowRepair> {
 
   List<Mesin> dataListMesin;
 
- DaftarMesin mesin;
+  DaftarMesin daftarMesin;
 
   @override
   void initState() {
@@ -31,20 +34,24 @@ class _ShowRepairState extends State<ShowRepair> {
 
     //print(dataListMesin[0].nama);
 
-    
     // TODO: implement initState
     super.initState();
   }
 
-   getMesinData() async {
-    dataMesin = await database.getMesin();
+  getMesinData() async {
+    dataMesin = await Firestore.instance
+        .collection('mesin')
+        .where('jenis', isEqualTo: widget.jenisMesin)
+        .getDocuments();
     listMesin = dataMesin.documents;
-    mesin = DaftarMesin.fromJson(listMesin);
+    daftarMesin = DaftarMesin.fromJson(listMesin);
   }
 
-
-  Stream<QuerySnapshot> getRepair()  {
-    return repairCollection.orderBy("time",descending: false).snapshots();
+  Stream<QuerySnapshot> getRepair() {
+    return repairCollection
+        .orderBy("time", descending: false)
+        .where('jenis mesin', isEqualTo: widget.jenisMesin)
+        .snapshots();
   }
 
   @override
@@ -53,18 +60,23 @@ class _ShowRepairState extends State<ShowRepair> {
       appBar: AppBar(
         title: Text('Daftar Perbaikan Mesin'),
         actions: [
-          Padding(padding: EdgeInsets.all(8.0),
-          child: IconButton(icon: Icon(Icons.add), onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-              return TambahRepair(mesin);
-            }))
-          ;}),)
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return TambahRepair(daftarMesin);
+                  }));
+                }),
+          )
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: dataRepair,
           builder: (builder, snapshot) {
-            if (!snapshot.hasData) {
+            if (!snapshot.hasData && (daftarMesin.listMesin.length) < 1) {
               return Loading();
             }
             dataList = snapshot.data.documents;
@@ -72,22 +84,26 @@ class _ShowRepairState extends State<ShowRepair> {
             return ListView.builder(
                 itemCount: dataList.length,
                 itemBuilder: (context, index) {
-                 return Card(
-                   child: Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text('No : '+(index+1).toString()),
-                         Text('Nama Mesin : '+dataList[index].data['nama']),
-                         Text('Tanggal Kerusakan Mesin : '+dataList[index].data['tanggal rusak']),
-                         Text('Tanggal Perbaikan Mesin : '+dataList[index].data['tanggal perbaikan']),
-                         Text('Consumable : '+dataList[index].data['consumable']),
-                         Text('Keterangan : '+dataList[index].data['keterangan']),
-                       ],
-                     ),
-                   ),
-                 );
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('No : ' + (index + 1).toString()),
+                          Text('Nama Mesin : ' + dataList[index].data['nama']),
+                          Text('Tanggal Kerusakan Mesin : ' +
+                              dataList[index].data['tanggal rusak']),
+                          Text('Tanggal Perbaikan Mesin : ' +
+                              dataList[index].data['tanggal perbaikan']),
+                          Text('Consumable : ' +
+                              dataList[index].data['consumable']),
+                          Text('Keterangan : ' +
+                              dataList[index].data['keterangan']),
+                        ],
+                      ),
+                    ),
+                  );
                 });
           }),
     );

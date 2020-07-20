@@ -65,7 +65,6 @@ class _LaporanState extends State<Laporan> {
                     );
                   });
             }
-            ;
           }),
     );
   }

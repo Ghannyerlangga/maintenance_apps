@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_apps/Screen/Dialog/amg_dialog.dart';
 
 class Barcode extends StatefulWidget {

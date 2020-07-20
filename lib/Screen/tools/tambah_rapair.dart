@@ -26,15 +26,17 @@ class _TambahRepairState extends State<TambahRepair> {
 
   CollectionReference collection = Firestore.instance.collection('repair');
 
-  tambahRepair(String nama,String tanggalRusak, String tanggalPerbaikan, String consumable,String keterangan) async{
+  tambahRepair(String nama, String tanggalRusak, String tanggalPerbaikan,
+      String consumable, String keterangan) async {
     await collection.add({
-      'nama' : nama,
-      'tanggal rusak' : tanggalRusak,
-      'tanggal perbaikan' : tanggalPerbaikan,
-      'consumable' : consumable,
-      'keterangan' : keterangan,
-      'time' : waktu
-    }).whenComplete((){
+      'jenis mesin': widget.mesin.listMesin[0].jenis,
+      'nama': nama,
+      'tanggal rusak': tanggalRusak,
+      'tanggal perbaikan': tanggalPerbaikan,
+      'consumable': consumable,
+      'keterangan': keterangan,
+      'time': waktu
+    }).whenComplete(() {
       namaMesin = null;
       _tanggalPerbaikan.clear();
       _tanggalRusak.clear();
@@ -43,7 +45,7 @@ class _TambahRepairState extends State<TambahRepair> {
     });
   }
 
-  Future<Null> _pilihTanggal(BuildContext context,String jenisTanggal) async {
+  Future<Null> _pilihTanggal(BuildContext context, String jenisTanggal) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: tanggalRusak,
@@ -51,18 +53,15 @@ class _TambahRepairState extends State<TambahRepair> {
         lastDate: DateTime(2101));
     if (picked != null && picked != tanggalRusak)
       setState(() {
-        if(jenisTanggal == 'rusak'){
+        if (jenisTanggal == 'rusak') {
           tanggalRusak = picked;
           _tanggalRusak.text = tanggalRusak.toString().split(' ')[0];
-        }else if(jenisTanggal == 'perbaikan'){
+        } else if (jenisTanggal == 'perbaikan') {
           tanggalPerbaikan = picked;
           _tanggalPerbaikan.text = tanggalPerbaikan.toString().split(' ')[0];
-          
         }
-      
-        });
+      });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,63 +72,60 @@ class _TambahRepairState extends State<TambahRepair> {
       body: ListView(
         children: [
           DropdownButton(
-              hint: Text("Pilih Nama Mesin"),
-              value: namaMesin,
-              items: widget.mesin.listMesin.map((item) {
-                return DropdownMenuItem(
-                  child: Text(item.nama),
-                  value: item.nama
-                );
-              }).toList(),
-              onChanged: (value) {
-               setState(() {
-                 namaMesin = value;
-               });
-              },
-            ),
+            hint: Text("Pilih Nama Mesin"),
+            value: namaMesin,
+            items: widget.mesin.listMesin.map((item) {
+              return DropdownMenuItem(child: Text(item.nama), value: item.nama);
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                namaMesin = value;
+              });
+            },
+          ),
           TextField(
             controller: _tanggalRusak,
             decoration: InputDecoration(
-            hintText: "tanggal kerusakan mesin",
-          ),
-            onTap: (){ 
-              _pilihTanggal(context,'rusak');
-             
+              hintText: "tanggal kerusakan mesin",
+            ),
+            onTap: () {
+              _pilihTanggal(context, 'rusak');
             },
           ),
-           TextField(
+          TextField(
             controller: _tanggalPerbaikan,
             decoration: InputDecoration(
-            hintText: "tanggal perbaikan mesin",
-          ),
-            onTap: (){ 
-              _pilihTanggal(context,'perbaikan');
-             
+              hintText: "tanggal perbaikan mesin",
+            ),
+            onTap: () {
+              _pilihTanggal(context, 'perbaikan');
             },
           ),
-
           inputField('consumable', _consumableController, 'consumable'),
           inputField('keterangan', _keteranganController, 'keterangan'),
           RaisedButton(
-            child: Text('Simpan'),
-            onPressed: (){
-            tambahRepair(namaMesin,_tanggalRusak.text,_tanggalPerbaikan.text,_consumableController.text,_keteranganController.text);
-          })
+              child: Text('Simpan'),
+              onPressed: () {
+                tambahRepair(
+                    namaMesin,
+                    _tanggalRusak.text,
+                    _tanggalPerbaikan.text,
+                    _consumableController.text,
+                    _keteranganController.text);
+              })
         ],
-        ),
+      ),
     );
   }
 
-  Widget inputField(String leading, TextEditingController controller, String hint){
-   return Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  hintText: hint
-                ),
-              ),
-   );
+  Widget inputField(
+      String leading, TextEditingController controller, String hint) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(hintText: hint),
+      ),
+    );
   }
-
 }
