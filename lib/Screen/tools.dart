@@ -120,10 +120,10 @@ class Tools extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                       color: Colors.lightBlueAccent[100],
                       onPressed: () {
-                        // Navigator.of(context)
-                        //     .push(MaterialPageRoute(builder: (contex) {
-                        //   return ListMesin();
-                        // }));
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (contex) {
+                          return DaftarMesin('consumable');
+                        }));
                       },
                       child: Column(
                         children: <Widget>[

@@ -1,59 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
-import 'package:maintenance_apps/Screen/laporan/harian.dart';
-import 'package:maintenance_apps/Screen/tools/tambah_rapair.dart';
-import 'package:maintenance_apps/models/mesin.dart';
-import 'package:maintenance_apps/models/repair.dart';
+import 'package:maintenance_apps/Screen/tools/tambah_consumable.dart';
+import 'package:maintenance_apps/models/consumable.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-class ShowRepair extends StatefulWidget {
+class ListConsumable extends StatefulWidget {
   final String jenisMesin;
-  ShowRepair(this.jenisMesin);
+  ListConsumable(this.jenisMesin);
   @override
-  _ShowRepairState createState() => _ShowRepairState();
+  _ListConsumableState createState() => _ListConsumableState();
 }
 
-class _ShowRepairState extends State<ShowRepair> {
-  final CollectionReference repairCollection =
-      Firestore.instance.collection('repair');
+class _ListConsumableState extends State<ListConsumable> {
+  final CollectionReference consumableCollection =
+      Firestore.instance.collection('consumable');
 
-  Stream<QuerySnapshot> dataRepair;
+  Stream<QuerySnapshot> dataConsumable;
   List<DocumentSnapshot> dataList;
   QuerySnapshot dataMesin;
   List<DocumentSnapshot> listMesin;
 
-  Repair repair;
-  List<Mesin> dataListMesin;
-
-  DaftarMesin daftarMesin;
+  Consumable consumable;
 
   @override
   void initState() {
-    dataRepair = getRepair();
-    //listMesin = getMesinData();
-    //mesin = DaftarMesin.fromJson(listMesin);
-    getMesinData();
+    dataConsumable = getConsumable();
 
-    //print(dataListMesin[0].nama);
-
-    // TODO: implement initState
     super.initState();
   }
 
-  getMesinData() async {
-    dataMesin = await Firestore.instance
-        .collection('mesin')
+  Stream<QuerySnapshot> getConsumable() {
+    return consumableCollection
         .where('jenis', isEqualTo: widget.jenisMesin)
-        .getDocuments();
-    listMesin = dataMesin.documents;
-    daftarMesin = DaftarMesin.fromJson(listMesin);
-  }
-
-  Stream<QuerySnapshot> getRepair() {
-    return repairCollection
-        .orderBy("time", descending: false)
-        .where('jenis mesin', isEqualTo: widget.jenisMesin)
         .snapshots();
   }
 
@@ -70,14 +49,14 @@ class _ShowRepairState extends State<ShowRepair> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return TambahRepair(daftarMesin, 'tambah', repair);
+                    return TambahConsumable(consumable, 'tambah');
                   }));
                 }),
           )
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: dataRepair,
+          stream: dataConsumable,
           builder: (builder, snapshot) {
             if (!snapshot.hasData) {
               return Loading();
@@ -90,7 +69,7 @@ class _ShowRepairState extends State<ShowRepair> {
   }
 
   deleteRepair(String docId) async {
-    await Firestore.instance.collection('repair').document(docId).delete();
+    await Firestore.instance.collection('consumable').document(docId).delete();
   }
 
   Future<Null> showDeleteDialog(
@@ -122,7 +101,7 @@ class _ShowRepairState extends State<ShowRepair> {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 930,
+        rightHandSideColumnWidth: 730,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -142,11 +121,9 @@ class _ShowRepairState extends State<ShowRepair> {
           return Row(
             children: <Widget>[
               _tabelCell(documents[index]['nama'].toString()),
-              _tabelCell(documents[index]['tanggal rusak'].toString()),
-              _tabelCell(documents[index]['tanggal perbaikan'].toString()),
-              _tabelCell(documents[index]['spare part'].toString()),
-              _tabelCell(documents[index]['consumable'].toString()),
-              _tabelCell(documents[index]['pj'].toString()),
+              _tabelCell(documents[index]['jenis'].toString()),
+              _tabelCell(documents[index]['part'].toString()),
+              _tabelCell(documents[index]['jumlah'].toString()),
               _tabelCell(documents[index]['keterangan'].toString()),
               Container(
                 decoration: BoxDecoration(
@@ -166,10 +143,13 @@ class _ShowRepairState extends State<ShowRepair> {
                         label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
-                          repair = Repair.fromSnapshot(documents[index]);
+                          DocumentSnapshot snap = documents[index];
+                          snap.data.addAll({'id': snap.documentID});
+                          print(snap.data);
+                          consumable = Consumable.fromSnapshot(snap);
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              return TambahRepair(daftarMesin, 'ubah', repair);
+                              return TambahConsumable(consumable, 'ubah');
                             },
                           ));
                         },
@@ -211,12 +191,10 @@ class _ShowRepairState extends State<ShowRepair> {
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('No', 30.0),
-      _getTitleItemWidget('Nama Mesin', 100.0),
-      _getTitleItemWidget('Tanggal Kerusakan Mesin', 100.0),
-      _getTitleItemWidget('Tanggal Perbaikan Mesin', 100.0),
-      _getTitleItemWidget('Spare Part', 100.0),
-      _getTitleItemWidget('Consumable', 100.0),
-      _getTitleItemWidget('Penanggung Jawab', 100.0),
+      _getTitleItemWidget('Nama Consumable', 100.0),
+      _getTitleItemWidget('Jenis', 100.0),
+      _getTitleItemWidget('Part Mesin', 100.0),
+      _getTitleItemWidget('Jumlah', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),
       _getTitleItemWidget('Aksi', 200.0),
     ];

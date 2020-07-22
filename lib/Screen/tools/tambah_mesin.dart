@@ -51,22 +51,35 @@ class _TambahMesinState extends State<TambahMesin> {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DropdownButton(
-                hint: Text('jenis mesin'),
-                value: jenisMesin,
-                items: listJenisMesin.map((e) {
-                  return DropdownMenuItem(
-                    child: Text(e),
-                    value: e,
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    jenisMesin = value;
-                  });
-                }),
-          ),
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      child: Text(
+                        'Jenis Mesin',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: DropdownButton(
+                        hint: Text('jenis mesin'),
+                        value: jenisMesin,
+                        items: listJenisMesin.map((e) {
+                          return DropdownMenuItem(
+                            child: Text(e),
+                            value: e,
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            jenisMesin = value;
+                          });
+                        }),
+                  ),
+                ],
+              )),
           inputField('Kode', _kodeController, 'kode mesin'),
           inputField('Nama Mesin', _namaController, 'nama mesin'),
           inputField('Kapasitas', _kapasitasController, 'kapasitas'),
@@ -87,9 +100,23 @@ class _TambahMesinState extends State<TambahMesin> {
       String leading, TextEditingController controller, String hint) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(hintText: hint),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+              width: MediaQuery.of(context).size.width * 0.20,
+              child: Text(
+                leading,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.70,
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(hintText: hint),
+            ),
+          ),
+        ],
       ),
     );
   }
