@@ -29,7 +29,7 @@ class _DaitoDialogState extends State<DaitoDialog> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "FICEP",
+                      "DAITO",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
@@ -96,7 +96,7 @@ class _DaitoDialogState extends State<DaitoDialog> {
                   ),
                   Container(
                     child: Text(
-                      "FICEP",
+                      "DAITO",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,

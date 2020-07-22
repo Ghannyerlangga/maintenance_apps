@@ -31,6 +31,7 @@ class _DailyState extends State<Daily> {
 
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
+  String _timeText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -374,12 +375,27 @@ class _DailyState extends State<Daily> {
                     onPressed: () async {
                       _dateText =
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
+                      _timeText =
+                          "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateDaily(nama["nama"], a, b, c, d, e, f,
-                          g, h, i, widget.hasil, checklist, _dateText);
+                      await db.createUpdateDaily(
+                          nama["nama"],
+                          a,
+                          b,
+                          c,
+                          d,
+                          e,
+                          f,
+                          g,
+                          h,
+                          i,
+                          widget.hasil,
+                          checklist,
+                          _dateText,
+                          _timeText);
                       Navigator.pop(context);
                     }),
               ),

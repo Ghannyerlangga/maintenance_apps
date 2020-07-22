@@ -29,7 +29,7 @@ class _CorympexDialogState extends State<CorympexDialog> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "FICEP",
+                      "CORYMPEX",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
@@ -96,7 +96,7 @@ class _CorympexDialogState extends State<CorympexDialog> {
                   ),
                   Container(
                     child: Text(
-                      "FICEP",
+                      "CORYMPEX",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
