@@ -3,31 +3,67 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class Daily extends StatefulWidget {
+class DailyChange extends StatefulWidget {
   final String value;
   final String hasil;
-  Daily({this.value, this.hasil});
+  final String waktu;
+  DailyChange({this.value, this.hasil, this.waktu});
   static const String routeName = "/daily";
   @override
-  _DailyState createState() => _DailyState();
+  _DailyChangeState createState() => _DailyChangeState();
 }
 
-class _DailyState extends State<Daily> {
-  bool a = false;
-  bool b = false;
-  bool c = false;
-  bool d = false;
-  bool e = false;
-  bool f = false;
-  bool g = false;
-  bool h = false;
-  bool i = false;
+class _DailyChangeState extends State<DailyChange> {
   DatabaseService db = DatabaseService();
   String nama = "";
   String error = "";
   String checklist = "Daily";
+  bool a;
+  bool b;
+  bool c;
+  bool d;
+  bool e;
+  bool f;
+  bool g;
+  bool h;
+  bool i;
+  String coba;
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
+  @override
+  void initState() {
+    _fetch();
+    super.initState();
+  }
+
+  final CollectionReference data = Firestore.instance.collection('checklist');
+
+  // .getDocuments();
+
+  void _fetch() async {
+    await data
+        .where("waktu", isEqualTo: widget.waktu)
+        .where("jenis mesin", isEqualTo: widget.value)
+        .where("checklist", isEqualTo: widget.hasil)
+        .getDocuments()
+        .then((value) {
+      if (value.documents.isNotEmpty) {
+        setState(() {
+          Map<String, dynamic> documentData = value.documents.single.data;
+          // var anu = documentData["rail"];
+          // a = anu;
+          // b = documentData["machine"];
+          // c = documentData["limit switch"];
+          // d = documentData["linear guide"];
+          // e = documentData["cable chain"];
+          // f = documentData["nozzle"];
+          // g = documentData["oxygen"];
+          // h = documentData["elpiji"];
+          // i = documentData["nitrogen"];
+        });
+      }
+    }).catchError((e) => print("Error Fetching Data: $e"));
+  }
 
   DateTime _dueDate = DateTime.now();
   String _dateText = '';

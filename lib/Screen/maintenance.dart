@@ -4,8 +4,12 @@ import 'package:maintenance_apps/Screen/Checklist/daily.dart';
 import 'package:maintenance_apps/Screen/Checklist/monthly.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_apps/Screen/Checklist/plasma.dart';
+import 'package:maintenance_apps/Screen/Dialog/daito_dialog.dart';
+import 'package:maintenance_apps/Screen/Dialog/ficep_dialog.dart';
 import 'package:maintenance_apps/Screen/change_data.dart';
 import 'package:maintenance_apps/shared/loading.dart';
+import 'Dialog/amg_dialog.dart';
+import 'Dialog/corympex_dialog.dart';
 
 class Maintenance extends StatefulWidget {
   static const String routeName = "/maintenance";
@@ -84,31 +88,35 @@ class MaintenanceState extends State<Maintenance> {
                             switch (x.data["jenis"]) {
                               case "AMG":
                                 showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        _buildAboutDialog(
-                                            x.data["jenis"], x.data["nama"]));
+                                  context: context,
+                                  builder: (BuildContext context) => AMGDialog(
+                                      value: x.data["jenis"],
+                                      hasil: x.data["nama"]),
+                                );
                                 break;
                               case "FICEP":
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                        _buildAboutDialog2(
-                                            x.data["jenis"], x.data["nama"]));
+                                        FicepDialog(
+                                            value: x.data["jenis"],
+                                            hasil: x.data["nama"]));
                                 break;
                               case "CORYMPEX":
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                        _buildAboutDialog3(
-                                            x.data["jenis"], x.data["nama"]));
+                                        CorympexDialog(
+                                            value: x.data["jenis"],
+                                            hasil: x.data["nama"]));
                                 break;
                               case "DAITO":
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                        _buildAboutDialog4(
-                                            x.data["jenis"], x.data["nama"]));
+                                        DaitoDialog(
+                                            value: x.data["jenis"],
+                                            hasil: x.data["nama"]));
                                 break;
                               default:
                             }
@@ -117,437 +125,6 @@ class MaintenanceState extends State<Maintenance> {
                       });
                 }
               }),
-        ),
-      ),
-    );
-  }
-
-  _buildAboutDialog(String value, String hasil) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Container(
-        height: 300,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Maintenance AMG : CNC Cutting Machine",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Daily(value: value, hasil: hasil),
-                            ));
-                      },
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Monthly(value: value, hasil: hasil),
-                            ));
-                      },
-                      child: Text(
-                        "Monthly",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Annual(value: value, hasil: hasil),
-                            ));
-                      },
-                      child: Text(
-                        "Semi-Annual",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      "Maintenance Plasma HyperTherm",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Plasma(value: value, hasil: hasil),
-                            ));
-                      },
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildAboutDialog2(String value, String hasil) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)), //this right here
-      child: Container(
-        height: 300,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Maintenance AMG : CNC Cutting Machine",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Plasma",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Monthly",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  Container(
-                    height: 3.0,
-                    color: Colors.black87,
-                  ),
-                  Container(
-                    child: Text(
-                      "Maintenance Plasma HyperTherm",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildAboutDialog3(String value, String hasil) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)), //this right here
-      child: Container(
-        height: 300,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Choose Checklist!"),
-              Container(
-                height: 3.0,
-                color: Colors.black87,
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Maintenance AMG : CNC Cutting Machine",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Plasma",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Monthly",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  Container(
-                    height: 3.0,
-                    color: Colors.black87,
-                  ),
-                  Container(
-                    child: Text(
-                      "Maintenance Plasma HyperTherm",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildAboutDialog4(String value, String hasil) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)), //this right here
-      child: Container(
-        height: 300,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Choose Checklist!"),
-              Container(
-                height: 3.0,
-                color: Colors.black87,
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Maintenance AMG : CNC Cutting Machine",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Plasma",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Monthly",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  Container(
-                    height: 3.0,
-                    color: Colors.black87,
-                  ),
-                  Container(
-                    child: Text(
-                      "Maintenance Plasma HyperTherm",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          shadows: [
-                            Shadow(
-                                color: Colors.lightBlue,
-                                offset: Offset(1, 2),
-                                blurRadius: 2)
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
         ),
       ),
     );

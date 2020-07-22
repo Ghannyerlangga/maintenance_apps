@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:maintenance_apps/Screen/laporan/harian.dart';
+=======
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
 import 'package:maintenance_apps/Screen/tools/tambah_mesin.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 
@@ -16,6 +19,7 @@ class ListMesin extends StatefulWidget {
 class _ListMesinState extends State<ListMesin> {
   Stream<QuerySnapshot> data;
   List<DocumentSnapshot> document;
+<<<<<<< HEAD
 
   Mesin mesin;
 
@@ -32,6 +36,17 @@ class _ListMesinState extends State<ListMesin> {
         .collection('mesin')
         .where('jenis', isEqualTo: jenisMesin)
         .snapshots();
+=======
+  DaftarMesin mesin;
+  @override
+  void initState() {
+    data = getListMesin();
+    super.initState();
+  }
+
+  Stream<QuerySnapshot> getListMesin() {
+    return Firestore.instance.collection('mesin').snapshots();
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 
   @override
@@ -46,7 +61,11 @@ class _ListMesinState extends State<ListMesin> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
+<<<<<<< HEAD
                     return TambahMesin(mesin, 'tambah');
+=======
+                    return TambahMesin();
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
                   }));
                 }),
           )
@@ -61,6 +80,7 @@ class _ListMesinState extends State<ListMesin> {
                 child: CircularProgressIndicator(),
               );
             }
+<<<<<<< HEAD
 
             document = snapshot.data.documents;
             return _tableMesin(document);
@@ -214,6 +234,42 @@ class _ListMesinState extends State<ListMesin> {
       height: 50,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
       alignment: Alignment.center,
+=======
+            mesin = DaftarMesin.fromJson(snapshot.data.documents);
+            print(mesin.listMesin[0].nama);
+            document = snapshot.data.documents;
+            return ListView.builder(
+                itemCount: document.length,
+                itemBuilder: (contex, index) {
+                  String nama = document[index].data['nama'];
+                  String jenis = document[index].data['jenis'];
+                  String kapasitas = document[index].data['kapasitas'];
+                  String jumlah = document[index].data['jumlah'];
+                  String lokasi = document[index].data['lokasi'];
+                  String keterangan = document[index].data['keterangan'];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('No : ' + (index + 1).toString()),
+                            Text('Nama Mesin : ' + nama),
+                            Text('Jenis Mesin : ' + jenis),
+                            Text('Kapasitas : ' + kapasitas),
+                            Text('Jumlah : ' + jumlah),
+                            Text('Lokasi : ' + lokasi),
+                            Text('Keterangan : ' + keterangan)
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                });
+          }),
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     );
   }
 }

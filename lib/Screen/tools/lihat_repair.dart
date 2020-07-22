@@ -26,7 +26,11 @@ class _ShowRepairState extends State<ShowRepair> {
   Repair repair;
   List<Mesin> dataListMesin;
 
+<<<<<<< HEAD
   DaftarMesin daftarMesin;
+=======
+  DaftarMesin mesin;
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
 
   @override
   void initState() {
@@ -34,27 +38,37 @@ class _ShowRepairState extends State<ShowRepair> {
     //listMesin = getMesinData();
     //mesin = DaftarMesin.fromJson(listMesin);
     getMesinData();
-
     //print(dataListMesin[0].nama);
+<<<<<<< HEAD
 
     // TODO: implement initState
+=======
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     super.initState();
   }
 
   getMesinData() async {
+<<<<<<< HEAD
     dataMesin = await Firestore.instance
         .collection('mesin')
         .where('jenis', isEqualTo: widget.jenisMesin)
         .getDocuments();
+=======
+    dataMesin = await database.getMesin();
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     listMesin = dataMesin.documents;
     daftarMesin = DaftarMesin.fromJson(listMesin);
   }
 
   Stream<QuerySnapshot> getRepair() {
+<<<<<<< HEAD
     return repairCollection
         .orderBy("time", descending: false)
         .where('jenis mesin', isEqualTo: widget.jenisMesin)
         .snapshots();
+=======
+    return repairCollection.orderBy("time", descending: false).snapshots();
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 
   @override
@@ -70,7 +84,11 @@ class _ShowRepairState extends State<ShowRepair> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
+<<<<<<< HEAD
                     return TambahRepair(daftarMesin, 'tambah', repair);
+=======
+                    return TambahRepair(mesin);
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
                   }));
                 }),
           )
@@ -84,7 +102,34 @@ class _ShowRepairState extends State<ShowRepair> {
             }
             dataList = snapshot.data.documents;
 
+<<<<<<< HEAD
             return _tableRepair(dataList);
+=======
+            return ListView.builder(
+                itemCount: dataList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('No : ' + (index + 1).toString()),
+                          Text('Nama Mesin : ' + dataList[index].data['nama']),
+                          Text('Tanggal Kerusakan Mesin : ' +
+                              dataList[index].data['tanggal rusak']),
+                          Text('Tanggal Perbaikan Mesin : ' +
+                              dataList[index].data['tanggal perbaikan']),
+                          Text('Consumable : ' +
+                              dataList[index].data['consumable']),
+                          Text('Keterangan : ' +
+                              dataList[index].data['keterangan']),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+>>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
           }),
     );
   }

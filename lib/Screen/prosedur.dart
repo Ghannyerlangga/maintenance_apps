@@ -35,7 +35,6 @@ class _ProsedurState extends State<Prosedur> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Expanded(
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
