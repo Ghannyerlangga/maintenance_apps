@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/Change_Data/c_daily.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class UbahData extends StatefulWidget {
@@ -58,7 +59,17 @@ class _UbahDataState extends State<UbahData> {
                           subtitle:
                               Text("Tipe Checklist : ${x.data["checklist"]}"),
                           trailing: Text(x.data["user"]),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DailyChange(
+                                    value: x.data["jenis mesin"],
+                                    hasil: x.data["checklist"],
+                                    waktu: x.data["waktu"],
+                                  ),
+                                ));
+                          },
                         );
                       });
                 }
