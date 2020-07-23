@@ -1,58 +1,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:horizontal_data_table/horizontal_data_table.dart';
-import 'package:maintenance_apps/Screen/laporan/harian.dart';
-=======
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
-import 'package:maintenance_apps/Screen/tools/tambah_mesin.dart';
-import 'package:maintenance_apps/models/mesin.dart';
+import 'package:maintenance_apps/Screen/tools/tambah_consumable.dart';
+import 'package:maintenance_apps/models/consumable.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
-class ListMesin extends StatefulWidget {
+class ListConsumable extends StatefulWidget {
   final String jenisMesin;
-  ListMesin(this.jenisMesin);
-
+  ListConsumable(this.jenisMesin);
   @override
-  _ListMesinState createState() => _ListMesinState();
+  _ListConsumableState createState() => _ListConsumableState();
 }
 
-class _ListMesinState extends State<ListMesin> {
-  Stream<QuerySnapshot> data;
-  List<DocumentSnapshot> document;
-<<<<<<< HEAD
+class _ListConsumableState extends State<ListConsumable> {
+  final CollectionReference consumableCollection =
+      Firestore.instance.collection('consumable');
 
-  Mesin mesin;
+  Stream<QuerySnapshot> dataConsumable;
+  List<DocumentSnapshot> dataList;
+  QuerySnapshot dataMesin;
+  List<DocumentSnapshot> listMesin;
+
+  Consumable consumable;
 
   @override
   void initState() {
-    // TODO: implement initState
+    dataConsumable = getConsumable();
 
-    data = getListMesin(widget.jenisMesin);
     super.initState();
   }
 
-  Stream<QuerySnapshot> getListMesin(String jenisMesin) {
-    return Firestore.instance
-        .collection('mesin')
-        .where('jenis', isEqualTo: jenisMesin)
+  Stream<QuerySnapshot> getConsumable() {
+    return consumableCollection
+        .where('jenis', isEqualTo: widget.jenisMesin)
         .snapshots();
-=======
-  DaftarMesin mesin;
-  @override
-  void initState() {
-    data = getListMesin();
-    super.initState();
-  }
-
-  Stream<QuerySnapshot> getListMesin() {
-    return Firestore.instance.collection('mesin').snapshots();
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Daftar Perbaikan Mesin'),
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -61,35 +49,27 @@ class _ListMesinState extends State<ListMesin> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-<<<<<<< HEAD
-                    return TambahMesin(mesin, 'tambah');
-=======
-                    return TambahMesin();
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
+                    return TambahConsumable(consumable, 'tambah');
                   }));
                 }),
           )
         ],
-        title: Text('List Mesin'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: data,
+          stream: dataConsumable,
           builder: (builder, snapshot) {
             if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Loading();
             }
-<<<<<<< HEAD
+            dataList = snapshot.data.documents;
 
-            document = snapshot.data.documents;
-            return _tableMesin(document);
+            return _tableRepair(dataList);
           }),
     );
   }
 
-  deleteMesin(String docId) async {
-    await Firestore.instance.collection('mesin').document(docId).delete();
+  deleteRepair(String docId) async {
+    await Firestore.instance.collection('consumable').document(docId).delete();
   }
 
   Future<Null> showDeleteDialog(
@@ -99,11 +79,11 @@ class _ListMesinState extends State<ListMesin> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Yakin akan menhapus mesin ini?'),
+            title: Text('Yakin akan menhapus data ini?'),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
-                    deleteMesin(docId);
+                    deleteRepair(docId);
                     Navigator.pop(context);
                   },
                   child: Text("Ya")),
@@ -117,11 +97,11 @@ class _ListMesinState extends State<ListMesin> {
         });
   }
 
-  Widget _tableMesin(List<DocumentSnapshot> documents) {
+  Widget _tableRepair(List<DocumentSnapshot> documents) {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 830,
+        rightHandSideColumnWidth: 730,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -140,12 +120,11 @@ class _ListMesinState extends State<ListMesin> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(document[index]['nama']),
-              _tabelCell(document[index]['jenis']),
-              _tabelCell(document[index]['kapasitas']),
-              _tabelCell(document[index]['jumlah']),
-              _tabelCell(document[index]['lokasi']),
-              _tabelCell(document[index]['keterangan']),
+              _tabelCell(documents[index]['nama'].toString()),
+              _tabelCell(documents[index]['jenis'].toString()),
+              _tabelCell(documents[index]['part'].toString()),
+              _tabelCell(documents[index]['jumlah'].toString()),
+              _tabelCell(documents[index]['keterangan'].toString()),
               Container(
                 decoration: BoxDecoration(
                     border: Border(
@@ -164,10 +143,13 @@ class _ListMesinState extends State<ListMesin> {
                         label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
+                          DocumentSnapshot snap = documents[index];
+                          snap.data.addAll({'id': snap.documentID});
+                          print(snap.data);
+                          consumable = Consumable.fromSnapshot(snap);
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              mesin = Mesin.fromSnapshot(documents[index]);
-                              return TambahMesin(mesin, 'ubah');
+                              return TambahConsumable(consumable, 'ubah');
                             },
                           ));
                         },
@@ -209,13 +191,12 @@ class _ListMesinState extends State<ListMesin> {
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('No', 30.0),
-      _getTitleItemWidget('Nama Mesin', 100.0),
-      _getTitleItemWidget('Jenis Mesin', 100.0),
-      _getTitleItemWidget('Kapasitas', 100.0),
+      _getTitleItemWidget('Nama Consumable', 100.0),
+      _getTitleItemWidget('Jenis', 100.0),
+      _getTitleItemWidget('Part Mesin', 100.0),
       _getTitleItemWidget('Jumlah', 100.0),
-      _getTitleItemWidget('Lokasi', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),
-      _getTitleItemWidget('Aksi', 200.0)
+      _getTitleItemWidget('Aksi', 200.0),
     ];
   }
 
@@ -234,42 +215,6 @@ class _ListMesinState extends State<ListMesin> {
       height: 50,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
       alignment: Alignment.center,
-=======
-            mesin = DaftarMesin.fromJson(snapshot.data.documents);
-            print(mesin.listMesin[0].nama);
-            document = snapshot.data.documents;
-            return ListView.builder(
-                itemCount: document.length,
-                itemBuilder: (contex, index) {
-                  String nama = document[index].data['nama'];
-                  String jenis = document[index].data['jenis'];
-                  String kapasitas = document[index].data['kapasitas'];
-                  String jumlah = document[index].data['jumlah'];
-                  String lokasi = document[index].data['lokasi'];
-                  String keterangan = document[index].data['keterangan'];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('No : ' + (index + 1).toString()),
-                            Text('Nama Mesin : ' + nama),
-                            Text('Jenis Mesin : ' + jenis),
-                            Text('Kapasitas : ' + kapasitas),
-                            Text('Jumlah : ' + jumlah),
-                            Text('Lokasi : ' + lokasi),
-                            Text('Keterangan : ' + keterangan)
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                });
-          }),
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     );
   }
 }

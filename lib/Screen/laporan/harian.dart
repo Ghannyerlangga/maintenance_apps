@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_apps/Screen/laporan/view.dart';
 import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 import 'package:pdf/pdf.dart';
 import 'dart:io';
 import 'package:pdf/widgets.dart';
@@ -103,7 +104,15 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
                 data: listCheck),
           ]));
   //save PDF
-  final String ext = (await getExternalStorageDirectory()).parent.parent.parent.parent.parent.parent.parent.path;
+  final String ext = (await getExternalStorageDirectory())
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .path;
   print(ext);
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/report.pdf';
@@ -112,7 +121,7 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
   await file.writeAsBytes(pdf.save());
   material.Navigator.of(context).push(
     material.MaterialPageRoute(
-      builder: (_) => PdfViewerPage(path),
+      builder: (_) => data.documents.isEmpty ? Loading() : PdfViewerPage(path),
     ),
   );
 }
