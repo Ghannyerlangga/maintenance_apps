@@ -3,44 +3,61 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class Monthly extends StatefulWidget {
-  static const String routeName = "/monthly";
-  final String value;
-  final String hasil;
-  Monthly({this.hasil, this.value});
+class ChangeMonthly extends StatefulWidget {
+  final String check;
+  final String jenis;
+  final String waktu;
+  final String dokumen;
+  ChangeMonthly({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _MonthlyState createState() => _MonthlyState();
+  _ChangeMonthlyState createState() => _ChangeMonthlyState();
 }
 
-class _MonthlyState extends State<Monthly> {
+class _ChangeMonthlyState extends State<ChangeMonthly> {
+  DateTime _dueDate = DateTime.now();
+  String _dateText = '';
+  String _timeText = '';
+  String dokumen = '';
+  String checklist = '';
+  String mesin = '';
   bool a = false;
   bool b = false;
   bool c = false;
   bool d = false;
   bool e = false;
   bool f = false;
-
   DatabaseService db = DatabaseService();
-  String nama = "";
-  String error = "";
-  String checklist = "Monthly";
-  String mesin = "AMG";
+  Future getData() async {
+    final DocumentReference doc = Firestore.instance
+        .collection("checklist")
+        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
+    await doc.get().then((DocumentSnapshot snapshot) async {
+      setState(() {
+        a = snapshot.data["rack"];
+        b = snapshot.data["gas hoses"];
+        c = snapshot.data["z-axis"];
+        d = snapshot.data["coolant"];
+        e = snapshot.data["clamp"];
+        f = snapshot.data["dust"];
+        mesin = snapshot.data["mesin"];
+      });
+    });
+  }
 
-  final CollectionReference pengguna = Firestore.instance.collection('data');
-
-  DateTime _dueDate = DateTime.now();
-  String _dateText = '';
-  String _timeText = '';
-  String dokumen = '';
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           title: const Text(
-            'Monthly Checklist',
+            'Daily Checklist',
             style: TextStyle(fontSize: 16.0),
           ),
         ),
@@ -53,7 +70,7 @@ class _MonthlyState extends State<Monthly> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text(widget.hasil),
+                      child: Text(widget.jenis),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -278,12 +295,14 @@ class _MonthlyState extends State<Monthly> {
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                       _timeText =
                           "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                      dokumen = "${_dueDate.day}";
+                      dokumen = widget.dokumen;
+                      checklist = widget.check;
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
-                      var nama =
-                          await pengguna.document(firebaseUser.uid).get();
-                      await db.createAddMonthly(
+                      var nama = await db.myCollection
+                          .document(firebaseUser.uid)
+                          .get();
+                      await db.createUpdateMonthly(
                           nama["nama"],
                           a,
                           b,
@@ -291,7 +310,7 @@ class _MonthlyState extends State<Monthly> {
                           d,
                           e,
                           f,
-                          widget.hasil,
+                          widget.jenis,
                           checklist,
                           _dateText,
                           _timeText,

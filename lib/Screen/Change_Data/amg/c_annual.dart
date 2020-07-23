@@ -3,40 +3,53 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class Annual extends StatefulWidget {
-  final String hasil;
-  final String value;
-  Annual({this.value, this.hasil});
-  static const String routeName = "/annual";
+class ChangeAnnual extends StatefulWidget {
+  final String check;
+  final String jenis;
+  final String waktu;
+  final String dokumen;
+  ChangeAnnual({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _AnnualState createState() => _AnnualState();
+  _ChangeAnnualState createState() => _ChangeAnnualState();
 }
 
-class _AnnualState extends State<Annual> {
-  bool a = false;
-  bool b = false;
-
-  DatabaseService db = DatabaseService();
-  String checklist = "Semi-Annual";
-  String nama = "";
-  String error = "";
-  String mesin = "AMG";
-
-  final CollectionReference pengguna = Firestore.instance.collection('data');
-
+class _ChangeAnnualState extends State<ChangeAnnual> {
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
+  String checklist = '';
+  String mesin = '';
+  bool a = false;
+  bool b = false;
+  DatabaseService db = DatabaseService();
+  Future getData() async {
+    final DocumentReference doc = Firestore.instance
+        .collection("checklist")
+        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
+    await doc.get().then((DocumentSnapshot snapshot) async {
+      setState(() {
+        a = snapshot.data["remote control"];
+        b = snapshot.data["machine angle"];
+        mesin = snapshot.data["mesin"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           title: const Text(
-            'Annual Checklist',
+            'Daily Checklist',
             style: TextStyle(fontSize: 16.0),
           ),
         ),
@@ -49,7 +62,7 @@ class _AnnualState extends State<Annual> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text(widget.hasil),
+                      child: Text(widget.jenis),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -142,13 +155,23 @@ class _AnnualState extends State<Annual> {
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                       _timeText =
                           "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                      dokumen = "${_dueDate.day}";
+                      dokumen = widget.dokumen;
+                      checklist = widget.check;
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
-                      var nama =
-                          await pengguna.document(firebaseUser.uid).get();
-                      await db.createAddAnnual(nama["nama"], a, b, widget.hasil,
-                          checklist, _dateText, _timeText, mesin, dokumen);
+                      var nama = await db.myCollection
+                          .document(firebaseUser.uid)
+                          .get();
+                      await db.createUpdateAnnual(
+                          nama["nama"],
+                          a,
+                          b,
+                          widget.jenis,
+                          checklist,
+                          _dateText,
+                          _timeText,
+                          mesin,
+                          dokumen);
                       Navigator.pop(context);
                     }),
               ),

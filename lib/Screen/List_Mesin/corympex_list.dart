@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/Change_Data/corympex_data.dart';
 import 'package:maintenance_apps/Screen/Dialog/corympex_dialog.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-import '../change_data.dart';
+import '../Change_Data/amg_data.dart';
 
 class CorympexList extends StatefulWidget {
   final String mesin;
@@ -45,7 +46,7 @@ class _CorympexListState extends State<CorympexList> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UbahData(),
+                      builder: (context) => CorympexData(),
                     ));
               },
               icon: Icon(Icons.check),

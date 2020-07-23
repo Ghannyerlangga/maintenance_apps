@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/Change_Data/ficep_data.dart';
 import 'package:maintenance_apps/Screen/Dialog/ficep_dialog.dart';
 import 'package:maintenance_apps/shared/loading.dart';
-
-import '../change_data.dart';
 
 class FicepList extends StatefulWidget {
   final String mesin;
@@ -45,7 +44,7 @@ class _FicepListState extends State<FicepList> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UbahData(),
+                      builder: (context) => FicepData(),
                     ));
               },
               icon: Icon(Icons.check),

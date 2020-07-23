@@ -22,11 +22,13 @@ class _PlasmaState extends State<Plasma> {
   String nama = "";
   String error = "";
   String checklist = "Daily-Plasma";
-
+  String mesin = "AMG";
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
+  String _timeText = '';
+  String dokumen = '';
 
   @override
   Widget build(BuildContext context) {
@@ -206,12 +208,25 @@ class _PlasmaState extends State<Plasma> {
                     onPressed: () async {
                       _dateText =
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
+                      _timeText =
+                          "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
+                      dokumen = "${_dueDate.day}";
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdatePlasma(nama["nama"], a, b, c, d,
-                          widget.hasil, checklist, _dateText);
+                      await db.createAddPlasma(
+                          nama["nama"],
+                          a,
+                          b,
+                          c,
+                          d,
+                          widget.hasil,
+                          checklist,
+                          _dateText,
+                          _timeText,
+                          mesin,
+                          dokumen);
                       Navigator.pop(context);
                     }),
               ),

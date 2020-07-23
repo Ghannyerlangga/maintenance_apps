@@ -26,12 +26,14 @@ class _DailyState extends State<Daily> {
   String nama = "";
   String error = "";
   String checklist = "Daily";
+  String mesin = "AMG";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
+  String dokumen = '';
 
   @override
   Widget build(BuildContext context) {
@@ -377,11 +379,12 @@ class _DailyState extends State<Daily> {
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                       _timeText =
                           "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
+                      dokumen = "${_dueDate.day}";
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
                       var nama =
                           await pengguna.document(firebaseUser.uid).get();
-                      await db.createUpdateDaily(
+                      await db.createAddDaily(
                           nama["nama"],
                           a,
                           b,
@@ -395,7 +398,9 @@ class _DailyState extends State<Daily> {
                           widget.hasil,
                           checklist,
                           _dateText,
-                          _timeText);
+                          _timeText,
+                          mesin,
+                          dokumen);
                       Navigator.pop(context);
                     }),
               ),

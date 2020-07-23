@@ -3,71 +3,58 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class DailyChange extends StatefulWidget {
-  final String value;
-  final String hasil;
+class ChangeDaily extends StatefulWidget {
+  final String check;
+  final String jenis;
   final String waktu;
-  DailyChange({this.value, this.hasil, this.waktu});
-  static const String routeName = "/daily";
+  final String dokumen;
+  ChangeDaily({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _DailyChangeState createState() => _DailyChangeState();
+  _ChangeDailyState createState() => _ChangeDailyState();
 }
 
-class _DailyChangeState extends State<DailyChange> {
-  DatabaseService db = DatabaseService();
-  String nama = "";
-  String error = "";
-  String checklist = "Daily";
-  bool a;
-  bool b;
-  bool c;
-  bool d;
-  bool e;
-  bool f;
-  bool g;
-  bool h;
-  bool i;
-  String coba;
-
-  final CollectionReference pengguna = Firestore.instance.collection('data');
-  @override
-  void initState() {
-    _fetch();
-    super.initState();
-  }
-
-  final CollectionReference data = Firestore.instance.collection('checklist');
-
-  // .getDocuments();
-
-  void _fetch() async {
-    await data
-        .where("waktu", isEqualTo: widget.waktu)
-        .where("jenis mesin", isEqualTo: widget.value)
-        .where("checklist", isEqualTo: widget.hasil)
-        .getDocuments()
-        .then((value) {
-      if (value.documents.isNotEmpty) {
-        setState(() {
-          Map<String, dynamic> documentData = value.documents.single.data;
-          // var anu = documentData["rail"];
-          // a = anu;
-          // b = documentData["machine"];
-          // c = documentData["limit switch"];
-          // d = documentData["linear guide"];
-          // e = documentData["cable chain"];
-          // f = documentData["nozzle"];
-          // g = documentData["oxygen"];
-          // h = documentData["elpiji"];
-          // i = documentData["nitrogen"];
-        });
-      }
-    }).catchError((e) => print("Error Fetching Data: $e"));
-  }
-
+class _ChangeDailyState extends State<ChangeDaily> {
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
+  String dokumen = '';
+  String checklist = '';
+  String mesin = '';
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  bool e = false;
+  bool f = false;
+  bool g = false;
+  bool h = false;
+  bool i = false;
+  DatabaseService db = DatabaseService();
+  Future getData() async {
+    final DocumentReference doc = Firestore.instance
+        .collection("checklist")
+        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
+    await doc.get().then((DocumentSnapshot snapshot) async {
+      setState(() {
+        a = snapshot.data["rail"];
+        b = snapshot.data["machine"];
+        c = snapshot.data["limit switch"];
+        d = snapshot.data["linear guide"];
+        e = snapshot.data["cable chain"];
+        f = snapshot.data["nozzle"];
+        g = snapshot.data["oxygen"];
+        h = snapshot.data["elpiji"];
+        i = snapshot.data["nitrogen"];
+        mesin = snapshot.data["mesin"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +76,7 @@ class _DailyChangeState extends State<DailyChange> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text(widget.hasil),
+                      child: Text(widget.jenis),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -413,10 +400,13 @@ class _DailyChangeState extends State<DailyChange> {
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                       _timeText =
                           "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
+                      dokumen = widget.dokumen;
+                      checklist = widget.check;
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
-                      var nama =
-                          await pengguna.document(firebaseUser.uid).get();
+                      var nama = await db.myCollection
+                          .document(firebaseUser.uid)
+                          .get();
                       await db.createUpdateDaily(
                           nama["nama"],
                           a,
@@ -428,10 +418,12 @@ class _DailyChangeState extends State<DailyChange> {
                           g,
                           h,
                           i,
-                          widget.hasil,
+                          widget.jenis,
                           checklist,
                           _dateText,
-                          _timeText);
+                          _timeText,
+                          mesin,
+                          dokumen);
                       Navigator.pop(context);
                     }),
               ),

@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/Change_Data/c_daily.dart';
+import 'package:maintenance_apps/Screen/Change_Data/amg/c_daily.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-class UbahData extends StatefulWidget {
+class FicepData extends StatefulWidget {
+  final String mesin;
+  FicepData({this.mesin});
   @override
-  _UbahDataState createState() => _UbahDataState();
+  _FicepDataState createState() => _FicepDataState();
 }
 
-class _UbahDataState extends State<UbahData> {
+class _FicepDataState extends State<FicepData> {
   Future getData() async {
     var firestore = Firestore.instance;
     DateTime _dueDate = DateTime.now();
@@ -16,6 +18,7 @@ class _UbahDataState extends State<UbahData> {
     QuerySnapshot qn = await firestore
         .collection("checklist")
         .where("waktu", isEqualTo: _dateText)
+        .where("mesin", isEqualTo: widget.mesin)
         .getDocuments();
     return qn.documents;
   }
@@ -63,10 +66,11 @@ class _UbahDataState extends State<UbahData> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DailyChange(
-                                    value: x.data["jenis mesin"],
-                                    hasil: x.data["checklist"],
+                                  builder: (context) => ChangeDaily(
+                                    jenis: x.data["jenis mesin"],
+                                    check: x.data["checklist"],
                                     waktu: x.data["waktu"],
+                                    dokumen: x.data["dokumen"],
                                   ),
                                 ));
                           },

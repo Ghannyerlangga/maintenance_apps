@@ -67,9 +67,13 @@ class DatabaseService {
     String checklist,
     String waktu,
     String jam,
+    String mesin,
+    String dokumen,
   ) async {
     try {
-      return await myChecklist.add({
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .updateData({
         "user": user,
         "rail": a,
         "machine": b,
@@ -84,6 +88,92 @@ class DatabaseService {
         "checklist": checklist,
         "waktu": waktu,
         "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> createAddDaily(
+    String user,
+    bool a,
+    bool b,
+    bool c,
+    bool d,
+    bool e,
+    bool f,
+    bool g,
+    bool h,
+    bool i,
+    String jenis,
+    String checklist,
+    String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
+  ) async {
+    try {
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .setData({
+        "user": user,
+        "rail": a,
+        "machine": b,
+        "limit switch": c,
+        "linear guide": d,
+        "cable chain": e,
+        "nozzle": f,
+        "oxygen": g,
+        "elpiji": h,
+        "nitrogen": i,
+        "jenis mesin": jenis,
+        "checklist": checklist,
+        "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> createAddMonthly(
+    String user,
+    bool a,
+    bool b,
+    bool c,
+    bool d,
+    bool e,
+    bool f,
+    String jenis,
+    String checklist,
+    String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
+  ) async {
+    try {
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .setData({
+        "user": user,
+        "rack": a,
+        "gas hoses": b,
+        "z-axis": c,
+        "coolant": d,
+        "clamp": e,
+        "dust": f,
+        "jenis mesin": jenis,
+        "checklist": checklist,
+        "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
       });
     } catch (e) {
       print(e.toString());
@@ -102,9 +192,14 @@ class DatabaseService {
     String jenis,
     String checklist,
     String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
   ) async {
     try {
-      return await myChecklist.add({
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .updateData({
         "user": user,
         "rack": a,
         "gas hoses": b,
@@ -115,6 +210,40 @@ class DatabaseService {
         "jenis mesin": jenis,
         "checklist": checklist,
         "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> createAddAnnual(
+    String user,
+    bool a,
+    bool b,
+    String jenis,
+    String checklist,
+    String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
+  ) async {
+    try {
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .setData({
+        "user": user,
+        "remote control": a,
+        "machine angle": b,
+        "jenis mesin": jenis,
+        "checklist": checklist,
+        "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
       });
     } catch (e) {
       print(e.toString());
@@ -129,15 +258,58 @@ class DatabaseService {
     String jenis,
     String checklist,
     String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
   ) async {
     try {
-      return await myChecklist.add({
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .updateData({
         "user": user,
         "remote control": a,
         "machine angle": b,
         "jenis mesin": jenis,
         "checklist": checklist,
         "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> createAddPlasma(
+    String user,
+    bool a,
+    bool b,
+    bool c,
+    bool d,
+    String jenis,
+    String checklist,
+    String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
+  ) async {
+    try {
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .setData({
+        "user": user,
+        "tekanan angin": a,
+        "tekanan angin cutflow": b,
+        "filter udara": c,
+        "level coolant": d,
+        "jenis mesin": jenis,
+        "checklist": checklist,
+        "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
       });
     } catch (e) {
       print(e.toString());
@@ -154,9 +326,14 @@ class DatabaseService {
     String jenis,
     String checklist,
     String waktu,
+    String jam,
+    String mesin,
+    String dokumen,
   ) async {
     try {
-      return await myChecklist.add({
+      return await myChecklist
+          .document(jenis + "-" + checklist + "-" + dokumen)
+          .updateData({
         "user": user,
         "tekanan angin": a,
         "tekanan angin cutflow": b,
@@ -165,6 +342,9 @@ class DatabaseService {
         "jenis mesin": jenis,
         "checklist": checklist,
         "waktu": waktu,
+        "jam": jam,
+        "mesin": mesin,
+        "dokumen": dokumen,
       });
     } catch (e) {
       print(e.toString());

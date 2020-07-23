@@ -3,40 +3,57 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 
-class Annual extends StatefulWidget {
-  final String hasil;
-  final String value;
-  Annual({this.value, this.hasil});
-  static const String routeName = "/annual";
+class ChangePlasma extends StatefulWidget {
+  final String check;
+  final String jenis;
+  final String waktu;
+  final String dokumen;
+  ChangePlasma({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _AnnualState createState() => _AnnualState();
+  _ChangePlasmaState createState() => _ChangePlasmaState();
 }
 
-class _AnnualState extends State<Annual> {
-  bool a = false;
-  bool b = false;
-
-  DatabaseService db = DatabaseService();
-  String checklist = "Semi-Annual";
-  String nama = "";
-  String error = "";
-  String mesin = "AMG";
-
-  final CollectionReference pengguna = Firestore.instance.collection('data');
-
+class _ChangePlasmaState extends State<ChangePlasma> {
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
+  String checklist = '';
+  String mesin = '';
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  DatabaseService db = DatabaseService();
+  Future getData() async {
+    final DocumentReference doc = Firestore.instance
+        .collection("checklist")
+        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
+    await doc.get().then((DocumentSnapshot snapshot) async {
+      setState(() {
+        a = snapshot.data["tekanan angin"];
+        b = snapshot.data["tekanan angin cutflow"];
+        c = snapshot.data["filter udara"];
+        d = snapshot.data["level coolant"];
+        mesin = snapshot.data["mesin"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           title: const Text(
-            'Annual Checklist',
+            'Daily Checklist',
             style: TextStyle(fontSize: 16.0),
           ),
         ),
@@ -49,7 +66,7 @@ class _AnnualState extends State<Annual> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text(widget.hasil),
+                      child: Text(widget.jenis),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -70,7 +87,7 @@ class _AnnualState extends State<Annual> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Remote Control Battery"),
+                      child: Text("Tekanan Regulator Angin Kompresor"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -103,7 +120,8 @@ class _AnnualState extends State<Annual> {
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.65,
-                      child: Text("Machine 90' Angle Adjusment"),
+                      child: Text(
+                          "Tekanan Regulator Angin Kompresor saat Cutflow Test"),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.15,
@@ -131,6 +149,72 @@ class _AnnualState extends State<Annual> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: Text("Filters Udara Mesin"),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Checkbox(
+                          value: c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Checkbox(
+                          value: !c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: Text("Level Coolant"),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Checkbox(
+                          value: d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Checkbox(
+                          value: !d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: RaisedButton(
                     color: Colors.lightBlueAccent,
@@ -142,13 +226,25 @@ class _AnnualState extends State<Annual> {
                           "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                       _timeText =
                           "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                      dokumen = "${_dueDate.day}";
+                      dokumen = widget.dokumen;
+                      checklist = widget.check;
                       var firebaseUser =
                           await FirebaseAuth.instance.currentUser();
-                      var nama =
-                          await pengguna.document(firebaseUser.uid).get();
-                      await db.createAddAnnual(nama["nama"], a, b, widget.hasil,
-                          checklist, _dateText, _timeText, mesin, dokumen);
+                      var nama = await db.myCollection
+                          .document(firebaseUser.uid)
+                          .get();
+                      await db.createUpdatePlasma(
+                          nama["nama"],
+                          a,
+                          b,
+                          c,
+                          d,
+                          widget.jenis,
+                          checklist,
+                          _dateText,
+                          _timeText,
+                          mesin,
+                          dokumen);
                       Navigator.pop(context);
                     }),
               ),

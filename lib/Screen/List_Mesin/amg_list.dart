@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/Dialog/amg_dialog.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-import '../change_data.dart';
+import '../Change_Data/amg_data.dart';
 
 class AmgList extends StatefulWidget {
   final String mesin;
@@ -45,7 +45,7 @@ class _AmgListState extends State<AmgList> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UbahData(),
+                      builder: (context) => AmgData(mesin: widget.mesin),
                     ));
               },
               icon: Icon(Icons.check),
