@@ -9,7 +9,6 @@ class Barcode extends StatefulWidget {
 }
 
 class _BarcodeState extends State<Barcode> {
-  AMGDialog amg = AMGDialog();
   String code = "";
   String getcode = "";
   final CollectionReference mesin = Firestore.instance.collection('mesin');
@@ -25,19 +24,6 @@ class _BarcodeState extends State<Barcode> {
           builder: (BuildContext context) =>
               AMGDialog(value: data["jenis"], hasil: data["nama"]),
         );
-        break;
-      default:
-    }
-    // setState(() {
-    //   code = getcode;
-    // });
-  }
-
-  Future getdialog() async {
-    var data = await mesin.document(getcode).get();
-    switch (data["jenis"]) {
-      case "AMG":
-        return AMGDialog();
         break;
       default:
     }
@@ -59,7 +45,6 @@ class _BarcodeState extends State<Barcode> {
             FlatButton(
                 onPressed: () async {
                   scanbarcode();
-                  // getdialog();
                 },
                 child: Text("SCAN")),
           ],

@@ -4,8 +4,6 @@ import 'package:maintenance_apps/Screen/Change_Data/corympex_data.dart';
 import 'package:maintenance_apps/Screen/Dialog/corympex_dialog.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-import '../Change_Data/amg_data.dart';
-
 class CorympexList extends StatefulWidget {
   final String mesin;
   CorympexList({this.mesin});
