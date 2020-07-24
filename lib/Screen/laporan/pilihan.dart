@@ -12,19 +12,27 @@ class PilihanLaporan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          button(
-            'Harian',
-            context,
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 300,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: <Widget>[
+                  button('Harian', context),
+                  button('Bulanan', context),
+                  button('Tahunan', context),
+                  button('Plasma', context)
+                ],
+              )
+            ],
           ),
-          button('Bulanan', context),
-          button('Tahunan', context),
-          button('Plasma', context)
-        ],
+        ),
       ),
     );
   }

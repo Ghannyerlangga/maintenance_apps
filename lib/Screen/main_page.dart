@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan.dart';
+import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance_list.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
@@ -331,7 +332,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan(user.uid);
+                              return JenisMesinLaporan(user.uid);
                             }));
                           },
                           child: Column(

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/models/mesin.dart';
-<<<<<<< HEAD
 import 'package:maintenance_apps/models/repair.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
@@ -10,12 +9,6 @@ class TambahRepair extends StatefulWidget {
   final DaftarMesin mesin;
   final String mode;
   TambahRepair(this.mesin, this.mode, this.repair);
-=======
-
-class TambahRepair extends StatefulWidget {
-  final DaftarMesin mesin;
-  TambahRepair(this.mesin);
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   @override
   _TambahRepairState createState() => _TambahRepairState();
 }
@@ -37,7 +30,6 @@ class _TambahRepairState extends State<TambahRepair> {
 
   CollectionReference collection = Firestore.instance.collection('repair');
 
-<<<<<<< HEAD
   @override
   void initState() {
     if (widget.mode != 'tambah') {
@@ -94,11 +86,6 @@ class _TambahRepairState extends State<TambahRepair> {
       'jenis mesin': widget.mesin.listMesin[0].jenis,
       'pj': penanggungJawab,
       'spare part': sparePart,
-=======
-  tambahRepair(String nama, String tanggalRusak, String tanggalPerbaikan,
-      String consumable, String keterangan) async {
-    await collection.add({
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
       'nama': nama,
       'tanggal rusak': tanggalRusak,
       'tanggal perbaikan': tanggalPerbaikan,
@@ -140,7 +127,6 @@ class _TambahRepairState extends State<TambahRepair> {
       ),
       body: ListView(
         children: [
-<<<<<<< HEAD
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -244,49 +230,6 @@ class _TambahRepairState extends State<TambahRepair> {
                         _pjController.text,
                         _sparePartController.text,
                         _keteranganController.text);
-=======
-          DropdownButton(
-            hint: Text("Pilih Nama Mesin"),
-            value: namaMesin,
-            items: widget.mesin.listMesin.map((item) {
-              return DropdownMenuItem(child: Text(item.nama), value: item.nama);
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                namaMesin = value;
-              });
-            },
-          ),
-          TextField(
-            controller: _tanggalRusak,
-            decoration: InputDecoration(
-              hintText: "tanggal kerusakan mesin",
-            ),
-            onTap: () {
-              _pilihTanggal(context, 'rusak');
-            },
-          ),
-          TextField(
-            controller: _tanggalPerbaikan,
-            decoration: InputDecoration(
-              hintText: "tanggal perbaikan mesin",
-            ),
-            onTap: () {
-              _pilihTanggal(context, 'perbaikan');
-            },
-          ),
-          inputField('consumable', _consumableController, 'consumable'),
-          inputField('keterangan', _keteranganController, 'keterangan'),
-          RaisedButton(
-              child: Text('Simpan'),
-              onPressed: () {
-                tambahRepair(
-                    namaMesin,
-                    _tanggalRusak.text,
-                    _tanggalPerbaikan.text,
-                    _consumableController.text,
-                    _keteranganController.text);
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
               })
         ],
       ),
@@ -296,7 +239,6 @@ class _TambahRepairState extends State<TambahRepair> {
   Widget inputField(
       String leading, TextEditingController controller, String hint) {
     return Padding(
-<<<<<<< HEAD
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,13 +258,5 @@ class _TambahRepairState extends State<TambahRepair> {
             ),
           ],
         ));
-=======
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(hintText: hint),
-      ),
-    );
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 }
