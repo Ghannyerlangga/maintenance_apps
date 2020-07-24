@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/laporan/harian.dart';
-<<<<<<< HEAD
 import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
 import 'package:maintenance_apps/models/mesin.dart';
-=======
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
 import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahMesin extends StatefulWidget {
@@ -17,12 +14,9 @@ class TambahMesin extends StatefulWidget {
 }
 
 class _TambahMesinState extends State<TambahMesin> {
-<<<<<<< HEAD
   List listJenisMesin = ["AMG", "COPYMPEX", "FICEP"];
   String jenisMesin;
 
-=======
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   TextEditingController _namaController = TextEditingController();
   TextEditingController _jenisController = TextEditingController();
   TextEditingController _kapasitasController = TextEditingController();
@@ -52,11 +46,7 @@ class _TambahMesinState extends State<TambahMesin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: _modeTambah ? Text('Input Mesin Baru') : Text('Edit Data Mesin'),
-=======
-        title: Text('Input Mesin Baru'),
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
       ),
       body: ListView(
         children: [
@@ -99,7 +89,6 @@ class _TambahMesinState extends State<TambahMesin> {
           RaisedButton(
               child: Text('Simpan'),
               onPressed: () {
-<<<<<<< HEAD
                 _modeTambah ? tambahMesin() : editMesin();
               })
         ],
@@ -127,16 +116,11 @@ class _TambahMesinState extends State<TambahMesin> {
               decoration: InputDecoration(hintText: hint),
             ),
           ),
-=======
-                tambahMesin();
-              })
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
         ],
       ),
     );
   }
 
-<<<<<<< HEAD
   editMesin() async {
     String kode = _kodeController.text;
     String nama = _namaController.text;
@@ -163,27 +147,12 @@ class _TambahMesinState extends State<TambahMesin> {
       _keteranganController.clear();
       jenisMesin = null;
     });
-=======
-  Widget inputField(
-      String leading, TextEditingController controller, String hint) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(hintText: hint),
-      ),
-    );
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 
   Future<Widget> tambahMesin() async {
     String kode = _kodeController.text;
     String nama = _namaController.text;
-<<<<<<< HEAD
     String jenis = jenisMesin;
-=======
-    String jenis = _jenisController.text;
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
@@ -200,10 +169,7 @@ class _TambahMesinState extends State<TambahMesin> {
       _jumlahController.clear();
       _lokasiController.clear();
       _keteranganController.clear();
-<<<<<<< HEAD
       jenisMesin = null;
-=======
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
       return Loading();
     });
   }

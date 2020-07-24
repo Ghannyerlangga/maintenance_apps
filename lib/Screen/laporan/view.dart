@@ -1,8 +1,5 @@
 import 'dart:io';
-<<<<<<< HEAD
 import 'package:progress_dialog/progress_dialog.dart';
-=======
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:maintenance_apps/shared/loading.dart';
@@ -17,19 +14,12 @@ class PdfViewerPage extends StatefulWidget {
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-<<<<<<< HEAD
   bool _isLoading = true;
   String downloadFolderPath;
   DateTime time = DateTime.now();
 
   ProgressDialog pr;
 
-=======
-  // bool _isLoading = false;
-  String downloadFolderPath;
-  DateTime time = DateTime.now();
-
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   getDownload() async {
     final String ext = (await getExternalStorageDirectory())
         .parent
@@ -40,10 +30,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         .parent
         .parent
         .path;
-<<<<<<< HEAD
     downloadFolderPath =
         ext + 'sdcard/Download/report ' + time.toString() + '.pdf';
-=======
     downloadFolderPath = ext +
         'sdcard/Download/report ' +
         time.day.toString() +
@@ -52,7 +40,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         '-' +
         time.year.toString() +
         '.pdf';
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
 
     final File file = File(widget.path);
     await file.copy(downloadFolderPath).then((value) {
@@ -64,22 +51,14 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     });
   }
 
-<<<<<<< HEAD
   Future<Null> showSimpleDialog(
     String pesan,
   ) async {
-=======
-  Future<Null> showSimpleDialog() async {
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-<<<<<<< HEAD
             title: Text('File berhasil disimpan ' + pesan),
-=======
-            title: Text('File berhasil disimpan'),
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
@@ -108,7 +87,6 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         appBar: AppBar(
           title: Text('Laporan'),
           actions: [
-<<<<<<< HEAD
             IconButton(
                 icon: Icon(Icons.save),
                 onPressed: () {
@@ -120,11 +98,5 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           ],
         ),
         body: PDFView(filePath: widget.path));
-=======
-            IconButton(icon: Icon(Icons.save), onPressed: () => download())
-          ],
-        ),
-        body: widget.path != null ? PDFView(filePath: widget.path) : Loading());
->>>>>>> f8e560173d0b0054a6e7950168e75ef4c3edfd9c
   }
 }
