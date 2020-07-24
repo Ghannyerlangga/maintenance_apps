@@ -231,7 +231,7 @@ class _ShowRepairState extends State<ShowRepair> {
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       ),
       width: width,
-      height: 50,
+      height: 75,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
       alignment: Alignment.center,
     );
