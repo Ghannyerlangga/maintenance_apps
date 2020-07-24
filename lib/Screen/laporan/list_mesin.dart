@@ -26,7 +26,6 @@ class _ListMesinState extends State<ListMesin> {
         .collection('mesin')
         .where('jenis', isEqualTo: widget.jenisMesin)
         .getDocuments();
-    print(widget.user.nama);
     return listMesin;
   }
 

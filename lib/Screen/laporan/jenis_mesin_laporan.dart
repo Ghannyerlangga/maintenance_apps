@@ -32,21 +32,28 @@ class _JenisMesinLaporanState extends State<JenisMesinLaporan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Daftar Mesin'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            itemList('AMG'),
-            itemList('CORYMPEX'),
-            itemList('FICEP')
-          ],
+        appBar: AppBar(
+          title: Text('Daftar Mesin'),
         ),
-      ),
-    );
+        body: FutureBuilder<DocumentSnapshot>(
+          future: databaseService.getData(widget.uid),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Loading();
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  itemList('AMG'),
+                  itemList('CORYMPEX'),
+                  itemList('FICEP')
+                ],
+              ),
+            );
+          },
+        ));
   }
 
   Widget itemList(String title) {

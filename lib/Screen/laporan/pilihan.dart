@@ -24,6 +24,17 @@ class PilihanLaporan extends StatelessWidget {
             children: [
               Column(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Center(
+                        child: Text(
+                      'Jenis Checklist',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    )),
+                  ),
                   button('Harian', context),
                   button('Bulanan', context),
                   button('Tahunan', context),
@@ -39,6 +50,7 @@ class PilihanLaporan extends StatelessWidget {
 
   Widget button(String text, BuildContext context) {
     return RaisedButton(
+      color: const Color(0xFF1BC0C5),
       child: Text(text),
       onPressed: () {
         if (text == 'Harian') {
