@@ -53,6 +53,7 @@ class _ListMesinState extends State<ListMesin> {
                         leading: Icon(Icons.assignment),
                         title: Text(x["nama"]),
                         subtitle: Text("Jenis Mesin : ${x["jenis"]}"),
+                        trailing: Text(x["lokasi"]),
                         onTap: () {
                           showDialog(
                             context: context,

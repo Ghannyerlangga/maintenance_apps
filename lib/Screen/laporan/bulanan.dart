@@ -33,18 +33,61 @@ reportBulananView(context, DocumentSnapshot mesin, String namaUser) async {
     'Waktu'
   ];
 
+  String clamp;
+  String coolant;
+  String dust;
+  String gasHoses;
+  String rack;
+  String z_axis;
+
   List<List<String>> listCheck = new List();
 
   for (var indice = 0; indice < dataList.length; indice++) {
+    if (dataList[indice].data['clamp'] == true) {
+      clamp = 'ya';
+    } else {
+      clamp = 'tidak';
+    }
+
+    if (dataList[indice].data['coolant'] == true) {
+      coolant = 'ya';
+    } else {
+      coolant = 'tidak';
+    }
+
+    if (dataList[indice].data['dust'] == true) {
+      dust = 'ya';
+    } else {
+      dust = 'tidak';
+    }
+
+    if (dataList[indice].data['gas hoses'] == true) {
+      gasHoses = 'ya';
+    } else {
+      gasHoses = 'tidak';
+    }
+
+    if (dataList[indice].data['rack'] == true) {
+      rack = 'ya';
+    } else {
+      rack = 'tidak';
+    }
+
+    if (dataList[indice].data['z-axis'] == true) {
+      z_axis = 'ya';
+    } else {
+      z_axis = 'tidak';
+    }
+
     List<String> recind = <String>[
-      dataList[indice].data['clamp'].toString(),
-      dataList[indice].data['coolant'].toString(),
-      dataList[indice].data['dust'].toString(),
-      dataList[indice].data['gas hoses'].toString(),
-      dataList[indice].data['rack'].toString(),
-      dataList[indice].data['z-axis'].toString(),
+      clamp,
+      coolant,
+      dust,
+      gasHoses,
+      rack,
+      z_axis,
       dataList[indice].data['user'],
-      dataList[indice].data['waktu'],
+      dataList[indice].data['waktu'] + " " + dataList[indice].data['jam'],
     ];
     listCheck.add(recind);
   }
@@ -101,7 +144,7 @@ reportBulananView(context, DocumentSnapshot mesin, String namaUser) async {
   final File file = File(path);
   print(path);
   await file.writeAsBytes(pdf.save());
-  material.Navigator.of(context).push(
+  material.Navigator.of(context).pushReplacement(
     material.MaterialPageRoute(
       builder: (_) => PdfViewerPage(path),
     ),

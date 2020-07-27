@@ -14,7 +14,6 @@ class PdfViewerPage extends StatefulWidget {
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  bool _isLoading = true;
   String downloadFolderPath;
   DateTime time = DateTime.now();
 

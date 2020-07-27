@@ -209,6 +209,7 @@ class _ListMesinState extends State<ListMesin> {
       child: Text(
         label,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
       width: width,
       height: 50,
