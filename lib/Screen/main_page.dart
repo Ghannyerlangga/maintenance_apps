@@ -1,36 +1,80 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/barcode.dart';
-import 'package:maintenance_apps/Screen/laporan.dart';
 import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance_list.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
 import 'package:maintenance_apps/Screen/Document/document1.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   final FirebaseUser user;
   MainPage(this.user);
+  @override
+  _MainPage createState() => _MainPage();
+}
+
+class _MainPage extends State<MainPage> {
+  final CollectionReference data = Firestore.instance.collection("data");
+  String nama;
+  String position;
+
+  Future getData() async {
+    final DocumentReference result = data.document(widget.user.uid);
+    await result.get().then((DocumentSnapshot snapshot) {
+      setState(() {
+        nama = snapshot.data["nama"];
+        position = snapshot.data["position"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    print(widget.user.uid);
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        leading: Icon(Icons.home),
+        // leading: Icon(Icons.home),
+        centerTitle: true,
         title: Text(
           "WIKA MAINTENANCE",
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(fontSize: 20.0),
         ),
-        actions: <Widget>[
-          FlatButton.icon(
-              onPressed: () async {
-                await AuthServices.signOut();
-              },
-              icon: Icon(Icons.exit_to_app),
-              label: Text("Logout"))
-        ],
+      ),
+      drawer: Container(
+        width: MediaQuery.of(context).size.width * 0.60,
+        child: Drawer(
+          child: Column(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                accountName: Text("User : $nama"),
+                accountEmail: Text("Divisi : $position"),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ListTile(
+                    title: Text("Logout"),
+                    trailing: Icon(Icons.exit_to_app),
+                    onTap: () async {
+                      await AuthServices.signOut();
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
       body: Container(
         child: new ListView(
@@ -332,7 +376,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return JenisMesinLaporan(user.uid);
+                              return JenisMesinLaporan(widget.user.uid);
                             }));
                           },
                           child: Column(
