@@ -10,12 +10,9 @@ class DatabaseService {
   final CollectionReference userCollection =
       Firestore.instance.collection('data');
 
-<<<<<<< HEAD
   final CollectionReference userCollection = Firestore.instance.collection('data');
-=======
   final CollectionReference mesinCollection =
       Firestore.instance.collection('mesin');
->>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
 
   final CollectionReference harianCollection =
       Firestore.instance.collection('harian');
@@ -43,7 +40,6 @@ class DatabaseService {
     return snapshot;
   }
 
-<<<<<<< HEAD
   Future<void> updateUserData(String name,String position,String address) async{
     return await userCollection.document(uid).setData({
       'name' : name,
@@ -62,7 +58,6 @@ class DatabaseService {
       'name': name,
       'position': position,
       'address': address,
-=======
   Future<void> addMesin(String kode, String nama, String jenis,
       String kapasitas, String jumlah, String lokasi, String keterangan) async {
     await mesinCollection.document(kode).setData({
@@ -73,7 +68,6 @@ class DatabaseService {
       'jumlah': jumlah,
       'lokasi': lokasi,
       'keterangan': keterangan
->>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
     });
   }
 

@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import 'package:maintenance_apps/Screen/Document/document1.dart';
-=======
->>>>>>> 653a93fc791a1226222bf149167cd15a0eacdeb3
-=======
->>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
+
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance_list.dart';
@@ -89,7 +85,6 @@ class _MainPage extends State<MainPage> {
               // color: Colors.black,
               height: MediaQuery.of(context).size.height * 0.21,
               width: MediaQuery.of(context).size.width * 0.80,
-<<<<<<< HEAD
               margin: EdgeInsets.all(10),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,14 +93,9 @@ class _MainPage extends State<MainPage> {
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
                     child: Image.asset(
                       "img/logo_wika1.png",
-<<<<<<< HEAD
                       height: MediaQuery.of(context).size.height * 0.20,
-=======
-                      height: MediaQuery.of(context).size.height * 0.10,
->>>>>>> 653a93fc791a1226222bf149167cd15a0eacdeb3
                       width: MediaQuery.of(context).size.width * 0.40,
-=======
-              margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
               padding: EdgeInsets.only(bottom: 0),
               child: Column(children: <Widget>[
                 new Row(
@@ -119,7 +109,6 @@ class _MainPage extends State<MainPage> {
                         height: MediaQuery.of(context).size.height * 0.10,
                         width: MediaQuery.of(context).size.width * 0.40,
                       ),
->>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
                     ),
                     Container(
                       // color: Colors.white,
