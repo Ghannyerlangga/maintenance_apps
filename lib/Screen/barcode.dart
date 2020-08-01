@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -42,11 +43,40 @@ class _BarcodeState extends State<Barcode> {
       body: Center(
         child: Column(
           children: <Widget>[
-            FlatButton(
-                onPressed: () async {
-                  scanbarcode();
-                },
-                child: Text("SCAN")),
+            // FlatButton(
+            //     onPressed: () async {
+            //       scanbarcode();
+            //     },
+            //     child: Text("SCAN")),
+            Container(
+              alignment: Alignment.center,
+              child: ClipOval(
+                child: Material(
+                  color: Colors.blue, // button color
+                  child: InkWell(
+                    splashColor: Colors.white, // inkwell color
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: AutoSizeText(
+                            "Scan QR-Code",
+                            maxLines: 1,
+                            maxFontSize: 20,
+                            minFontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    onTap: () async {
+                      scanbarcode();
+                    },
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

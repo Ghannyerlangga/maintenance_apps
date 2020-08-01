@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:maintenance_apps/shared/loading.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,7 +13,6 @@ class PdfViewerPage extends StatefulWidget {
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  bool _isLoading = true;
   String downloadFolderPath;
   DateTime time = DateTime.now();
 

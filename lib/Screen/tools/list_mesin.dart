@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
-import 'package:maintenance_apps/Screen/laporan/harian.dart';
 import 'package:maintenance_apps/Screen/tools/tambah_mesin.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 
@@ -21,8 +20,6 @@ class _ListMesinState extends State<ListMesin> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     data = getListMesin(widget.jenisMesin);
     super.initState();
   }

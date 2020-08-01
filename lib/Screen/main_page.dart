@@ -8,7 +8,6 @@ import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
 import 'package:maintenance_apps/Screen/Document/document1.dart';
-import 'package:maintenance_apps/shared/loading.dart';
 
 class MainPage extends StatefulWidget {
   final FirebaseUser user;

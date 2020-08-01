@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 import 'package:maintenance_apps/models/repair.dart';
-import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahRepair extends StatefulWidget {
   final Repair repair;

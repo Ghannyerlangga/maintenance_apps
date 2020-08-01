@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/tools/daftar_jenis_mesin.dart';
-import 'package:maintenance_apps/Screen/tools/lihat_repair.dart';
-import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
 
 class Tools extends StatelessWidget {
   @override
