@@ -1,43 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 <<<<<<< HEAD
 import 'package:maintenance_apps/Screen/Document/document1.dart';
 =======
 >>>>>>> 653a93fc791a1226222bf149167cd15a0eacdeb3
+=======
+>>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
 import 'package:maintenance_apps/Screen/barcode.dart';
-import 'package:maintenance_apps/Screen/laporan.dart';
-import 'package:maintenance_apps/Screen/maintenance.dart';
+import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
+import 'package:maintenance_apps/Screen/maintenance_list.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
+import 'package:maintenance_apps/Screen/Document/document1.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   final FirebaseUser user;
   MainPage(this.user);
+  @override
+  _MainPage createState() => _MainPage();
+}
 
-  
+class _MainPage extends State<MainPage> {
+  final CollectionReference data = Firestore.instance.collection("data");
+  String nama;
+  String position;
+
+  Future getData() async {
+    final DocumentReference result = data.document(widget.user.uid);
+    await result.get().then((DocumentSnapshot snapshot) {
+      setState(() {
+        nama = snapshot.data["nama"];
+        position = snapshot.data["position"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    print(widget.user.uid);
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Main Page"),
-        actions: <Widget>[
-          FlatButton.icon(
-              onPressed: () async {
-                await AuthServices.signOut();
-              },
-              icon: Icon(Icons.exit_to_app),
-              label: Text("Logout"))
-        ],
+        // leading: Icon(Icons.home),
+        centerTitle: true,
+        title: Text(
+          "WIKA MAINTENANCE",
+          style: TextStyle(fontSize: 20.0),
+        ),
+      ),
+      drawer: Container(
+        width: MediaQuery.of(context).size.width * 0.60,
+        child: Drawer(
+          child: Column(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                accountName: Text("User : $nama"),
+                accountEmail: Text("Divisi : $position"),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ListTile(
+                    title: Text("Logout"),
+                    trailing: Icon(Icons.exit_to_app),
+                    onTap: () async {
+                      await AuthServices.signOut();
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
       body: Container(
         child: new ListView(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * 0.30,
+              // color: Colors.black,
+              height: MediaQuery.of(context).size.height * 0.21,
               width: MediaQuery.of(context).size.width * 0.80,
+<<<<<<< HEAD
               margin: EdgeInsets.all(10),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,18 +104,51 @@ class MainPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.10,
 >>>>>>> 653a93fc791a1226222bf149167cd15a0eacdeb3
                       width: MediaQuery.of(context).size.width * 0.40,
+=======
+              margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+              padding: EdgeInsets.only(bottom: 0),
+              child: Column(children: <Widget>[
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      // color: Colors.white,
+                      padding: EdgeInsets.fromLTRB(0, 10.0, 5.0, 0),
+                      child: Image.asset(
+                        "img/logo_wika1.png",
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        width: MediaQuery.of(context).size.width * 0.40,
+                      ),
+>>>>>>> 513ba2a88837d9c0bcdfb9d2f38cac5c08829f9f
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(5.0, 10.0, 10.0, 10.0),
-                    child: Image.asset(
-                      "img/logo_industri.png",
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      width: MediaQuery.of(context).size.width * 0.40,
+                    Container(
+                      // color: Colors.white,
+                      padding: EdgeInsets.fromLTRB(0, 10.0, 10.0, 0),
+                      child: Image.asset(
+                        "img/logo_industri.png",
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        width: MediaQuery.of(context).size.width * 0.40,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      // color: Colors.white,
+                      margin: EdgeInsets.only(top: 5.0, bottom: 30.0),
+                      child: Text(
+                        "Pabrik Fabrikasi Baja Majalengka",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
             ),
             Container(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -81,7 +166,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Maintenance();
+                              return MainList();
                             }));
                           },
                           child: Column(
@@ -175,7 +260,9 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Document1(document_num: 1,);
+                              return Document1(
+                                documentNum: 1,
+                              );
                             }));
                           },
                           child: Column(
@@ -312,7 +399,7 @@ class MainPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return Laporan(user.uid);
+                              return JenisMesinLaporan(widget.user.uid);
                             }));
                           },
                           child: Column(

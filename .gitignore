@@ -9,6 +9,7 @@
 .history
 .svn/
 
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -23,9 +24,15 @@
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
+.flutter-plugins~report
+.flutter-plugins-dependencies~report
+.packages~report
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.flutter-plugins~report
+.flutter-plugins-dependencies~report
+.packages~report
 .pub-cache/
 .pub/
 /build/
@@ -41,3 +48,5 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+.dart_

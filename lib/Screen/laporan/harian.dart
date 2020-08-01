@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_apps/Screen/laporan/view.dart';
 import 'package:maintenance_apps/Services/database.dart';
-import 'package:maintenance_apps/models/harian.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 import 'package:pdf/pdf.dart';
 import 'dart:io';
 import 'package:pdf/widgets.dart';
@@ -9,30 +9,39 @@ import 'package:flutter/material.dart' as material;
 import 'package:path_provider/path_provider.dart';
 
 final DatabaseService database = DatabaseService();
-Harian harian;
-List<Data> dataList;
 
+List<DocumentSnapshot> dataList;
 
-reportHarianView(context,DocumentSnapshot mesin, String namaUser) async {
-
-
+reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
+  CollectionReference collectionReference =
+      Firestore.instance.collection('checklist');
 
   final Document pdf = Document();
-  DocumentSnapshot data = await database.getDataHarian(mesin.data['kode']);
-  harian = Harian.fromSnapshot(data);
-        dataList = harian.data;
- 
+  QuerySnapshot data = await collectionReference
+      .where('checklist', isEqualTo: 'Daily')
+      .where('jenis mesin', isEqualTo: mesin.data['nama'])
+      .getDocuments();
+  //harian = Harian.fromSnapshot(data);
+  dataList = data.documents;
 
-List<List<String>> salidas = new List();
+  List<List<String>> listCheck = new List();
 
-for(var indice=0;indice<dataList.length;indice++) {
-   List<String> recind = <String>[
-       dataList[indice].keterangan,
-       dataList[indice].pengisi,
-       dataList[indice].waktu
-   ];
-   salidas.add(recind);
-}
+  for (var indice = 0; indice < dataList.length; indice++) {
+    List<String> recind = <String>[
+      dataList[indice].data['cable chain'].toString(),
+      dataList[indice].data['elpiji'].toString(),
+      dataList[indice].data['limit switch'].toString(),
+      dataList[indice].data['linear guide'].toString(),
+      dataList[indice].data['machine'].toString(),
+      dataList[indice].data['nitrogen'].toString(),
+      dataList[indice].data['nozzle'].toString(),
+      dataList[indice].data['oxygen'].toString(),
+      dataList[indice].data['rail'].toString(),
+      dataList[indice].data['user'],
+      dataList[indice].data['waktu'],
+    ];
+    listCheck.add(recind);
+  }
 
   pdf.addPage(MultiPage(
       pageFormat:
@@ -69,27 +78,50 @@ for(var indice=0;indice<dataList.length;indice++) {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Laporan Harian Perawatan Mesin '+mesin.data['nama'], textScaleFactor: 2),
+                      Text(
+                          'Laporan Harian Perawatan Mesin ' +
+                              mesin.data['nama'],
+                          textScaleFactor: 2),
                       PdfLogo()
                     ])),
-            Header(level: 1, text: 'Penanggun Jawab Mesin : '+namaUser),
-
+            Header(level: 1, text: 'Penanggun Jawab Mesin : ' + namaUser),
             Padding(padding: const EdgeInsets.all(10)),
-
-            
-
-            Table.fromTextArray(context: context,headers: ['Keterangan','Pengisi','Waktu'],data:salidas
-            ),
-
+            Table.fromTextArray(
+                context: context,
+                headers: [
+                  'cable chain',
+                  'elpiji',
+                  'limit switch',
+                  'linear guide',
+                  'machine',
+                  'nitrogen',
+                  'nozzle',
+                  'oxygen',
+                  'rail',
+                  'pengisi',
+                  'waktu'
+                ],
+                data: listCheck),
           ]));
   //save PDF
+  final String ext = (await getExternalStorageDirectory())
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .parent
+      .path;
+  print(ext);
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/report.pdf';
   final File file = File(path);
+  print(path);
   await file.writeAsBytes(pdf.save());
   material.Navigator.of(context).push(
     material.MaterialPageRoute(
-      builder: (_) => PdfViewerPage(path: path),
+      builder: (_) => data.documents.isEmpty ? Loading() : PdfViewerPage(path),
     ),
-  ); 
+  );
 }
