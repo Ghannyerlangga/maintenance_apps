@@ -26,7 +26,6 @@ class _ListMesinState extends State<ListMesin> {
         .collection('mesin')
         .where('jenis', isEqualTo: widget.jenisMesin)
         .getDocuments();
-    print(widget.user.nama);
     return listMesin;
   }
 
@@ -54,6 +53,7 @@ class _ListMesinState extends State<ListMesin> {
                         leading: Icon(Icons.assignment),
                         title: Text(x["nama"]),
                         subtitle: Text("Jenis Mesin : ${x["jenis"]}"),
+                        trailing: Text(x["lokasi"]),
                         onTap: () {
                           showDialog(
                             context: context,

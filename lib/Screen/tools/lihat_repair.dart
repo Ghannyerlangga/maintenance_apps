@@ -227,6 +227,7 @@ class _ShowRepairState extends State<ShowRepair> {
               bottom: BorderSide(color: Colors.black54, width: 1.0))),
       child: Text(
         label,
+        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       ),
       width: width,

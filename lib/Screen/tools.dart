@@ -8,7 +8,6 @@ class Tools extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             "Tools",
-            style: TextStyle(fontSize: 16.0),
           ),
           centerTitle: true,
         ),

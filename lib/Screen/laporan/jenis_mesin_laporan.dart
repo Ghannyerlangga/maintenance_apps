@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/laporan/list_mesin.dart';
 import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/models/user.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
 class JenisMesinLaporan extends StatefulWidget {
   final String uid;
@@ -31,21 +32,28 @@ class _JenisMesinLaporanState extends State<JenisMesinLaporan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Daftar Mesin'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            itemList('AMG'),
-            itemList('CORYMPEX'),
-            itemList('FICEP')
-          ],
+        appBar: AppBar(
+          title: Text('Daftar Mesin'),
         ),
-      ),
-    );
+        body: FutureBuilder<DocumentSnapshot>(
+          future: databaseService.getData(widget.uid),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Loading();
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  itemList('AMG'),
+                  itemList('CORYMPEX'),
+                  itemList('FICEP')
+                ],
+              ),
+            );
+          },
+        ));
   }
 
   Widget itemList(String title) {

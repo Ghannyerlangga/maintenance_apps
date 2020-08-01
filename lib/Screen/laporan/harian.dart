@@ -16,6 +16,16 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
   CollectionReference collectionReference =
       Firestore.instance.collection('checklist');
 
+  String cableChain;
+  String elpiji;
+  String limitSwitch;
+  String linearGuide;
+  String machine;
+  String nitrogen;
+  String nozzle;
+  String oxygen;
+  String rail;
+
   final Document pdf = Document();
   QuerySnapshot data = await collectionReference
       .where('checklist', isEqualTo: 'Daily')
@@ -27,18 +37,71 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
   List<List<String>> listCheck = new List();
 
   for (var indice = 0; indice < dataList.length; indice++) {
+    if (dataList[indice].data['cable chain'] == true) {
+      cableChain = 'ya';
+    } else {
+      cableChain = 'tidak';
+    }
+
+    if (dataList[indice].data['elpiji'] == true) {
+      elpiji = 'ya';
+    } else {
+      elpiji = 'tidak';
+    }
+
+    if (dataList[indice].data['limit switch'] == true) {
+      limitSwitch = 'ya';
+    } else {
+      limitSwitch = 'tidak';
+    }
+
+    if (dataList[indice].data['linear guide'] == true) {
+      linearGuide = 'ya';
+    } else {
+      linearGuide = 'tidak';
+    }
+
+    if (dataList[indice].data['machine'] == true) {
+      machine = 'ya';
+    } else {
+      machine = 'tidak';
+    }
+
+    if (dataList[indice].data['nitrogen'] == true) {
+      nitrogen = 'ya';
+    } else {
+      nitrogen = 'tidak';
+    }
+
+    if (dataList[indice].data['nozzle'] == true) {
+      nozzle = 'ya';
+    } else {
+      nozzle = 'tidak';
+    }
+
+    if (dataList[indice].data['oxygen'] == true) {
+      oxygen = 'ya';
+    } else {
+      oxygen = 'tidak';
+    }
+
+    if (dataList[indice].data['rail'] == true) {
+      rail = 'ya';
+    } else {
+      rail = 'tidak';
+    }
     List<String> recind = <String>[
-      dataList[indice].data['cable chain'].toString(),
-      dataList[indice].data['elpiji'].toString(),
-      dataList[indice].data['limit switch'].toString(),
-      dataList[indice].data['linear guide'].toString(),
-      dataList[indice].data['machine'].toString(),
-      dataList[indice].data['nitrogen'].toString(),
-      dataList[indice].data['nozzle'].toString(),
-      dataList[indice].data['oxygen'].toString(),
-      dataList[indice].data['rail'].toString(),
+      cableChain,
+      elpiji,
+      limitSwitch,
+      linearGuide,
+      machine,
+      nitrogen,
+      nozzle,
+      oxygen,
+      rail,
       dataList[indice].data['user'],
-      dataList[indice].data['waktu'],
+      dataList[indice].data['waktu'] + " " + dataList[indice].data['jam'],
     ];
     listCheck.add(recind);
   }
@@ -87,6 +150,7 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
             Header(level: 1, text: 'Penanggun Jawab Mesin : ' + namaUser),
             Padding(padding: const EdgeInsets.all(10)),
             Table.fromTextArray(
+                cellAlignment: Alignment.center,
                 context: context,
                 headers: [
                   'cable chain',
@@ -99,7 +163,7 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
                   'oxygen',
                   'rail',
                   'pengisi',
-                  'waktu'
+                  'waktu',
                 ],
                 data: listCheck),
           ]));
@@ -118,10 +182,13 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
   final String path = '$dir/report.pdf';
   final File file = File(path);
   print(path);
-  await file.writeAsBytes(pdf.save());
-  material.Navigator.of(context).push(
-    material.MaterialPageRoute(
-      builder: (_) => data.documents.isEmpty ? Loading() : PdfViewerPage(path),
-    ),
-  );
+  await file.writeAsBytes(pdf.save()).then((value) {
+    material.Navigator.pushReplacement(
+      context,
+      material.MaterialPageRoute(
+        builder: (_) =>
+            data.documents.isEmpty ? Loading() : PdfViewerPage(path),
+      ),
+    );
+  });
 }
