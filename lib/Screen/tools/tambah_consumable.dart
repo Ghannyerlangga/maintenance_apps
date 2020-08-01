@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/models/consumable.dart';
+import 'package:maintenance_apps/shared/constant.dart';
 
 class TambahConsumable extends StatefulWidget {
   final Consumable consumable;
@@ -12,6 +13,7 @@ class TambahConsumable extends StatefulWidget {
 
 class _TambahConsumableState extends State<TambahConsumable> {
   bool _modeTambah = true;
+  double s;
 
   CollectionReference consumableCollection =
       Firestore.instance.collection('consumable');
@@ -75,34 +77,40 @@ class _TambahConsumableState extends State<TambahConsumable> {
 
   @override
   Widget build(BuildContext context) {
+    s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah data perbaikan mesin"),
+        title: Text("Tambah data consumable"),
       ),
       body: ListView(
+        padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
         children: [
           inputField('Nama Consumable', _namaController, 'consumable'),
           inputField('Jenis Mesin', _jenisController, 'penganggung jawab'),
           inputField('Part Mesin', _partController, 'spare part'),
           inputField('Jumlah', _jumlahController, 'jumlah'),
           inputField('Keterangan', _keteranganController, 'keterangan'),
-          RaisedButton(
-              child: Text('Simpan'),
-              onPressed: () {
-                _modeTambah
-                    ? tambahConsumable(
-                        _namaController.text,
-                        _jenisController.text,
-                        _partController.text,
-                        _jumlahController.text,
-                        _keteranganController.text)
-                    : ubahConsumable(
-                        _namaController.text,
-                        _jenisController.text,
-                        _partController.text,
-                        _jumlahController.text,
-                        _keteranganController.text);
-              })
+          Padding(
+            padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
+            child: RaisedButton(
+                color: Colors.blue[200],
+                child: Text('Simpan'),
+                onPressed: () {
+                  _modeTambah
+                      ? tambahConsumable(
+                          _namaController.text,
+                          _jenisController.text,
+                          _partController.text,
+                          _jumlahController.text,
+                          _keteranganController.text)
+                      : ubahConsumable(
+                          _namaController.text,
+                          _jenisController.text,
+                          _partController.text,
+                          _jumlahController.text,
+                          _keteranganController.text);
+                }),
+          )
         ],
       ),
     );
@@ -111,24 +119,14 @@ class _TambahConsumableState extends State<TambahConsumable> {
   Widget inputField(
       String leading, TextEditingController controller, String hint) {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width * 0.20,
-                child: Text(
-                  leading,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.70,
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(hintText: hint),
-              ),
-            ),
-          ],
-        ));
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: controller,
+        decoration: textInputDecoration.copyWith(
+          labelText: leading,
+          hintText: hint,
+        ),
+      ),
+    );
   }
 }

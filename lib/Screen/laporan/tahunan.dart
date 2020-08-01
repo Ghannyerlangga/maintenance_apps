@@ -26,12 +26,26 @@ reportTahunanView(context, DocumentSnapshot mesin, String namaUser) async {
 
   List<List<String>> listCheck = new List();
 
+  String machineAngle;
+  String remoteControl;
+
   for (var indice = 0; indice < dataList.length; indice++) {
+    if (dataList[indice].data['machine angle'] = true) {
+      machineAngle = 'ya';
+    } else {
+      machineAngle = 'tidak';
+    }
+
+    if (dataList[indice].data['remote control'] = true) {
+      remoteControl = 'ya';
+    } else {
+      remoteControl = 'tidak';
+    }
     List<String> recind = <String>[
-      dataList[indice].data['machine angle'].toString(),
-      dataList[indice].data['remote control'].toString(),
+      machineAngle,
+      remoteControl,
       dataList[indice].data['user'],
-      dataList[indice].data['waktu'],
+      dataList[indice].data['waktu'] + " " + dataList[indice].data['jam'],
     ];
     listCheck.add(recind);
   }
@@ -88,7 +102,7 @@ reportTahunanView(context, DocumentSnapshot mesin, String namaUser) async {
   final File file = File(path);
   print(path);
   await file.writeAsBytes(pdf.save());
-  material.Navigator.of(context).push(
+  material.Navigator.of(context).pushReplacement(
     material.MaterialPageRoute(
       builder: (_) => PdfViewerPage(path),
     ),

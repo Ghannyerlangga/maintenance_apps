@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 import 'package:maintenance_apps/models/repair.dart';
+import 'package:maintenance_apps/shared/constant.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahRepair extends StatefulWidget {
   final Repair repair;
@@ -26,6 +28,8 @@ class _TambahRepairState extends State<TambahRepair> {
   DateTime tanggalPerbaikan = DateTime.now();
 
   String namaMesin;
+
+  double s;
 
   CollectionReference collection = Firestore.instance.collection('repair');
 
@@ -120,116 +124,93 @@ class _TambahRepairState extends State<TambahRepair> {
 
   @override
   Widget build(BuildContext context) {
+    s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text("Tambah data perbaikan mesin"),
       ),
       body: ListView(
+        padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
         children: [
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      child: Text(
-                        "Tanggal Kerusakan Mesin",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.70,
-                    child: DropdownButton(
-                      hint: Text("Pilih Nama Mesin"),
-                      value: namaMesin,
-                      items: widget.mesin.listMesin.map((item) {
-                        return DropdownMenuItem(
-                            child: Text(item.nama), value: item.nama);
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          namaMesin = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+              child: InputDecorator(
+                decoration: textInputDecoration.copyWith(
+                    labelText: "Jenis Mesin", hintText: "jenis mesin"),
+                child: DropdownButton(
+                  isDense: true,
+                  hint: Text("Pilih Nama Mesin"),
+                  value: namaMesin,
+                  items: widget.mesin.listMesin.map((item) {
+                    return DropdownMenuItem(
+                        child: Text(item.nama), value: item.nama);
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      namaMesin = value;
+                    });
+                  },
+                ),
               )),
           Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      child: Text(
-                        "Tanggal Kerusakan Mesin",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.70,
-                    child: TextField(
-                      controller: _tanggalRusak,
-                      decoration: InputDecoration(
-                        hintText: "tanggal kerusakan mesin",
-                      ),
-                      onTap: () {
-                        _pilihTanggal(context, 'rusak');
-                      },
-                    ),
-                  ),
-                ],
-              )),
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.70,
+              child: TextField(
+                controller: _tanggalPerbaikan,
+                decoration: textInputDecoration.copyWith(
+                    labelText: "Tanggal Kerusakan Mesin",
+                    hintText: 'tanggal kerusakan mesin'),
+                onTap: () {
+                  _pilihTanggal(context, 'perbaikan');
+                },
+              ),
+            ),
+          ),
           Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      child: Text(
-                        "Tanggal Perbaikan Mesin",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.70,
-                    child: TextField(
-                      controller: _tanggalPerbaikan,
-                      decoration: InputDecoration(
-                        hintText: "tanggal perbaikan mesin",
-                      ),
-                      onTap: () {
-                        _pilihTanggal(context, 'perbaikan');
-                      },
-                    ),
-                  ),
-                ],
-              )),
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.70,
+              child: TextField(
+                controller: _tanggalPerbaikan,
+                decoration: textInputDecoration.copyWith(
+                    labelText: "Tanggal Perbaikan Mesin",
+                    hintText: 'tanggal perbaikan mesin'),
+                onTap: () {
+                  _pilihTanggal(context, 'perbaikan');
+                },
+              ),
+            ),
+          ),
           inputField('Consumable', _consumableController, 'consumable'),
           inputField('Penganggung jawab', _pjController, 'penganggung jawab'),
           inputField('Spare part', _sparePartController, 'spare part'),
           inputField('Keterangan', _keteranganController, 'keterangan'),
-          RaisedButton(
-              child: Text('Simpan'),
-              onPressed: () {
-                _modeTambah
-                    ? tambahRepair(
-                        namaMesin,
-                        _tanggalRusak.text,
-                        _tanggalPerbaikan.text,
-                        _consumableController.text,
-                        _pjController.text,
-                        _sparePartController.text,
-                        _keteranganController.text)
-                    : ubahRepair(
-                        namaMesin,
-                        _tanggalRusak.text,
-                        _tanggalPerbaikan.text,
-                        _consumableController.text,
-                        _pjController.text,
-                        _sparePartController.text,
-                        _keteranganController.text);
-              })
+          Padding(
+            padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
+            child: RaisedButton(
+                color: Colors.blue[200],
+                child: Text('Simpan'),
+                onPressed: () {
+                  _modeTambah
+                      ? tambahRepair(
+                          namaMesin,
+                          _tanggalRusak.text,
+                          _tanggalPerbaikan.text,
+                          _consumableController.text,
+                          _pjController.text,
+                          _sparePartController.text,
+                          _keteranganController.text)
+                      : ubahRepair(
+                          namaMesin,
+                          _tanggalRusak.text,
+                          _tanggalPerbaikan.text,
+                          _consumableController.text,
+                          _pjController.text,
+                          _sparePartController.text,
+                          _keteranganController.text);
+                }),
+          )
         ],
       ),
     );
@@ -238,24 +219,14 @@ class _TambahRepairState extends State<TambahRepair> {
   Widget inputField(
       String leading, TextEditingController controller, String hint) {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width * 0.20,
-                child: Text(
-                  leading,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.70,
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(hintText: hint),
-              ),
-            ),
-          ],
-        ));
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: controller,
+        decoration: textInputDecoration.copyWith(
+          labelText: leading,
+          hintText: hint,
+        ),
+      ),
+    );
   }
 }

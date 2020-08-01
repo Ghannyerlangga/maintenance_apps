@@ -11,6 +11,7 @@ class DaftarMesin extends StatefulWidget {
 }
 
 class _DaftarMesinState extends State<DaftarMesin> {
+  Image iconImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +31,25 @@ class _DaftarMesinState extends State<DaftarMesin> {
   }
 
   Widget itemList(String title) {
+    if (widget.mode == 'mesin') {
+      iconImage = Image.asset(
+        "img/MachineFlatIcon.png",
+        height: 40.0,
+        width: 40.0,
+      );
+    } else if (widget.mode == 'repair') {
+      iconImage = Image.asset(
+        "img/repairFlatIcon.png",
+        height: 40.0,
+        width: 40.0,
+      );
+    } else if (widget.mode == 'consumable') {
+      iconImage = Image.asset(
+        "img/ConsumableIcon8.png",
+        height: 40.0,
+        width: 40.0,
+      );
+    }
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -58,18 +78,14 @@ class _DaftarMesinState extends State<DaftarMesin> {
               children: <Widget>[
                 Container(
                   height: 50.0,
-                  child: Image.asset(
-                    "img/MachineFlatIcon.png",
-                    height: 40.0,
-                    width: 40.0,
-                  ),
+                  child: iconImage,
                   padding: EdgeInsets.all(10.0),
                 ),
                 new Container(
                     child: Text(
                   title,
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 20, color: Colors.white, shadows: [
+                  style: TextStyle(fontSize: 16, color: Colors.white, shadows: [
                     Shadow(
                         color: Colors.lightBlue,
                         offset: Offset(1, 2),

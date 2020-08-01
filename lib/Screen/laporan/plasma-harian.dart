@@ -33,14 +33,43 @@ reportPlasmaHarianView(context, DocumentSnapshot mesin, String namaUser) async {
 
   List<List<String>> listCheck = new List();
 
+  String filterUdara;
+  String levelCoolant;
+  String tekananAngin;
+  String tekananAngingCutflow;
+
   for (var indice = 0; indice < dataList.length; indice++) {
+    if (dataList[indice].data['filter udara'] == true) {
+      filterUdara = 'ya';
+    } else {
+      filterUdara = 'tidak';
+    }
+
+    if (dataList[indice].data['level coolant'] == true) {
+      levelCoolant = 'ya';
+    } else {
+      levelCoolant = 'tidak';
+    }
+
+    if (dataList[indice].data['tekanan angin'] == true) {
+      tekananAngin = 'ya';
+    } else {
+      tekananAngin = 'tidak';
+    }
+
+    if (dataList[indice].data['tekanan angin cutflow'] == true) {
+      tekananAngingCutflow = 'ya';
+    } else {
+      tekananAngingCutflow = 'tidak';
+    }
+
     List<String> recind = <String>[
-      dataList[indice].data['filter udara'].toString(),
-      dataList[indice].data['level coolant'].toString(),
-      dataList[indice].data['tekanan angin'].toString(),
-      dataList[indice].data['tekanan angin cutflow'].toString(),
+      filterUdara,
+      levelCoolant,
+      tekananAngin,
+      tekananAngingCutflow,
       dataList[indice].data['user'],
-      dataList[indice].data['waktu'],
+      dataList[indice].data['waktu'] + " " + dataList[indice].data['jam'],
     ];
     listCheck.add(recind);
   }
@@ -97,7 +126,7 @@ reportPlasmaHarianView(context, DocumentSnapshot mesin, String namaUser) async {
   final File file = File(path);
   print(path);
   await file.writeAsBytes(pdf.save());
-  material.Navigator.of(context).push(
+  material.Navigator.of(context).pushReplacement(
     material.MaterialPageRoute(
       builder: (_) => PdfViewerPage(path),
     ),

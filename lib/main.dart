@@ -13,6 +13,12 @@ class Utama extends StatelessWidget {
     return StreamProvider.value(
       value: AuthServices.firebaseUserStream,
       child: MaterialApp(
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                textTheme: TextTheme(
+                    headline6:
+                        TextStyle(fontSize: 26, fontWeight: FontWeight.bold))),
+            scaffoldBackgroundColor: Colors.blue[100]),
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),

@@ -15,15 +15,27 @@ class PilihanLaporan extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
+        width: MediaQuery.of(context).size.width * 0.5,
         height: 300,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Center(
+                        child: Text(
+                      'Jenis Checklist',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    )),
+                  ),
                   button('Harian', context),
                   button('Bulanan', context),
                   button('Tahunan', context),
@@ -39,6 +51,7 @@ class PilihanLaporan extends StatelessWidget {
 
   Widget button(String text, BuildContext context) {
     return RaisedButton(
+      color: const Color(0xFF1BC0C5),
       child: Text(text),
       onPressed: () {
         if (text == 'Harian') {
