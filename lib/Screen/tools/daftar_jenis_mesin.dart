@@ -85,7 +85,7 @@ class _DaftarMesinState extends State<DaftarMesin> {
                     child: Text(
                   title,
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 20, color: Colors.white, shadows: [
+                  style: TextStyle(fontSize: 16, color: Colors.white, shadows: [
                     Shadow(
                         color: Colors.lightBlue,
                         offset: Offset(1, 2),

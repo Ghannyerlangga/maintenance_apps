@@ -150,6 +150,7 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
             Header(level: 1, text: 'Penanggun Jawab Mesin : ' + namaUser),
             Padding(padding: const EdgeInsets.all(10)),
             Table.fromTextArray(
+                cellAlignment: Alignment.center,
                 context: context,
                 headers: [
                   'cable chain',

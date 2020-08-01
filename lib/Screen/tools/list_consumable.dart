@@ -40,7 +40,7 @@ class _ListConsumableState extends State<ListConsumable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Perbaikan Mesin'),
+        title: Text('Daftar Consumable'),
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
