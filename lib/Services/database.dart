@@ -17,9 +17,9 @@ class DatabaseService {
       Firestore.instance.collection('harian');
 
   Future<void> updateUserData(
-      String name, String position, String address) async {
+      String nama, String position, String address) async {
     return await myCollection.document(uid).setData({
-      'name': name,
+      'nama': nama,
       'position': position,
       'address': address,
     });

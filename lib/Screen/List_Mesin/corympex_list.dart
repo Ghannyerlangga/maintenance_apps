@@ -47,7 +47,7 @@ class _CorympexListState extends State<CorympexList> {
                       builder: (context) => CorympexData(),
                     ));
               },
-              icon: Icon(Icons.check),
+              icon: Icon(Icons.edit),
               label: Text("Edit"))
         ],
       ),

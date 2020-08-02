@@ -70,12 +70,210 @@ class _MonthlyState extends State<Monthly> {
                   ],
                 ),
               ),
-              list("Lubricating Rack & Ponion", a),
-              list("Inspect All Gas Hoses", b),
-              list("Inspect and Lubricate Z-Axis", c),
-              list("Coolant Fan Filter", d),
-              list("Lubricating Clamp", e),
-              list("Dust Proof Baffle", f),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Lubricating Rack & Ponion"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Inspect All Gas Hoses"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Inspect and Lubricate Z-Axis"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Coolant Fan Filter"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Lubricating Clamp"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: e,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              e = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !e,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              e = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Dust Proof Baffle"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: f,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              f = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !f,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              f = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: Padding(
@@ -122,41 +320,41 @@ class _MonthlyState extends State<Monthly> {
     );
   }
 
-  Widget list(String ket, bool nilai) {
-    double lebar = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-      padding: EdgeInsets.only(left: lebar * 0.05),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: lebar * 0.60,
-            child: Text(ket),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = value;
-                  });
-                }),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: !nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = !value;
-                  });
-                }),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget list(String ket, bool nilai) {
+  //   double lebar = MediaQuery.of(context).size.width;
+  //   return Container(
+  //     margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+  //     padding: EdgeInsets.only(left: lebar * 0.05),
+  //     child: Row(
+  //       children: <Widget>[
+  //         Container(
+  //           width: lebar * 0.60,
+  //           child: Text(ket),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = value;
+  //                 });
+  //               }),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: !nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = !value;
+  //                 });
+  //               }),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

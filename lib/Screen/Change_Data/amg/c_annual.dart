@@ -63,7 +63,7 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      width: lebar * 0.65,
+                      width: lebar * 0.60,
                       child: Text(widget.jenis),
                     ),
                     Container(
@@ -79,8 +79,74 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
                   ],
                 ),
               ),
-              list("Remote Control Battery", a),
-              list("Machine 90° Angle Adjustment", b),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Remote Control Battery"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Machine 90° Angle Adjustment"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: Padding(
@@ -124,41 +190,41 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
     );
   }
 
-  Widget list(String ket, bool nilai) {
-    double lebar = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-      padding: EdgeInsets.only(left: lebar * 0.05),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: lebar * 0.60,
-            child: Text(ket),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = value;
-                  });
-                }),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: !nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = !value;
-                  });
-                }),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget list(String ket, bool nilai) {
+  //   double lebar = MediaQuery.of(context).size.width;
+  //   return Container(
+  //     margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+  //     padding: EdgeInsets.only(left: lebar * 0.05),
+  //     child: Row(
+  //       children: <Widget>[
+  //         Container(
+  //           width: lebar * 0.60,
+  //           child: Text(ket),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = value;
+  //                 });
+  //               }),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: !nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = !value;
+  //                 });
+  //               }),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

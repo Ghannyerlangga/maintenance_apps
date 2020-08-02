@@ -67,7 +67,7 @@ class _ChangePlasmaState extends State<ChangePlasma> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      width: lebar * 0.65,
+                      width: lebar * 0.60,
                       child: Text(widget.jenis),
                     ),
                     Container(
@@ -83,10 +83,143 @@ class _ChangePlasmaState extends State<ChangePlasma> {
                   ],
                 ),
               ),
-              list("Tekanan Regulator Angin Kompresor", a),
-              list("Tekanan Regulator Angin Kompresor saat Cutflow Test", b),
-              list("Filters Udara Mesin", c),
-              list("Level Coolant", d),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Tekanan Regulator Angin Kompresor"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !a,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              a = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text(
+                          "Tekanan Regulator Angin Kompresor saat Cutflow Test"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !b,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              b = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Filters Udara Mesin"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !c,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              c = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                padding: EdgeInsets.only(left: lebar * 0.05),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: lebar * 0.60,
+                      child: Text("Level Coolant"),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = value;
+                            });
+                          }),
+                    ),
+                    Container(
+                      width: lebar * 0.15,
+                      child: Checkbox(
+                          value: !d,
+                          onChanged: (bool value) {
+                            print(value);
+                            setState(() {
+                              d = !value;
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: Padding(
@@ -132,41 +265,41 @@ class _ChangePlasmaState extends State<ChangePlasma> {
     );
   }
 
-  Widget list(String ket, bool nilai) {
-    double lebar = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-      padding: EdgeInsets.only(left: lebar * 0.05),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: lebar * 0.60,
-            child: Text(ket),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = value;
-                  });
-                }),
-          ),
-          Container(
-            width: lebar * 0.15,
-            child: Checkbox(
-                value: !nilai,
-                onChanged: (bool value) {
-                  print(value);
-                  setState(() {
-                    nilai = !value;
-                  });
-                }),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget list(String ket, bool nilai) {
+  //   double lebar = MediaQuery.of(context).size.width;
+  //   return Container(
+  //     margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+  //     padding: EdgeInsets.only(left: lebar * 0.05),
+  //     child: Row(
+  //       children: <Widget>[
+  //         Container(
+  //           width: lebar * 0.60,
+  //           child: Text(ket),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = value;
+  //                 });
+  //               }),
+  //         ),
+  //         Container(
+  //           width: lebar * 0.15,
+  //           child: Checkbox(
+  //               value: !nilai,
+  //               onChanged: (bool value) {
+  //                 print(value);
+  //                 setState(() {
+  //                   nilai = !value;
+  //                 });
+  //               }),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

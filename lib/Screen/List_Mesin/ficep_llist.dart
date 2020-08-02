@@ -47,7 +47,7 @@ class _FicepListState extends State<FicepList> {
                       builder: (context) => FicepData(),
                     ));
               },
-              icon: Icon(Icons.check),
+              icon: Icon(Icons.edit),
               label: Text("Edit"))
         ],
       ),

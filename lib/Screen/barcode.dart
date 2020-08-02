@@ -39,46 +39,41 @@ class _BarcodeState extends State<Barcode> {
           style: TextStyle(fontSize: 16.0),
         ),
       ),
-      backgroundColor: Colors.blue[100],
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            // FlatButton(
-            //     onPressed: () async {
-            //       scanbarcode();
-            //     },
-            //     child: Text("SCAN")),
-            Container(
-              alignment: Alignment.center,
-              child: ClipOval(
-                child: Material(
-                  color: Colors.blue, // button color
-                  child: InkWell(
-                    splashColor: Colors.white, // inkwell color
-                    child: SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AutoSizeText(
-                            "Scan QR-Code",
-                            maxLines: 1,
-                            maxFontSize: 20,
-                            minFontSize: 16,
-                          ),
+      backgroundColor: Colors.black,
+      body: Column(
+        // alignment: Alignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: ClipOval(
+              child: Material(
+                shadowColor: Colors.black87,
+                color: Colors.blue, // button color
+                child: InkWell(
+                  splashColor: Colors.white, // inkwell color
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          "Scan QR-Code",
+                          maxLines: 1,
+                          maxFontSize: 20,
+                          minFontSize: 16,
                         ),
                       ),
                     ),
-                    onTap: () async {
-                      scanbarcode();
-                    },
                   ),
+                  onTap: () async {
+                    scanbarcode();
+                  },
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

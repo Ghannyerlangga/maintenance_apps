@@ -48,7 +48,7 @@ class _AmgListState extends State<AmgList> {
                       builder: (context) => AmgData(mesin: widget.mesin),
                     ));
               },
-              icon: Icon(Icons.check),
+              icon: Icon(Icons.edit),
               label: Text("Edit"))
         ],
       ),

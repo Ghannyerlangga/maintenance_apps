@@ -113,12 +113,12 @@ class _MainPage extends State<MainPage> {
                   children: <Widget>[
                     Container(
                       // color: Colors.white,
-                      margin: EdgeInsets.only(top: 5.0, bottom: 30.0),
+                      margin: EdgeInsets.only(top: 5.0, bottom: 20.0),
                       child: Text(
                         "Pabrik Fabrikasi Baja Majalengka",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -127,6 +127,7 @@ class _MainPage extends State<MainPage> {
               ]),
             ),
             Container(
+              margin: EdgeInsets.only(top: 5.0),
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
