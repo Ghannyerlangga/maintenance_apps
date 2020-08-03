@@ -390,7 +390,6 @@ class _DailyState extends State<Daily> {
                           style: TextStyle(
                               color: Colors.white38.withOpacity(0.8))),
                       onPressed: () async {
-                        print(a.toString() + b.toString());
                         _dateText =
                             "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                         _timeText =

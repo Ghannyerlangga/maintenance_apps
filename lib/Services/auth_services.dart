@@ -3,16 +3,6 @@ import 'package:maintenance_apps/Services/database.dart';
 
 class AuthServices {
   static FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // User _userFromFirebaseUser(FirebaseUser firebaseUser){
-  //   return firebaseUser != null ? User(uid: firebaseUser.uid) : null;
-  // }
-
-  // Stream<User> get firebaseUser{
-  //   return _auth.onAuthStateChanged
-  //     .map(_userFromFirebaseUser);
-  // }
-
   //Sign In Anonym
   static Future<FirebaseUser> signInAnonymous() async {
     try {
@@ -65,3 +55,11 @@ class AuthServices {
   static Stream<FirebaseUser> get firebaseUserStream =>
       _auth.onAuthStateChanged;
 }
+// User _userFromFirebaseUser(FirebaseUser firebaseUser){
+//   return firebaseUser != null ? User(uid: firebaseUser.uid) : null;
+// }
+
+// Stream<User> get firebaseUser{
+//   return _auth.onAuthStateChanged
+//     .map(_userFromFirebaseUser);
+// }
