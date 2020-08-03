@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/laporan/list_mesin.dart';
 import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/models/user.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
 class JenisMesinLaporan extends StatefulWidget {
   final String uid;

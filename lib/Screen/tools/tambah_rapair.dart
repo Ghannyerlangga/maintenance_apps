@@ -127,7 +127,8 @@ class _TambahRepairState extends State<TambahRepair> {
     s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah data perbaikan mesin"),
+        centerTitle: true,
+        title: Text("Tambah data perbaikan mesin".toUpperCase()),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),

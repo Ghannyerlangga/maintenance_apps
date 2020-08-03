@@ -39,7 +39,6 @@ class _LaporanState extends State<Laporan> {
         centerTitle: true,
         title: Text(
           "REPORT",
-          style: TextStyle(fontSize: 16.0),
         ),
       ),
       backgroundColor: Colors.blue[100],

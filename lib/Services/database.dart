@@ -10,7 +10,6 @@ class DatabaseService {
   final CollectionReference userCollection =
       Firestore.instance.collection('data');
 
-  final CollectionReference userCollection = Firestore.instance.collection('data');
   final CollectionReference mesinCollection =
       Firestore.instance.collection('mesin');
 
@@ -40,24 +39,6 @@ class DatabaseService {
     return snapshot;
   }
 
-  Future<void> updateUserData(String name,String position,String address) async{
-    return await userCollection.document(uid).setData({
-      'name' : name,
-      'position' : position,
-      'address' : address,});
-  final CollectionReference myCollection =
-      Firestore.instance.collection('data');
-  final CollectionReference myDaily = Firestore.instance.collection('daily');
-  final CollectionReference myMonthly = Firestore.instance.collection('monthly');
-  final CollectionReference myAnnual = Firestore.instance.collection('annual');
-  final CollectionReference myPlasma = Firestore.instance.collection('plasma');
-
-  Future<void> updateUserData(
-      String name, String position, String address) async {
-    return await myCollection.document(uid).setData({
-      'name': name,
-      'position': position,
-      'address': address,
   Future<void> addMesin(String kode, String nama, String jenis,
       String kapasitas, String jumlah, String lokasi, String keterangan) async {
     await mesinCollection.document(kode).setData({
@@ -370,5 +351,4 @@ class DatabaseService {
       return null;
     }
   }
-}
 }

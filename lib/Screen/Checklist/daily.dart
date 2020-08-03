@@ -72,15 +72,15 @@ class _DailyState extends State<Daily> {
                   ],
                 ),
               ),
-              list("Rail Cleaning", a),
-              list("Machine Cleaning", b),
-              list("Limit Switch Inspection", c),
-              list("Linear Guide Cleaning", d),
-              list("Cable Chain Inspection", e),
-              list("Nozzle Cleaning", f),
-              list("Oxygen Inspection (O2)", g),
-              list("Elpiji Inspection (C3H8)", h),
-              list("Nitrogen Inspection (N2)", i),
+              list(context, "Rail Cleaning", a),
+              list(context, "Machine Cleaning", b),
+              list(context, "Limit Switch Inspection", c),
+              list(context, "Linear Guide Cleaning", d),
+              list(context, "Cable Chain Inspection", e),
+              list(context, "Nozzle Cleaning", f),
+              list(context, "Oxygen Inspection (O2)", g),
+              list(context, "Elpiji Inspection (C3H8)", h),
+              list(context, "Nitrogen Inspection (N2)", i),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: Padding(
@@ -130,7 +130,7 @@ class _DailyState extends State<Daily> {
     );
   }
 
-  Widget list(String ket, bool nilai) {
+  Widget list(BuildContext context, String ket, bool nilai) {
     double lebar = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
@@ -148,7 +148,35 @@ class _DailyState extends State<Daily> {
                 onChanged: (bool value) {
                   print(value);
                   setState(() {
-                    nilai = value;
+                    switch (ket) {
+                      case "Rail Cleaning":
+                        a = value;
+                        break;
+                      case "Machine Cleaning":
+                        b = value;
+                        break;
+                      case "Limit Switch Inspection":
+                        c = value;
+                        break;
+                      case "Linear Guide Cleaning":
+                        d = value;
+                        break;
+                      case "Cable Chain Inspection":
+                        e = value;
+                        break;
+                      case "Nozzle Cleaning":
+                        f = value;
+                        break;
+                      case "Oxygen Inspection (O2)":
+                        g = value;
+                        break;
+                      case "Elpiji Inspection (C3H8)":
+                        h = value;
+                        break;
+                      case "Nitrogen Inspection (N2)":
+                        i = value;
+                        break;
+                    }
                   });
                 }),
           ),
@@ -159,7 +187,35 @@ class _DailyState extends State<Daily> {
                 onChanged: (bool value) {
                   print(value);
                   setState(() {
-                    nilai = !value;
+                    switch (ket) {
+                      case "Rail Cleaning":
+                        a = !value;
+                        break;
+                      case "Machine Cleaning":
+                        b = !value;
+                        break;
+                      case "Limit Switch Inspection":
+                        c = !value;
+                        break;
+                      case "Linear Guide Cleaning":
+                        d = !value;
+                        break;
+                      case "Cable Chain Inspection":
+                        e = !value;
+                        break;
+                      case "Nozzle Cleaning":
+                        f = !value;
+                        break;
+                      case "Oxygen Inspection (O2)":
+                        g = !value;
+                        break;
+                      case "Elpiji Inspection (C3H8)":
+                        h = !value;
+                        break;
+                      case "Nitrogen Inspection (N2)":
+                        i = !value;
+                        break;
+                    }
                   });
                 }),
           ),

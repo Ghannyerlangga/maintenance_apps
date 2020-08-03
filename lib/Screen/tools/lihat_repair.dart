@@ -57,7 +57,8 @@ class _ShowRepairState extends State<ShowRepair> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Perbaikan Mesin'),
+        centerTitle: true,
+        title: Text('Daftar Perbaikan Mesin'.toUpperCase()),
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),

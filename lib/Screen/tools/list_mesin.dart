@@ -35,6 +35,7 @@ class _ListMesinState extends State<ListMesin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -48,7 +49,7 @@ class _ListMesinState extends State<ListMesin> {
                 }),
           )
         ],
-        title: Text('List Mesin'),
+        title: Text('List Mesin'.toUpperCase()),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: data,

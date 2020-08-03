@@ -16,7 +16,8 @@ class _DaftarMesinState extends State<DaftarMesin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Mesin'),
+        centerTitle: true,
+        title: Text('Daftar Mesin'.toUpperCase()),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

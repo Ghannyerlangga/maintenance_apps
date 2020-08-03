@@ -49,7 +49,10 @@ class _TambahMesinState extends State<TambahMesin> {
     s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: _modeTambah ? Text('Input Mesin Baru') : Text('Edit Data Mesin'),
+        centerTitle: true,
+        title: _modeTambah
+            ? Text('Input Mesin Baru'.toUpperCase())
+            : Text('Edit Data Mesin'.toUpperCase()),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),

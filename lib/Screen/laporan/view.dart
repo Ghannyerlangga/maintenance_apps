@@ -83,7 +83,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Laporan'),
+          title: Text('Laporan'.toUpperCase()),
           actions: [
             IconButton(
                 icon: Icon(Icons.save),

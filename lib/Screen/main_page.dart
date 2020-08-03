@@ -86,17 +86,7 @@ class _MainPage extends State<MainPage> {
               height: MediaQuery.of(context).size.height * 0.21,
               width: MediaQuery.of(context).size.width * 0.80,
               margin: EdgeInsets.all(10),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10.0, 10.0, 5.0, 10.0),
-                    child: Image.asset(
-                      "img/logo_wika1.png",
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      width: MediaQuery.of(context).size.width * 0.40,
-            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-              padding: EdgeInsets.only(bottom: 0),
+
               child: Column(children: <Widget>[
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.center,

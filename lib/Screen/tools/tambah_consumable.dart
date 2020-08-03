@@ -80,7 +80,8 @@ class _TambahConsumableState extends State<TambahConsumable> {
     s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah data consumable"),
+        centerTitle: true,
+        title: Text("Tambah data consumable".toUpperCase()),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
