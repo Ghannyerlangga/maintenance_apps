@@ -54,15 +54,13 @@ class _BarcodeState extends State<Barcode> {
                   child: SizedBox(
                     width: 200,
                     height: 200,
-                    child: Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          "Scan QR-Code",
-                          maxLines: 1,
-                          maxFontSize: 20,
-                          minFontSize: 16,
-                        ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        "Scan QR-Code",
+                        maxLines: 1,
+                        maxFontSize: 20,
+                        minFontSize: 16,
                       ),
                     ),
                   ),

@@ -13,7 +13,6 @@ class Daily extends StatefulWidget {
 }
 
 class _DailyState extends State<Daily> {
-  final _key = GlobalKey();
   bool a = false;
   bool b = false;
   bool c = false;
