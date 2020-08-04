@@ -36,9 +36,9 @@ class _AnnualState extends State<Annual> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text(
-            'Annual Checklist',
-            style: TextStyle(fontSize: 16.0),
+          centerTitle: true,
+          title: Text(
+            'Annual Checklist'.toUpperCase(),
           ),
         ),
         body: Container(

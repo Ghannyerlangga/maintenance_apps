@@ -33,6 +33,7 @@ class _ListMesinState extends State<ListMesin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Daftar Mesin'.toUpperCase()),
       ),
       body: FutureBuilder<QuerySnapshot>(

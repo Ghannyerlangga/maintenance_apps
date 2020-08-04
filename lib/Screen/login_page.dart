@@ -28,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
             appBar: AppBar(
               backgroundColor: Colors.blueAccent,
               title: Text(
-                "Sign In to WIKA Maintenance",
-                style: TextStyle(fontSize: 16.0),
+                "Sign In to WIKA Maintenance".toUpperCase(),
+                style: TextStyle(fontSize: 14.0),
               ),
               actions: <Widget>[
                 FlatButton.icon(

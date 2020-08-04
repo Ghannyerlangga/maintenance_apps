@@ -34,8 +34,10 @@ class _RegisterPageState extends State<RegisterPage> {
             backgroundColor: Colors.blueAccent[100],
             appBar: AppBar(
               backgroundColor: Colors.blueAccent,
-              title: Text("Register WIKA Maintenance",
-                  style: TextStyle(fontSize: 16.0)),
+              title: Text(
+                "Register WIKA Maintenance".toUpperCase(),
+                style: TextStyle(fontSize: 14.0),
+              ),
               actions: <Widget>[
                 FlatButton.icon(
                     onPressed: () {

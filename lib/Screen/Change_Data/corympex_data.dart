@@ -38,8 +38,7 @@ class _CorympexDataState extends State<CorympexData> {
                 ),
               ),
               title: Text(
-                "Daftar Checklist Hari Ini",
-                style: TextStyle(fontSize: 16.0),
+                "Daftar Checklist Hari Ini".toUpperCase(),
               ),
               centerTitle: true,
             ),

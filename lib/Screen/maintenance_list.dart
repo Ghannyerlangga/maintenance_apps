@@ -16,7 +16,7 @@ class _MainListState extends State<MainList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Daftar Mesin"),
+        title: Text("Daftar Mesin".toUpperCase()),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

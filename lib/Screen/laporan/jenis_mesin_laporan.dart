@@ -33,7 +33,8 @@ class _JenisMesinLaporanState extends State<JenisMesinLaporan> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Daftar Mesin'),
+          title: Text("Daftar Mesin".toUpperCase()),
+          centerTitle: true,
         ),
         body: FutureBuilder<DocumentSnapshot>(
           future: databaseService.getData(widget.uid),

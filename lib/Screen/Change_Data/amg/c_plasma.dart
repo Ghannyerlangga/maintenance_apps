@@ -53,9 +53,9 @@ class _ChangePlasmaState extends State<ChangePlasma> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text(
-            'Daily Checklist',
-            style: TextStyle(fontSize: 16.0),
+          centerTitle: true,
+          title: Text(
+            'Daily Checklist'.toUpperCase(),
           ),
         ),
         body: Container(

@@ -38,7 +38,7 @@ class _LaporanState extends State<Laporan> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "REPORT",
+          "REPORT".toUpperCase(),
         ),
       ),
       backgroundColor: Colors.blue[100],

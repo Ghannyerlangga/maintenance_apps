@@ -40,9 +40,9 @@ class _MonthlyState extends State<Monthly> {
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
-          title: const Text(
-            'Monthly Checklist',
-            style: TextStyle(fontSize: 16.0),
+          centerTitle: true,
+          title: Text(
+            'Monthly Checklist'.toUpperCase(),
           ),
         ),
         body: Container(
