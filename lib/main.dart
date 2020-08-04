@@ -16,8 +16,11 @@ class Utama extends StatelessWidget {
         theme: ThemeData(
             appBarTheme: AppBarTheme(
                 textTheme: TextTheme(
-                    headline6:
-                        TextStyle(fontSize: 26, fontWeight: FontWeight.bold))),
+              headline6: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
             scaffoldBackgroundColor: Colors.blue[100]),
         debugShowCheckedModeBanner: false,
         home: Wrapper(),

@@ -26,8 +26,7 @@ class _ProsedurState extends State<Prosedur> {
               ),
             ),
             title: Text(
-              "Dokumen Prosedur",
-              style: TextStyle(fontSize: 16.0),
+              "Dokumen Prosedur".toUpperCase(),
             ),
             centerTitle: true,
           ),

@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:maintenance_apps/Screen/Document/document1.dart';
+
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance_list.dart';
@@ -82,8 +85,8 @@ class _MainPage extends State<MainPage> {
               // color: Colors.black,
               height: MediaQuery.of(context).size.height * 0.21,
               width: MediaQuery.of(context).size.width * 0.80,
-              margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-              padding: EdgeInsets.only(bottom: 0),
+              margin: EdgeInsets.all(10),
+
               child: Column(children: <Widget>[
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -426,7 +426,7 @@ class _DailyState extends State<Daily> {
       ),
     );
   }
-
+}
 //   Widget list(String ket, bool nilai) {
 //     double lebar = MediaQuery.of(context).size.width;
 //     return StatefulBuilder(
@@ -467,7 +467,7 @@ class _DailyState extends State<Daily> {
 //       );
 //     });
 //   }
-}
+// }
 
 // class CheckboxChange extends StatelessWidget {
 //   final Function onChanged;

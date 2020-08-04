@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/tools/dialog.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 import 'package:maintenance_apps/models/repair.dart';
 import 'package:maintenance_apps/shared/constant.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahRepair extends StatefulWidget {
   final Repair repair;
@@ -14,6 +16,7 @@ class TambahRepair extends StatefulWidget {
 }
 
 class _TambahRepairState extends State<TambahRepair> {
+  bool _isLoading = false;
   bool _modeTambah = true;
   TextEditingController _tanggalRusak = TextEditingController();
   TextEditingController _tanggalPerbaikan = TextEditingController();
@@ -47,6 +50,17 @@ class _TambahRepairState extends State<TambahRepair> {
     super.initState();
   }
 
+  Future<Null> showAlert({String pesan, String tipe}) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return DialogWidget(
+            pesan: pesan,
+            tipe: tipe,
+          );
+        });
+  }
+
   tambahRepair(
       String nama,
       String tanggalRusak,
@@ -55,6 +69,9 @@ class _TambahRepairState extends State<TambahRepair> {
       String penanggungJawab,
       String sparePart,
       String keterangan) async {
+    setState(() {
+      _isLoading = true;
+    });
     await collection.add({
       'jenis mesin': widget.mesin.listMesin[0].jenis,
       'pj': penanggungJawab,
@@ -66,12 +83,25 @@ class _TambahRepairState extends State<TambahRepair> {
       'keterangan': keterangan,
       'time': waktu
     }).then((value) {
-      value.updateData({'id': value.documentID});
-      namaMesin = null;
-      _tanggalPerbaikan.clear();
-      _tanggalRusak.clear();
-      _consumableController.clear();
-      _keteranganController.clear();
+      if (value.documentID != null) {
+        setState(() {
+          value.updateData({'id': value.documentID});
+          namaMesin = null;
+          _tanggalRusak.clear();
+          _tanggalPerbaikan.clear();
+          _consumableController.clear();
+          _keteranganController.clear();
+          _pjController.clear();
+          _sparePartController.clear();
+          _isLoading = false;
+        });
+        showAlert(
+            tipe: 'berhasil', pesan: 'Berhasil menambah data repair baru');
+      }
+    }).timeout(Duration(seconds: 10), onTimeout: () {
+      showAlert(
+          tipe: 'gagal', pesan: 'Gagal. Mohon periksa koneksi internet anda');
+      return;
     });
   }
 
@@ -83,6 +113,9 @@ class _TambahRepairState extends State<TambahRepair> {
       String penanggungJawab,
       String sparePart,
       String keterangan) async {
+    setState(() {
+      _isLoading = true;
+    });
     await collection.document(widget.repair.id).setData({
       'id': widget.repair.id,
       'jenis mesin': widget.mesin.listMesin[0].jenis,
@@ -94,12 +127,23 @@ class _TambahRepairState extends State<TambahRepair> {
       'consumable': consumable,
       'keterangan': keterangan,
       'time': waktu
-    }).whenComplete(() {
-      namaMesin = null;
-      _tanggalPerbaikan.clear();
-      _tanggalRusak.clear();
-      _consumableController.clear();
-      _keteranganController.clear();
+    }).then((value) {
+      setState(() {
+        namaMesin = null;
+        _tanggalRusak.clear();
+        _tanggalPerbaikan.clear();
+        _consumableController.clear();
+        _keteranganController.clear();
+        _pjController.clear();
+        _sparePartController.clear();
+        _isLoading = false;
+      });
+      showAlert(tipe: 'berhasil', pesan: 'Berhasil mengubah data repair');
+    }).timeout(Duration(seconds: 10), onTimeout: () {
+      showAlert(
+          tipe: 'berhasil',
+          pesan: 'Gagal. Mohon periksa koneksi internet anda');
+      return;
     });
   }
 
@@ -126,92 +170,96 @@ class _TambahRepairState extends State<TambahRepair> {
     s = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah data perbaikan mesin"),
+        centerTitle: true,
+        title: Text("Tambah data perbaikan mesin".toUpperCase()),
       ),
-      body: ListView(
-        padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
-        children: [
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InputDecorator(
-                decoration: textInputDecoration.copyWith(
-                    labelText: "Jenis Mesin", hintText: "jenis mesin"),
-                child: DropdownButton(
-                  isDense: true,
-                  hint: Text("Pilih Nama Mesin"),
-                  value: namaMesin,
-                  items: widget.mesin.listMesin.map((item) {
-                    return DropdownMenuItem(
-                        child: Text(item.nama), value: item.nama);
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      namaMesin = value;
-                    });
-                  },
+      body: _isLoading
+          ? Loading()
+          : ListView(
+              padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
+              children: [
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InputDecorator(
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Jenis Mesin", hintText: "jenis mesin"),
+                      child: DropdownButton(
+                        isDense: true,
+                        hint: Text("Pilih Nama Mesin"),
+                        value: namaMesin,
+                        items: widget.mesin.listMesin.map((item) {
+                          return DropdownMenuItem(
+                              child: Text(item.nama), value: item.nama);
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            namaMesin = value;
+                          });
+                        },
+                      ),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    child: TextField(
+                      controller: _tanggalRusak,
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Tanggal Kerusakan Mesin",
+                          hintText: 'tanggal kerusakan mesin'),
+                      onTap: () {
+                        _pilihTanggal(context, 'rusak');
+                      },
+                    ),
+                  ),
                 ),
-              )),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.70,
-              child: TextField(
-                controller: _tanggalPerbaikan,
-                decoration: textInputDecoration.copyWith(
-                    labelText: "Tanggal Kerusakan Mesin",
-                    hintText: 'tanggal kerusakan mesin'),
-                onTap: () {
-                  _pilihTanggal(context, 'perbaikan');
-                },
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    child: TextField(
+                      controller: _tanggalPerbaikan,
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Tanggal Perbaikan Mesin",
+                          hintText: 'tanggal perbaikan mesin'),
+                      onTap: () {
+                        _pilihTanggal(context, 'perbaikan');
+                      },
+                    ),
+                  ),
+                ),
+                inputField('Consumable', _consumableController, 'consumable'),
+                inputField(
+                    'Penganggung jawab', _pjController, 'penganggung jawab'),
+                inputField('Spare part', _sparePartController, 'spare part'),
+                inputField('Keterangan', _keteranganController, 'keterangan'),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
+                  child: RaisedButton(
+                      color: Colors.blue[200],
+                      child: Text('Simpan'),
+                      onPressed: () {
+                        _modeTambah
+                            ? tambahRepair(
+                                namaMesin,
+                                _tanggalRusak.text,
+                                _tanggalPerbaikan.text,
+                                _consumableController.text,
+                                _pjController.text,
+                                _sparePartController.text,
+                                _keteranganController.text)
+                            : ubahRepair(
+                                namaMesin,
+                                _tanggalRusak.text,
+                                _tanggalPerbaikan.text,
+                                _consumableController.text,
+                                _pjController.text,
+                                _sparePartController.text,
+                                _keteranganController.text);
+                      }),
+                )
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.70,
-              child: TextField(
-                controller: _tanggalPerbaikan,
-                decoration: textInputDecoration.copyWith(
-                    labelText: "Tanggal Perbaikan Mesin",
-                    hintText: 'tanggal perbaikan mesin'),
-                onTap: () {
-                  _pilihTanggal(context, 'perbaikan');
-                },
-              ),
-            ),
-          ),
-          inputField('Consumable', _consumableController, 'consumable'),
-          inputField('Penganggung jawab', _pjController, 'penganggung jawab'),
-          inputField('Spare part', _sparePartController, 'spare part'),
-          inputField('Keterangan', _keteranganController, 'keterangan'),
-          Padding(
-            padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
-            child: RaisedButton(
-                color: Colors.blue[200],
-                child: Text('Simpan'),
-                onPressed: () {
-                  _modeTambah
-                      ? tambahRepair(
-                          namaMesin,
-                          _tanggalRusak.text,
-                          _tanggalPerbaikan.text,
-                          _consumableController.text,
-                          _pjController.text,
-                          _sparePartController.text,
-                          _keteranganController.text)
-                      : ubahRepair(
-                          namaMesin,
-                          _tanggalRusak.text,
-                          _tanggalPerbaikan.text,
-                          _consumableController.text,
-                          _pjController.text,
-                          _sparePartController.text,
-                          _keteranganController.text);
-                }),
-          )
-        ],
-      ),
     );
   }
 

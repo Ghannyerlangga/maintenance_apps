@@ -5,9 +5,6 @@ import 'package:maintenance_apps/Screen/tools/tambah_mesin.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 
 class ListMesin extends StatefulWidget {
-  final String jenisMesin;
-  ListMesin(this.jenisMesin);
-
   @override
   _ListMesinState createState() => _ListMesinState();
 }
@@ -20,21 +17,19 @@ class _ListMesinState extends State<ListMesin> {
 
   @override
   void initState() {
-    data = getListMesin(widget.jenisMesin);
+    data = getListMesin();
     super.initState();
   }
 
-  Stream<QuerySnapshot> getListMesin(String jenisMesin) {
-    return Firestore.instance
-        .collection('mesin')
-        .where('jenis', isEqualTo: jenisMesin)
-        .snapshots();
+  Stream<QuerySnapshot> getListMesin() {
+    return Firestore.instance.collection('mesin').snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -48,7 +43,7 @@ class _ListMesinState extends State<ListMesin> {
                 }),
           )
         ],
-        title: Text('List Mesin'),
+        title: Text('List Mesin'.toUpperCase()),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: data,
