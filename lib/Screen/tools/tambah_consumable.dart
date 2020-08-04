@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/tools/dialog.dart';
 import 'package:maintenance_apps/models/consumable.dart';
 import 'package:maintenance_apps/shared/constant.dart';
+import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahConsumable extends StatefulWidget {
   final Consumable consumable;
@@ -12,6 +14,7 @@ class TambahConsumable extends StatefulWidget {
 }
 
 class _TambahConsumableState extends State<TambahConsumable> {
+  bool _isLoading = false;
   bool _modeTambah = true;
   double s;
 
@@ -37,8 +40,22 @@ class _TambahConsumableState extends State<TambahConsumable> {
     super.initState();
   }
 
+  Future<Null> showAlert({String pesan, String tipe}) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return DialogWidget(
+            pesan: pesan,
+            tipe: tipe,
+          );
+        });
+  }
+
   tambahConsumable(String nama, String jenis, String part, String jumlah,
       String keterangan) async {
+    setState(() {
+      _isLoading = true;
+    });
     await consumableCollection.add({
       'id': consumableCollection.id,
       'jenis': jenis,
@@ -47,17 +64,36 @@ class _TambahConsumableState extends State<TambahConsumable> {
       'jumlah': jumlah,
       'keterangan': keterangan,
     }).then((value) {
-      value.updateData({'id': value.documentID});
-      _namaController.clear();
-      _jenisController.clear();
-      _partController.clear();
-      _keteranganController.clear();
-      _jumlahController.clear();
+      setState(() {
+        _namaController.clear();
+        _jenisController.clear();
+        _partController.clear();
+        _keteranganController.clear();
+        _jumlahController.clear();
+        _isLoading = false;
+      });
+      if (value.documentID != null) {
+        value.updateData({'id': value.documentID});
+        showAlert(
+            tipe: 'berhasil', pesan: 'Berhasil menambah data consumable baru');
+      } else if (value.documentID == null) {
+        showAlert(tipe: 'gagal', pesan: 'Gagal menambah data consumable baru');
+      }
+    }).timeout(Duration(seconds: 10), onTimeout: () {
+      setState(() {
+        _isLoading = false;
+      });
+      showAlert(
+          tipe: 'gagal', pesan: 'Gagal. Mohon periksa koneksi internet anda');
+      return;
     });
   }
 
   ubahConsumable(String nama, String jenis, String part, String jumlah,
       String keterangan) async {
+    setState(() {
+      _isLoading = true;
+    });
     print(widget.consumable.id);
     await consumableCollection.document(widget.consumable.id).setData({
       'id': widget.consumable.id,
@@ -66,12 +102,23 @@ class _TambahConsumableState extends State<TambahConsumable> {
       'nama': nama,
       'jumlah': jumlah,
       'keterangan': keterangan,
-    }).whenComplete(() {
-      _namaController.clear();
-      _jenisController.clear();
-      _partController.clear();
-      _keteranganController.clear();
-      _jumlahController.clear();
+    }).then((value) {
+      setState(() {
+        _namaController.clear();
+        _jenisController.clear();
+        _partController.clear();
+        _keteranganController.clear();
+        _jumlahController.clear();
+        _isLoading = false;
+      });
+      showAlert(tipe: 'berhasil', pesan: 'Berhasil mebgubah data consumable');
+    }).timeout(Duration(seconds: 10), onTimeout: () {
+      setState(() {
+        _isLoading = false;
+      });
+      showAlert(
+          tipe: 'gagal', pesan: 'Gagal. Mohon periksa koneksi internet anda');
+      return;
     });
   }
 
@@ -83,37 +130,40 @@ class _TambahConsumableState extends State<TambahConsumable> {
         centerTitle: true,
         title: Text("Tambah data consumable".toUpperCase()),
       ),
-      body: ListView(
-        padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
-        children: [
-          inputField('Nama Consumable', _namaController, 'consumable'),
-          inputField('Jenis Mesin', _jenisController, 'penganggung jawab'),
-          inputField('Part Mesin', _partController, 'spare part'),
-          inputField('Jumlah', _jumlahController, 'jumlah'),
-          inputField('Keterangan', _keteranganController, 'keterangan'),
-          Padding(
-            padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
-            child: RaisedButton(
-                color: Colors.blue[200],
-                child: Text('Simpan'),
-                onPressed: () {
-                  _modeTambah
-                      ? tambahConsumable(
-                          _namaController.text,
-                          _jenisController.text,
-                          _partController.text,
-                          _jumlahController.text,
-                          _keteranganController.text)
-                      : ubahConsumable(
-                          _namaController.text,
-                          _jenisController.text,
-                          _partController.text,
-                          _jumlahController.text,
-                          _keteranganController.text);
-                }),
-          )
-        ],
-      ),
+      body: _isLoading
+          ? Loading()
+          : ListView(
+              padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
+              children: [
+                inputField('Nama Consumable', _namaController, 'consumable'),
+                inputField('Jenis Mesin', _jenisController, 'jenis mesin'),
+                inputField('Part Mesin', _partController, 'spare part'),
+                inputField('Jumlah', _jumlahController, 'jumlah'),
+                inputField('Keterangan', _keteranganController, 'keterangan'),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
+                  child: RaisedButton(
+                      color: Colors.blue[200],
+                      child: Text('Simpan'),
+                      onPressed: () {
+                        _modeTambah
+                            ? tambahConsumable(
+                                _namaController.text,
+                                _jenisController.text,
+                                _partController.text,
+                                _jumlahController.text,
+                                _keteranganController.text)
+                            : ubahConsumable(
+                                _namaController.text,
+                                _jenisController.text,
+                                _partController.text,
+                                _jumlahController.text,
+                                _keteranganController.text);
+                        Navigator.pop(context);
+                      }),
+                )
+              ],
+            ),
     );
   }
 

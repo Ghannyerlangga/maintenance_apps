@@ -6,8 +6,6 @@ import 'package:maintenance_apps/models/consumable.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class ListConsumable extends StatefulWidget {
-  final String jenisMesin;
-  ListConsumable(this.jenisMesin);
   @override
   _ListConsumableState createState() => _ListConsumableState();
 }
@@ -31,9 +29,7 @@ class _ListConsumableState extends State<ListConsumable> {
   }
 
   Stream<QuerySnapshot> getConsumable() {
-    return consumableCollection
-        .where('jenis', isEqualTo: widget.jenisMesin)
-        .snapshots();
+    return consumableCollection.snapshots();
   }
 
   @override

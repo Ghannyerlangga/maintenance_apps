@@ -7,8 +7,6 @@ import 'package:maintenance_apps/models/repair.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class ShowRepair extends StatefulWidget {
-  final String jenisMesin;
-  ShowRepair(this.jenisMesin);
   @override
   _ShowRepairState createState() => _ShowRepairState();
 }
@@ -38,19 +36,13 @@ class _ShowRepairState extends State<ShowRepair> {
   }
 
   getMesinData() async {
-    dataMesin = await Firestore.instance
-        .collection('mesin')
-        .where('jenis', isEqualTo: widget.jenisMesin)
-        .getDocuments();
+    dataMesin = await Firestore.instance.collection('mesin').getDocuments();
     listMesin = dataMesin.documents;
     daftarMesin = DaftarMesin.fromJson(listMesin);
   }
 
   Stream<QuerySnapshot> getRepair() {
-    return repairCollection
-        .orderBy("time", descending: false)
-        .where('jenis mesin', isEqualTo: widget.jenisMesin)
-        .snapshots();
+    return repairCollection.orderBy("time", descending: false).snapshots();
   }
 
   @override

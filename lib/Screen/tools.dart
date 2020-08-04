@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/tools/daftar_jenis_mesin.dart';
+import 'package:maintenance_apps/Screen/tools/lihat_repair.dart';
+import 'package:maintenance_apps/Screen/tools/list_consumable.dart';
+import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
 
 class Tools extends StatelessWidget {
   @override
@@ -28,7 +31,7 @@ class Tools extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (contex) {
-                          return DaftarMesin('mesin');
+                          return ListMesin();
                         }));
                       },
                       child: Column(
@@ -74,7 +77,7 @@ class Tools extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (contex) {
-                          return DaftarMesin('repair');
+                          return ShowRepair();
                         }));
                       },
                       child: Column(
@@ -119,7 +122,7 @@ class Tools extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (contex) {
-                          return DaftarMesin('consumable');
+                          return ListConsumable();
                         }));
                       },
                       child: Column(
