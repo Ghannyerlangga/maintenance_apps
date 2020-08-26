@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/shared/cheklist.dart';
 
 class Annual extends StatefulWidget {
   final String hasil;
@@ -15,6 +16,7 @@ class Annual extends StatefulWidget {
 class _AnnualState extends State<Annual> {
   bool a = false;
   bool b = false;
+  bool c = false;
 
   DatabaseService db = DatabaseService();
   String checklist = "Semi-Annual";
@@ -66,73 +68,33 @@ class _AnnualState extends State<Annual> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Remote Control Battery"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Remote Control Battery",
+                nilai: a,
+                onChanged: (value) {
+                  setState(() {
+                    a = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    a = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Machine 90° Angle Adjustment"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Machine 90° Angle Adjustment",
+                nilai: b,
+                onChanged: (value) {
+                  setState(() {
+                    b = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    b = !value;
+                  });
+                },
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -172,42 +134,4 @@ class _AnnualState extends State<Annual> {
       ),
     );
   }
-
-  // Widget list(String ket, bool nilai) {
-  //   double lebar = MediaQuery.of(context).size.width;
-  //   return Container(
-  //     margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-  //     padding: EdgeInsets.only(left: lebar * 0.05),
-  //     child: Row(
-  //       children: <Widget>[
-  //         Container(
-  //           width: lebar * 0.60,
-  //           child: Text(ket),
-  //         ),
-  //         Container(
-  //           width: lebar * 0.15,
-  //           child: Checkbox(
-  //               value: nilai,
-  //               onChanged: (bool value) {
-  //                 print(value);
-  //                 setState(() {
-  //                   nilai = value;
-  //                 });
-  //               }),
-  //         ),
-  //         Container(
-  //           width: lebar * 0.15,
-  //           child: Checkbox(
-  //               value: !nilai,
-  //               onChanged: (bool value) {
-  //                 print(value);
-  //                 setState(() {
-  //                   nilai = !value;
-  //                 });
-  //               }),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

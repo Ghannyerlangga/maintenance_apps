@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/shared/cheklist.dart';
 
 class Plasma extends StatefulWidget {
   static const String routeName = "/annual";
@@ -67,74 +68,33 @@ class _PlasmaState extends State<Plasma> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Tekanan Regulator Angin Kompresor"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Tekanan Regulator Angin Kompresor",
+                nilai: a,
+                onChanged: (value) {
+                  setState(() {
+                    a = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    a = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text(
-                          "Tekanan Regulator Angin Kompresor saat Cutflow Test"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Tekanan Regulator Angin Kompresor saat Cutflow Test",
+                nilai: b,
+                onChanged: (value) {
+                  setState(() {
+                    b = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    b = !value;
+                  });
+                },
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(5, 0, 5, 5),

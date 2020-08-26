@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/shared/cheklist.dart';
 
 class Daily extends StatefulWidget {
   final String value;
@@ -72,311 +73,131 @@ class _DailyState extends State<Daily> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Rail Cleaning"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Rail Cleaning",
+                nilai: a,
+                onChanged: (value) {
+                  setState(() {
+                    a = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    a = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Machine Cleaning"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Machine Cleaning",
+                nilai: b,
+                onChanged: (value) {
+                  setState(() {
+                    b = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    b = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Limit Switch Inspection"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Limit Switch Inspection",
+                nilai: c,
+                onChanged: (value) {
+                  setState(() {
+                    c = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    c = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Linear Guide Cleaning"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Linear Guide Cleaning",
+                nilai: d,
+                onChanged: (value) {
+                  setState(() {
+                    d = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    d = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Cable Chain Inspection"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: e,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              e = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !e,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              e = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Cable Chain Inspection",
+                nilai: e,
+                onChanged: (value) {
+                  setState(() {
+                    e = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    e = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Nozzle Cleaning"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: f,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              f = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !f,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              f = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Nozzle Cleaning",
+                nilai: f,
+                onChanged: (value) {
+                  setState(() {
+                    f = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    f = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Oxygen Inspection (O2)"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: g,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              g = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !g,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              g = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Oxygen Inspection (O2)",
+                nilai: g,
+                onChanged: (value) {
+                  setState(() {
+                    g = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    g = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Elpiji Inspection (C3H8)"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: h,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              h = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !h,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              h = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Elpiji Inspection (C3H8)",
+                nilai: h,
+                onChanged: (value) {
+                  setState(() {
+                    h = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    h = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Nitrogen Inspection (N2)"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: i,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              i = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !i,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              i = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Nitrogen Inspection (N2)",
+                nilai: i,
+                onChanged: (value) {
+                  setState(() {
+                    i = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    i = !value;
+                  });
+                },
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -427,58 +248,3 @@ class _DailyState extends State<Daily> {
     );
   }
 }
-//   Widget list(String ket, bool nilai) {
-//     double lebar = MediaQuery.of(context).size.width;
-//     return StatefulBuilder(
-//         builder: (BuildContext context, StateSetter setState) {
-//       return Container(
-//         margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-//         padding: EdgeInsets.only(left: lebar * 0.05),
-//         child: Row(
-//           children: <Widget>[
-//             Container(
-//               width: lebar * 0.60,
-//               child: Text(ket),
-//             ),
-//             Container(
-//               width: lebar * 0.15,
-//               child: CheckboxChange(
-//                   value: nilai,
-//                   onChanged: (bool value) {
-//                     print(value);
-//                     setState(() {
-//                       nilai = value;
-//                     });
-//                   }),
-//             ),
-//             Container(
-//               width: lebar * 0.15,
-//               child: CheckboxChange(
-//                   value: !nilai,
-//                   onChanged: (bool value) {
-//                     print(value);
-//                     setState(() {
-//                       nilai = !value;
-//                     });
-//                   }),
-//             ),
-//           ],
-//         ),
-//       );
-//     });
-//   }
-// }
-
-// class CheckboxChange extends StatelessWidget {
-//   final Function onChanged;
-//   final bool value;
-//   CheckboxChange({this.value, this.onChanged});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Checkbox(
-//       value: value,
-//       onChanged: onChanged,
-//     );
-//   }
-// }

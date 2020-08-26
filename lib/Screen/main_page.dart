@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:maintenance_apps/Screen/Document/document1.dart';
-
 import 'package:maintenance_apps/Screen/barcode.dart';
 import 'package:maintenance_apps/Screen/laporan/jenis_mesin_laporan.dart';
 import 'package:maintenance_apps/Screen/maintenance_list.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
-import 'package:maintenance_apps/Screen/Document/document1.dart';
 
 class MainPage extends StatefulWidget {
   final FirebaseUser user;
@@ -36,7 +33,6 @@ class _MainPage extends State<MainPage> {
 
   @override
   void initState() {
-    print(widget.user.uid);
     getData();
     super.initState();
   }
