@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/Checklist/annual.dart';
-import 'package:maintenance_apps/Screen/Checklist/daily.dart';
-import 'package:maintenance_apps/Screen/Checklist/monthly.dart';
-import 'package:maintenance_apps/Screen/Checklist/plasma.dart';
 
 class CorympexDialog extends StatefulWidget {
   final String value;
@@ -42,18 +38,19 @@ class _CorympexDialogState extends State<CorympexDialog> {
                     child: RaisedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Daily(
-                                  value: widget.value, hasil: widget.hasil),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Daily(
+                        //           value: widget.value, hasil: widget.hasil),
+                        //     ));
                       },
                       child: Text(
                         "Daily",
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: const Color(0xFF1BC0C5),
+                      // color: const Color(0xFF1BC0C5),
+                      color: Colors.grey,
                     ),
                   ),
                   SizedBox(
@@ -61,18 +58,39 @@ class _CorympexDialogState extends State<CorympexDialog> {
                     child: RaisedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Monthly(
-                                  value: widget.value, hasil: widget.hasil),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Plasma(
+                        //           value: widget.value, hasil: widget.hasil),
+                        //     ));
+                      },
+                      child: Text(
+                        "Weekly",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      // color: const Color(0xFF1BC0C5),
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 120.0,
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Monthly(
+                        //           value: widget.value, hasil: widget.hasil),
+                        //     ));
                       },
                       child: Text(
                         "Monthly",
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: const Color(0xFF1BC0C5),
+                      // color: const Color(0xFF1BC0C5),
+                      color: Colors.grey,
                     ),
                   ),
                   SizedBox(
@@ -80,47 +98,19 @@ class _CorympexDialogState extends State<CorympexDialog> {
                     child: RaisedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Annual(
-                                  value: widget.value, hasil: widget.hasil),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Annual(
+                        //           value: widget.value, hasil: widget.hasil),
+                        //     ));
                       },
                       child: Text(
                         "Semi-Annual",
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: const Color(0xFF1BC0C5),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      "CORYMPEX",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Plasma(
-                                  value: widget.value, hasil: widget.hasil),
-                            ));
-                      },
-                      child: Text(
-                        "Daily",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: const Color(0xFF1BC0C5),
+                      // color: const Color(0xFF1BC0C5),
+                      color: Colors.grey,
                     ),
                   ),
                 ],

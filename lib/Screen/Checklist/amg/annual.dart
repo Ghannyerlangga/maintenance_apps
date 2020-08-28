@@ -5,76 +5,60 @@ import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
 import 'package:maintenance_apps/shared/header_checklist.dart';
 
-class ChangeAnnual extends StatefulWidget {
-  final String check;
-  final String jenis;
-  final String waktu;
-  final String dokumen;
-  ChangeAnnual({this.dokumen, this.check, this.waktu, this.jenis});
+class Annual extends StatefulWidget {
+  final String hasil;
+  final String value;
+  Annual({this.value, this.hasil});
+  static const String routeName = "/annual";
   @override
-  _ChangeAnnualState createState() => _ChangeAnnualState();
+  _AnnualState createState() => _AnnualState();
 }
 
-class _ChangeAnnualState extends State<ChangeAnnual> {
+class _AnnualState extends State<Annual> {
+  bool a, b = false;
+
+  DatabaseService db = DatabaseService();
+  String checklist = "Semi-Annual";
+  String nama = "";
+  String error = "";
+  String mesin = "AMG";
+
+  final CollectionReference pengguna = Firestore.instance.collection('data');
+
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
-  String checklist = '';
-  String mesin = '';
-  bool a = false;
-  bool b = false;
-  DatabaseService db = DatabaseService();
-  Future getData() async {
-    final DocumentReference doc = Firestore.instance
-        .collection("checklist")
-        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
-    await doc.get().then((DocumentSnapshot snapshot) async {
-      setState(() {
-        a = snapshot.data["remote control"];
-        b = snapshot.data["machine angle"];
-        mesin = snapshot.data["mesin"];
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
-    return MaterialApp(
+    return new MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           centerTitle: true,
           title: Text(
-            'Daily Checklist'.toUpperCase(),
+            'Annual Checklist'.toUpperCase(),
           ),
         ),
         body: Container(
           child: ListView(
             children: <Widget>[
-              HeaderChecklist(judul: widget.jenis),
+              HeaderChecklist(judul: widget.hasil),
               Checklist(
+                kata: "Remote Control Battery",
                 nilai: a,
-                onChanged: (bool value) {
-                  print(value);
+                onChanged: (value) {
                   setState(() {
                     a = value;
                   });
                 },
-                onChanged2: (bool value) {
-                  print(value);
+                onChanged2: (value) {
                   setState(() {
                     a = !value;
                   });
                 },
-                kata: "Remote Control Battery",
               ),
               Checklist(
                 kata: "Machine 90° Angle Adjustment",
@@ -105,23 +89,19 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
                             "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                         _timeText =
                             "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                        dokumen = widget.dokumen;
-                        checklist = widget.check;
+                        dokumen =
+                            "${_dueDate.day}-${_dueDate.month}-${_dueDate.year}";
                         var firebaseUser =
                             await FirebaseAuth.instance.currentUser();
-                        var nama = await db.myCollection
-                            .document(firebaseUser.uid)
-                            .get();
-                        await db.createUpdateAnnual(
-                            nama["nama"],
-                            a,
-                            b,
-                            widget.jenis,
-                            checklist,
-                            _dateText,
-                            _timeText,
-                            mesin,
-                            dokumen);
+                        var nama =
+                            await pengguna.document(firebaseUser.uid).get();
+                        await db
+                            .createAddAnnual(nama["nama"], a, b, widget.hasil,
+                                checklist, _dateText, _timeText, mesin, dokumen)
+                            .then((value) => print("Berhasil"))
+                            .catchError((error) {
+                          print("Gagal");
+                        });
                         Navigator.pop(context);
                       }),
                 ),

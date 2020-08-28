@@ -35,8 +35,8 @@ class _AmgListState extends State<AmgList> {
           ),
         ),
         centerTitle: true,
-        title: const Text(
-          'Daftar Mesin',
+        title: Text(
+          'Daftar Mesin'.toUpperCase(),
           style: TextStyle(fontSize: 16.0),
         ),
         actions: <Widget>[

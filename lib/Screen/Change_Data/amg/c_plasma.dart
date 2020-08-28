@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/shared/cheklist.dart';
+import 'package:maintenance_apps/shared/header_checklist.dart';
 
 class ChangePlasma extends StatefulWidget {
   final String check;
@@ -61,164 +63,62 @@ class _ChangePlasmaState extends State<ChangePlasma> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text(widget.jenis),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Ya"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Tidak"),
-                    ),
-                  ],
-                ),
+              HeaderChecklist(judul: widget.jenis),
+              Checklist(
+                kata: "Tekanan Regulator Angin Kompresor",
+                nilai: a,
+                onChanged: (value) {
+                  setState(() {
+                    a = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    a = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Tekanan Regulator Angin Kompresor"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !a,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              a = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Tekanan Regulator Angin Kompresor saat Cutflow Test",
+                nilai: b,
+                onChanged: (value) {
+                  setState(() {
+                    b = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    b = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text(
-                          "Tekanan Regulator Angin Kompresor saat Cutflow Test"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !b,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              b = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Filter Udara Mesin",
+                nilai: c,
+                onChanged: (value) {
+                  setState(() {
+                    c = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    c = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Filters Udara Mesin"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Level Coolant"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Level Coolant",
+                nilai: d,
+                onChanged: (value) {
+                  setState(() {
+                    d = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    d = !value;
+                  });
+                },
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

@@ -1,78 +1,73 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/Services/database_ficep.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
+import 'package:maintenance_apps/shared/header_checklist.dart';
 
-class Monthly extends StatefulWidget {
-  static const String routeName = "/monthly";
-  final String value;
-  final String hasil;
-  Monthly({this.hasil, this.value});
+class ChangeDaily extends StatefulWidget {
+  final String check;
+  final String jenis;
+  final String waktu;
+  final String dokumen;
+  ChangeDaily({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _MonthlyState createState() => _MonthlyState();
+  _ChangeDailyState createState() => _ChangeDailyState();
 }
 
-class _MonthlyState extends State<Monthly> {
-  bool a = false;
-  bool b = false;
-  bool c = false;
-  bool d = false;
-  bool e = false;
-  bool f = false;
-
-  DatabaseService db = DatabaseService();
-  String nama = "";
-  String error = "";
-  String checklist = "Monthly";
-  String mesin = "AMG";
-
-  final CollectionReference pengguna = Firestore.instance.collection('data');
-
+class _ChangeDailyState extends State<ChangeDaily> {
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
+  String checklist = '';
+  String mesin = '';
+  bool a, b, c, d, e, f, g, h, i = false;
+  DatabaseFicep db = DatabaseFicep();
+  Future getData() async {
+    final DocumentReference doc = Firestore.instance
+        .collection("checklist")
+        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
+    await doc.get().then((DocumentSnapshot snapshot) async {
+      setState(() {
+        a = snapshot.data["kerak rel"];
+        b = snapshot.data["sliding guides"];
+        c = snapshot.data["thermal cutting"];
+        d = snapshot.data["photocells"];
+        e = snapshot.data["reflektor"];
+        f = snapshot.data["proximity tranducers"];
+        g = snapshot.data["limit switches"];
+        h = snapshot.data["scrap plasma"];
+        i = snapshot.data["kerak plasma"];
+        mesin = snapshot.data["mesin"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
-    return new MaterialApp(
+    return MaterialApp(
       home: new Scaffold(
         backgroundColor: Colors.blue[100],
         appBar: new AppBar(
           centerTitle: true,
           title: Text(
-            'Monthly Checklist'.toUpperCase(),
+            'Daily Checklist'.toUpperCase(),
           ),
         ),
         body: Container(
           child: ListView(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.6,
-                      child: Text(widget.hasil),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Ya"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Tidak"),
-                    ),
-                  ],
-                ),
-              ),
+              HeaderChecklist(judul: widget.jenis),
               Checklist(
-                kata: "Lubricating Rack & Ponion",
+                kata: "Membersihkan Kerak dari Rel",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -86,7 +81,7 @@ class _MonthlyState extends State<Monthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect All Gas Hoes",
+                kata: "Membersihkan Sliding Guides",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -100,7 +95,7 @@ class _MonthlyState extends State<Monthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect and Lubricate Z-Axis",
+                kata: "Membersihkan Thermal Cutting Banch",
                 nilai: c,
                 onChanged: (value) {
                   setState(() {
@@ -114,7 +109,7 @@ class _MonthlyState extends State<Monthly> {
                 },
               ),
               Checklist(
-                kata: "Coolant Fan Filter",
+                kata: "Membersihkan Photocells",
                 nilai: d,
                 onChanged: (value) {
                   setState(() {
@@ -128,7 +123,7 @@ class _MonthlyState extends State<Monthly> {
                 },
               ),
               Checklist(
-                kata: "Lubricating Clamp",
+                kata: "Membersihkan Reflektor",
                 nilai: e,
                 onChanged: (value) {
                   setState(() {
@@ -142,7 +137,7 @@ class _MonthlyState extends State<Monthly> {
                 },
               ),
               Checklist(
-                kata: "Dust Proof Baffle",
+                kata: "Membersihkan Proximity Tranducers",
                 nilai: f,
                 onChanged: (value) {
                   setState(() {
@@ -152,6 +147,48 @@ class _MonthlyState extends State<Monthly> {
                 onChanged2: (value) {
                   setState(() {
                     f = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Membersihkan Limit Switches",
+                nilai: g,
+                onChanged: (value) {
+                  setState(() {
+                    g = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    g = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Membersihkan Scraps Oxycutting/Plasma",
+                nilai: h,
+                onChanged: (value) {
+                  setState(() {
+                    h = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    h = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Membersihkan Kerak dan Debu Oxycutting/Plasma",
+                nilai: i,
+                onChanged: (value) {
+                  setState(() {
+                    i = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    i = !value;
                   });
                 },
               ),
@@ -170,13 +207,14 @@ class _MonthlyState extends State<Monthly> {
                             "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                         _timeText =
                             "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                        dokumen =
-                            "${_dueDate.day}-${_dueDate.month}-${_dueDate.year}";
+                        dokumen = widget.dokumen;
+                        checklist = widget.check;
                         var firebaseUser =
                             await FirebaseAuth.instance.currentUser();
-                        var nama =
-                            await pengguna.document(firebaseUser.uid).get();
-                        await db.createAddMonthly(
+                        var nama = await db.myCollection
+                            .document(firebaseUser.uid)
+                            .get();
+                        await db.createUpdateDaily(
                             nama["nama"],
                             a,
                             b,
@@ -184,7 +222,10 @@ class _MonthlyState extends State<Monthly> {
                             d,
                             e,
                             f,
-                            widget.hasil,
+                            g,
+                            h,
+                            i,
+                            widget.jenis,
                             checklist,
                             _dateText,
                             _timeText,
@@ -200,42 +241,4 @@ class _MonthlyState extends State<Monthly> {
       ),
     );
   }
-
-  // Widget list(String ket, bool nilai) {
-  //   double lebar = MediaQuery.of(context).size.width;
-  //   return Container(
-  //     margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-  //     padding: EdgeInsets.only(left: lebar * 0.05),
-  //     child: Row(
-  //       children: <Widget>[
-  //         Container(
-  //           width: lebar * 0.60,
-  //           child: Text(ket),
-  //         ),
-  //         Container(
-  //           width: lebar * 0.15,
-  //           child: Checkbox(
-  //               value: nilai,
-  //               onChanged: (bool value) {
-  //                 print(value);
-  //                 setState(() {
-  //                   nilai = value;
-  //                 });
-  //               }),
-  //         ),
-  //         Container(
-  //           width: lebar * 0.15,
-  //           child: Checkbox(
-  //               value: !nilai,
-  //               onChanged: (bool value) {
-  //                 print(value);
-  //                 setState(() {
-  //                   nilai = !value;
-  //                 });
-  //               }),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

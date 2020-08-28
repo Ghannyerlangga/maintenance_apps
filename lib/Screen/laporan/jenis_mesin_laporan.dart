@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/laporan/list_mesin.dart';
 import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/models/user.dart';
+import 'package:maintenance_apps/shared/button_type.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class JenisMesinLaporan extends StatefulWidget {
@@ -47,47 +48,40 @@ class _JenisMesinLaporanState extends State<JenisMesinLaporan> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  itemList('AMG'),
-                  itemList('CORYMPEX'),
-                  itemList('FICEP')
+                  ButtonList(
+                    type: "AMG",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ListMesin("AMG", userData)));
+                    },
+                  ),
+                  ButtonList(
+                    type: "CORYMPEX",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ListMesin("CORYMPEX", userData)));
+                    },
+                  ),
+                  ButtonList(
+                    type: "FICEP",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ListMesin("FICEP", userData)));
+                    },
+                  ),
                 ],
               ),
             );
           },
         ));
-  }
-
-  Widget itemList(String title) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-      child: ButtonTheme(
-          minWidth: MediaQuery.of(context).size.width * 0.40,
-          height: MediaQuery.of(context).size.height * 0.20,
-          child: new FlatButton(
-            padding: EdgeInsets.all(0),
-            color: Colors.lightBlueAccent[100],
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ListMesin(title, userData)));
-            },
-            child: Column(
-              children: <Widget>[
-                Container(
-                    child: Text(
-                  title,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 16, color: Colors.white, shadows: [
-                    Shadow(
-                        color: Colors.lightBlue,
-                        offset: Offset(1, 2),
-                        blurRadius: 2)
-                  ]),
-                )),
-              ],
-            ),
-          )),
-    );
   }
 }

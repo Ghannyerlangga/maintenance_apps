@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/Services/database_ficep.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
+import 'package:maintenance_apps/shared/header_checklist.dart';
 
 class Annual extends StatefulWidget {
   final String hasil;
@@ -14,15 +15,13 @@ class Annual extends StatefulWidget {
 }
 
 class _AnnualState extends State<Annual> {
-  bool a = false;
-  bool b = false;
-  bool c = false;
+  bool a, b, c = false;
 
-  DatabaseService db = DatabaseService();
+  DatabaseFicep db = DatabaseFicep();
   String checklist = "Semi-Annual";
   String nama = "";
   String error = "";
-  String mesin = "AMG";
+  String mesin = "FICEP";
 
   final CollectionReference pengguna = Firestore.instance.collection('data');
 
@@ -46,30 +45,10 @@ class _AnnualState extends State<Annual> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.6,
-                      child: Text(widget.hasil),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Ya"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Tidak"),
-                    ),
-                  ],
-                ),
-              ),
+              HeaderChecklist(judul: widget.hasil),
               Checklist(
-                kata: "Remote Control Battery",
+                kata:
+                    "Periksa Sistem Pelumasan Operasi Fool-prool,Oil Arrival Point, dan Tightening",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +62,7 @@ class _AnnualState extends State<Annual> {
                 },
               ),
               Checklist(
-                kata: "Machine 90° Angle Adjustment",
+                kata: "Penggantian Encoder Baterai",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -93,6 +72,21 @@ class _AnnualState extends State<Annual> {
                 onChanged2: (value) {
                   setState(() {
                     b = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata:
+                    "Pemantauan Status Karet Selang untuk Perangkat Oxycutting",
+                nilai: c,
+                onChanged: (value) {
+                  setState(() {
+                    c = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    c = !value;
                   });
                 },
               ),
@@ -118,8 +112,17 @@ class _AnnualState extends State<Annual> {
                         var nama =
                             await pengguna.document(firebaseUser.uid).get();
                         await db
-                            .createAddAnnual(nama["nama"], a, b, widget.hasil,
-                                checklist, _dateText, _timeText, mesin, dokumen)
+                            .createAddAnnual(
+                                nama["nama"],
+                                a,
+                                b,
+                                c,
+                                widget.hasil,
+                                checklist,
+                                _dateText,
+                                _timeText,
+                                mesin,
+                                dokumen)
                             .then((value) => print("Berhasil"))
                             .catchError((error) {
                           print("Gagal");

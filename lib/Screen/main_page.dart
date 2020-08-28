@@ -8,6 +8,7 @@ import 'package:maintenance_apps/Screen/maintenance_list.dart';
 import 'package:maintenance_apps/Screen/prosedur.dart';
 import 'package:maintenance_apps/Screen/tools.dart';
 import 'package:maintenance_apps/Services/auth_services.dart';
+import 'package:maintenance_apps/shared/button_menu.dart';
 
 class MainPage extends StatefulWidget {
   final FirebaseUser user;
@@ -39,6 +40,7 @@ class _MainPage extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
@@ -50,7 +52,7 @@ class _MainPage extends State<MainPage> {
         ),
       ),
       drawer: Container(
-        width: MediaQuery.of(context).size.width * 0.60,
+        width: size.width * 0.60,
         child: Drawer(
           child: Column(
             children: <Widget>[
@@ -79,8 +81,8 @@ class _MainPage extends State<MainPage> {
           children: <Widget>[
             Container(
               // color: Colors.black,
-              height: MediaQuery.of(context).size.height * 0.21,
-              width: MediaQuery.of(context).size.width * 0.80,
+              height: size.height * 0.21,
+              width: size.width * 0.80,
               margin: EdgeInsets.all(10),
 
               child: Column(children: <Widget>[
@@ -92,8 +94,8 @@ class _MainPage extends State<MainPage> {
                       padding: EdgeInsets.fromLTRB(0, 10.0, 5.0, 0),
                       child: Image.asset(
                         "img/logo_wika1.png",
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: size.height * 0.10,
+                        width: size.width * 0.40,
                       ),
                     ),
                     Container(
@@ -101,8 +103,8 @@ class _MainPage extends State<MainPage> {
                       padding: EdgeInsets.fromLTRB(0, 10.0, 10.0, 0),
                       child: Image.asset(
                         "img/logo_industri.png",
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: size.height * 0.10,
+                        width: size.width * 0.40,
                       ),
                     ),
                   ],
@@ -131,91 +133,27 @@ class _MainPage extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return MainList();
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/MaintenanceIcon8.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "MAINTENANCE",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainList();
+                      }));
+                    },
+                    image: "img/MaintenanceIcon8.png",
+                    text: "MAINTENANCE",
                   ),
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Prosedur();
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/DocumentIcon8.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "PROCEDURE",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Prosedur();
+                      }));
+                    },
+                    image: "img/DocumentIcon8.png",
+                    text: "PROCEDURE",
                   ),
                 ],
               ),
@@ -225,93 +163,29 @@ class _MainPage extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Document1(
-                                documentNum: 1,
-                              );
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/InstructionIcon8.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "WORK INSTRUCTION",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Document1(
+                          documentNum: 1,
+                        );
+                      }));
+                    },
+                    image: "img/InstructionIcon8.png",
+                    text: "WORK INSTRUCTION",
                   ),
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Tools();
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/ToolIcon8.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "TOOLS",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Tools();
+                      }));
+                    },
+                    image: "img/ToolIcon8.png",
+                    text: "TOOLS",
                   ),
                 ],
               ),
@@ -321,92 +195,28 @@ class _MainPage extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Barcode();
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/qr-code.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "SCAN BARCODE",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Barcode();
+                      }));
+                    },
+                    image: "img/qr-code.png",
+                    text: "SCAN QR-CODE",
                   ),
-                  Container(
+                  ButtonMenu(
                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: ButtonTheme(
-                        minWidth: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: new FlatButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return JenisMesinLaporan(widget.user.uid);
-                            }));
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 50.0,
-                                child: Image.asset(
-                                  "img/ReportIcon8.png",
-                                  height: 40.0,
-                                  width: 40.0,
-                                ),
-                                padding: EdgeInsets.all(10.0),
-                              ),
-                              new Container(
-                                  child: Text(
-                                "REPORT",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.lightBlue,
-                                          offset: Offset(1, 2),
-                                          blurRadius: 2)
-                                    ]),
-                              )),
-                            ],
-                          ),
-                        )),
-                  ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return JenisMesinLaporan(widget.user.uid);
+                      }));
+                    },
+                    image: "img/ReportIcon8.png",
+                    text: "REPORT",
+                  )
                 ],
               ),
             )

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/List_Mesin/amg_list.dart';
-
-import 'List_Mesin/ficep_llist.dart';
+import 'package:maintenance_apps/Screen/List_Mesin/corympex_list.dart';
+import 'package:maintenance_apps/Screen/List_Mesin/ficep_llist.dart';
+import 'package:maintenance_apps/shared/button_type.dart';
 
 class MainList extends StatefulWidget {
   @override
@@ -32,118 +33,43 @@ class _MainListState extends State<MainList> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width * 0.40,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  child: new FlatButton(
-                    padding: EdgeInsets.all(0),
-                    color: Colors.lightBlueAccent[100],
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AmgList(
-                                    mesin: amg,
-                                  )));
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Text(
-                          amg,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                    color: Colors.lightBlue,
-                                    offset: Offset(1, 2),
-                                    blurRadius: 2)
-                              ]),
-                        )),
-                      ],
-                    ),
-                  )),
-            ),
+            ButtonList(
+              type: amg,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AmgList(
+                              mesin: amg,
+                            )));
+              },
+            )
           ]),
           // ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              child: ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width * 0.40,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  child: new FlatButton(
-                    padding: EdgeInsets.all(0),
-                    color: Colors.lightBlueAccent[100],
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AmgList(
-                                    mesin: corympex,
-                                  )));
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Text(
-                          corympex,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                    color: Colors.lightBlue,
-                                    offset: Offset(1, 2),
-                                    blurRadius: 2)
-                              ]),
-                        )),
-                      ],
-                    ),
-                  )),
+            ButtonList(
+              type: corympex,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CorympexList(
+                              mesin: corympex,
+                            )));
+              },
             ),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              child: ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width * 0.40,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  child: new FlatButton(
-                    padding: EdgeInsets.all(0),
-                    color: Colors.lightBlueAccent[100],
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FicepList(
-                                    mesin: ficep,
-                                  )));
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Text(
-                          ficep,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                    color: Colors.lightBlue,
-                                    offset: Offset(1, 2),
-                                    blurRadius: 2)
-                              ]),
-                        )),
-                      ],
-                    ),
-                  )),
+            ButtonList(
+              type: ficep,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FicepList(
+                              mesin: ficep,
+                            )));
+              },
             ),
           ]),
         ],

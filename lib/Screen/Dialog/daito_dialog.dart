@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/Checklist/annual.dart';
-import 'package:maintenance_apps/Screen/Checklist/daily.dart';
-import 'package:maintenance_apps/Screen/Checklist/monthly.dart';
-import 'package:maintenance_apps/Screen/Checklist/plasma.dart';
+import 'package:maintenance_apps/Screen/Checklist/amg/annual.dart';
+import 'package:maintenance_apps/Screen/Checklist/amg/daily.dart';
+import 'package:maintenance_apps/Screen/Checklist/amg/monthly.dart';
+import 'package:maintenance_apps/Screen/Checklist/amg/plasma.dart';
 
 class DaitoDialog extends StatefulWidget {
   final String value;

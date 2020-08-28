@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/Change_Data/amg/c_daily.dart';
+import 'package:maintenance_apps/Screen/Change_Data/ficep/c_annual.dart';
+import 'package:maintenance_apps/Screen/Change_Data/ficep/c_daily.dart';
+import 'package:maintenance_apps/Screen/Change_Data/ficep/c_monthly.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class FicepData extends StatefulWidget {
@@ -39,6 +41,7 @@ class _FicepDataState extends State<FicepData> {
               ),
               title: Text(
                 "Daftar Checklist Hari Ini".toUpperCase(),
+                style: TextStyle(fontSize: 16.0),
               ),
               centerTitle: true,
             ),
@@ -62,16 +65,45 @@ class _FicepDataState extends State<FicepData> {
                               Text("Tipe Checklist : ${x.data["checklist"]}"),
                           trailing: Text(x.data["user"]),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ChangeDaily(
-                                    jenis: x.data["jenis mesin"],
-                                    check: x.data["checklist"],
-                                    waktu: x.data["waktu"],
-                                    dokumen: x.data["dokumen"],
-                                  ),
-                                ));
+                            switch (x.data["checklist"]) {
+                              case "Daily":
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChangeDaily(
+                                        jenis: x.data["jenis mesin"],
+                                        check: x.data["checklist"],
+                                        waktu: x.data["waktu"],
+                                        dokumen: x.data["dokumen"],
+                                      ),
+                                    ));
+                                break;
+                              case "Monthly":
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChangeMonthly(
+                                        jenis: x.data["jenis mesin"],
+                                        check: x.data["checklist"],
+                                        waktu: x.data["waktu"],
+                                        dokumen: x.data["dokumen"],
+                                      ),
+                                    ));
+                                break;
+                              case "Semi-Annual":
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChangeAnnual(
+                                        jenis: x.data["jenis mesin"],
+                                        check: x.data["checklist"],
+                                        waktu: x.data["waktu"],
+                                        dokumen: x.data["dokumen"],
+                                      ),
+                                    ));
+                                break;
+                              default:
+                            }
                           },
                         );
                       });

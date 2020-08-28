@@ -5,52 +5,37 @@ import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
 import 'package:maintenance_apps/shared/header_checklist.dart';
 
-class ChangeMonthly extends StatefulWidget {
-  final String check;
-  final String jenis;
-  final String waktu;
-  final String dokumen;
-  ChangeMonthly({this.dokumen, this.check, this.waktu, this.jenis});
+class Daily extends StatefulWidget {
+  final String value;
+  final String hasil;
+  Daily({this.value, this.hasil});
+  static const String routeName = "/daily";
   @override
-  _ChangeMonthlyState createState() => _ChangeMonthlyState();
+  _DailyState createState() => _DailyState();
 }
 
-class _ChangeMonthlyState extends State<ChangeMonthly> {
-  DateTime _dueDate = DateTime.now();
-  String _dateText = '';
-  String _timeText = '';
-  String dokumen = '';
-  String checklist = '';
-  String mesin = '';
+class _DailyState extends State<Daily> {
   bool a = false;
   bool b = false;
   bool c = false;
   bool d = false;
   bool e = false;
   bool f = false;
+  bool g = false;
+  bool h = false;
+  bool i = false;
   DatabaseService db = DatabaseService();
-  Future getData() async {
-    final DocumentReference doc = Firestore.instance
-        .collection("checklist")
-        .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
-    await doc.get().then((DocumentSnapshot snapshot) async {
-      setState(() {
-        a = snapshot.data["rack"];
-        b = snapshot.data["gas hoses"];
-        c = snapshot.data["z-axis"];
-        d = snapshot.data["coolant"];
-        e = snapshot.data["clamp"];
-        f = snapshot.data["dust"];
-        mesin = snapshot.data["mesin"];
-      });
-    });
-  }
+  String nama = "";
+  String error = "";
+  String checklist = "Daily";
+  String mesin = "AMG";
 
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
+  final CollectionReference pengguna = Firestore.instance.collection('data');
+
+  DateTime _dueDate = DateTime.now();
+  String _dateText = '';
+  String _timeText = '';
+  String dokumen = '';
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +52,9 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              HeaderChecklist(judul: widget.jenis),
+              HeaderChecklist(judul: widget.hasil),
               Checklist(
-                kata: "Lubricating Rack & Ponion",
+                kata: "Rail Cleaning",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +68,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect All Gas Hoes",
+                kata: "Machine Cleaning",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -97,7 +82,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect and Lubricate Z-Axis",
+                kata: "Limit Switch Inspection",
                 nilai: c,
                 onChanged: (value) {
                   setState(() {
@@ -111,7 +96,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Coolant Fan Filter",
+                kata: "Linear Guide Cleaning",
                 nilai: d,
                 onChanged: (value) {
                   setState(() {
@@ -125,7 +110,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Lubricating Clamp",
+                kata: "Cable Chain Inspection",
                 nilai: e,
                 onChanged: (value) {
                   setState(() {
@@ -139,7 +124,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Dust Proof Baffle",
+                kata: "Nozzle Cleaning",
                 nilai: f,
                 onChanged: (value) {
                   setState(() {
@@ -149,6 +134,48 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 onChanged2: (value) {
                   setState(() {
                     f = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Oxygen Inspection (O2)",
+                nilai: g,
+                onChanged: (value) {
+                  setState(() {
+                    g = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    g = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Elpiji Inspection (C3H8)",
+                nilai: h,
+                onChanged: (value) {
+                  setState(() {
+                    h = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    h = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Nitrogen Inspection (N2)",
+                nilai: i,
+                onChanged: (value) {
+                  setState(() {
+                    i = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    i = !value;
                   });
                 },
               ),
@@ -167,14 +194,13 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                             "${_dueDate.day}/${_dueDate.month}/${_dueDate.year}";
                         _timeText =
                             "${_dueDate.hour}:${_dueDate.minute}:${_dueDate.second}";
-                        dokumen = widget.dokumen;
-                        checklist = widget.check;
+                        dokumen =
+                            "${_dueDate.day}-${_dueDate.month}-${_dueDate.year}";
                         var firebaseUser =
                             await FirebaseAuth.instance.currentUser();
-                        var nama = await db.myCollection
-                            .document(firebaseUser.uid)
-                            .get();
-                        await db.createUpdateMonthly(
+                        var nama =
+                            await pengguna.document(firebaseUser.uid).get();
+                        await db.createAddDaily(
                             nama["nama"],
                             a,
                             b,
@@ -182,7 +208,10 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                             d,
                             e,
                             f,
-                            widget.jenis,
+                            g,
+                            h,
+                            i,
+                            widget.hasil,
                             checklist,
                             _dateText,
                             _timeText,

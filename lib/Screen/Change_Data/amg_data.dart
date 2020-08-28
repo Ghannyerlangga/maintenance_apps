@@ -42,6 +42,7 @@ class _AmgDataState extends State<AmgData> {
               ),
               title: Text(
                 "Daftar Checklist Hari Ini".toUpperCase(),
+                style: TextStyle(fontSize: 16.0),
               ),
               centerTitle: true,
             ),

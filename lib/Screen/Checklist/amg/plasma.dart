@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Services/database.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
+import 'package:maintenance_apps/shared/header_checklist.dart';
 
 class Plasma extends StatefulWidget {
   static const String routeName = "/annual";
@@ -46,28 +47,7 @@ class _PlasmaState extends State<Plasma> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.6,
-                      child: Text(widget.hasil),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Ya"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Tidak"),
-                    ),
-                  ],
-                ),
-              ),
+              HeaderChecklist(judul: widget.hasil),
               Checklist(
                 kata: "Tekanan Regulator Angin Kompresor",
                 nilai: a,
@@ -96,73 +76,33 @@ class _PlasmaState extends State<Plasma> {
                   });
                 },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Filters Udara Mesin"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !c,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              c = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Filter Udara Mesin",
+                nilai: c,
+                onChanged: (value) {
+                  setState(() {
+                    c = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    c = !value;
+                  });
+                },
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text("Level Coolant"),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = value;
-                            });
-                          }),
-                    ),
-                    Container(
-                      width: lebar * 0.15,
-                      child: Checkbox(
-                          value: !d,
-                          onChanged: (bool value) {
-                            print(value);
-                            setState(() {
-                              d = !value;
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+              Checklist(
+                kata: "Level Coolant",
+                nilai: d,
+                onChanged: (value) {
+                  setState(() {
+                    d = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    d = !value;
+                  });
+                },
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

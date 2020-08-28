@@ -34,8 +34,8 @@ class _FicepListState extends State<FicepList> {
           ),
         ),
         centerTitle: true,
-        title: const Text(
-          'Daftar Mesin',
+        title: Text(
+          'Daftar Mesin'.toUpperCase(),
           style: TextStyle(fontSize: 16.0),
         ),
         actions: <Widget>[

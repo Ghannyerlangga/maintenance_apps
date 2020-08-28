@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/Services/database_ficep.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
 import 'package:maintenance_apps/shared/header_checklist.dart';
 
@@ -22,25 +22,23 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
   String dokumen = '';
   String checklist = '';
   String mesin = '';
-  bool a = false;
-  bool b = false;
-  bool c = false;
-  bool d = false;
-  bool e = false;
-  bool f = false;
-  DatabaseService db = DatabaseService();
+  bool a, b, c, d, e, f, g, h, i = false;
+  DatabaseFicep db = DatabaseFicep();
   Future getData() async {
     final DocumentReference doc = Firestore.instance
         .collection("checklist")
         .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
     await doc.get().then((DocumentSnapshot snapshot) async {
       setState(() {
-        a = snapshot.data["rack"];
-        b = snapshot.data["gas hoses"];
-        c = snapshot.data["z-axis"];
-        d = snapshot.data["coolant"];
-        e = snapshot.data["clamp"];
-        f = snapshot.data["dust"];
+        a = snapshot.data["gantry"];
+        b = snapshot.data["adjusments"];
+        c = snapshot.data["pelumas drill"];
+        d = snapshot.data["tightening kamera"];
+        e = snapshot.data["proximity"];
+        f = snapshot.data["limit switches"];
+        g = snapshot.data["konektor terminal"];
+        h = snapshot.data["pengencangan pipa"];
+        i = snapshot.data["keausan pipa"];
         mesin = snapshot.data["mesin"];
       });
     });
@@ -69,7 +67,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
               Checklist(
-                kata: "Lubricating Rack & Ponion",
+                kata: "Pelumasan Gantry Wheels",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +81,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect All Gas Hoes",
+                kata: "Pengecekan Tightening Adjustments",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -97,7 +95,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect and Lubricate Z-Axis",
+                kata: "Periksa Level Pelumas Drill/Bor",
                 nilai: c,
                 onChanged: (value) {
                   setState(() {
@@ -111,7 +109,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Coolant Fan Filter",
+                kata: "Pemeriksaan Tightening Kamera",
                 nilai: d,
                 onChanged: (value) {
                   setState(() {
@@ -125,7 +123,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Lubricating Clamp",
+                kata: "Pemeriksaan Proximity Transducers",
                 nilai: e,
                 onChanged: (value) {
                   setState(() {
@@ -139,7 +137,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Dust Proof Baffle",
+                kata: "Pemeriksaan Limit Switches",
                 nilai: f,
                 onChanged: (value) {
                   setState(() {
@@ -149,6 +147,49 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 onChanged2: (value) {
                   setState(() {
                     f = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Pemeriksaan Konektor dan Terminal",
+                nilai: g,
+                onChanged: (value) {
+                  setState(() {
+                    g = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    g = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata: "Pemeriksaan Pengencangan Pipa ",
+                nilai: h,
+                onChanged: (value) {
+                  setState(() {
+                    h = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    h = !value;
+                  });
+                },
+              ),
+              Checklist(
+                kata:
+                    "Pemeriksaan Keausan Pipa Fleksibel pada Hidrolik dan Pelumasan Sistem",
+                nilai: i,
+                onChanged: (value) {
+                  setState(() {
+                    i = value;
+                  });
+                },
+                onChanged2: (value) {
+                  setState(() {
+                    i = !value;
                   });
                 },
               ),
@@ -182,6 +223,9 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                             d,
                             e,
                             f,
+                            g,
+                            h,
+                            i,
                             widget.jenis,
                             checklist,
                             _dateText,

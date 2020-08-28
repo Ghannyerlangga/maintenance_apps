@@ -1,46 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/Services/database_ficep.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
 import 'package:maintenance_apps/shared/header_checklist.dart';
 
-class ChangeMonthly extends StatefulWidget {
+class ChangeAnnual extends StatefulWidget {
   final String check;
   final String jenis;
   final String waktu;
   final String dokumen;
-  ChangeMonthly({this.dokumen, this.check, this.waktu, this.jenis});
+  ChangeAnnual({this.dokumen, this.check, this.waktu, this.jenis});
   @override
-  _ChangeMonthlyState createState() => _ChangeMonthlyState();
+  _ChangeAnnualState createState() => _ChangeAnnualState();
 }
 
-class _ChangeMonthlyState extends State<ChangeMonthly> {
+class _ChangeAnnualState extends State<ChangeAnnual> {
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
   String checklist = '';
   String mesin = '';
-  bool a = false;
-  bool b = false;
-  bool c = false;
-  bool d = false;
-  bool e = false;
-  bool f = false;
-  DatabaseService db = DatabaseService();
+  bool a, b, c = false;
+  DatabaseFicep db = DatabaseFicep();
   Future getData() async {
     final DocumentReference doc = Firestore.instance
         .collection("checklist")
         .document(widget.jenis + "-" + widget.check + "-" + widget.dokumen);
     await doc.get().then((DocumentSnapshot snapshot) async {
       setState(() {
-        a = snapshot.data["rack"];
-        b = snapshot.data["gas hoses"];
-        c = snapshot.data["z-axis"];
-        d = snapshot.data["coolant"];
-        e = snapshot.data["clamp"];
-        f = snapshot.data["dust"];
+        a = snapshot.data["sistem pelumasan"];
+        b = snapshot.data["encoder baterai"];
+        c = snapshot.data["status karet"];
         mesin = snapshot.data["mesin"];
       });
     });
@@ -69,7 +61,8 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
               Checklist(
-                kata: "Lubricating Rack & Ponion",
+                kata:
+                    "Periksa Sistem Pelumasan Operasi Fool-prool,Oil Arrival Point, dan Tightening",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +76,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect All Gas Hoes",
+                kata: "Penggantian Encoder Baterai",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -97,7 +90,8 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 },
               ),
               Checklist(
-                kata: "Inspect and Lubricate Z-Axis",
+                kata:
+                    "Pemantauan Status Karet Selang untuk Perangkat Oxycutting",
                 nilai: c,
                 onChanged: (value) {
                   setState(() {
@@ -107,48 +101,6 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                 onChanged2: (value) {
                   setState(() {
                     c = !value;
-                  });
-                },
-              ),
-              Checklist(
-                kata: "Coolant Fan Filter",
-                nilai: d,
-                onChanged: (value) {
-                  setState(() {
-                    d = value;
-                  });
-                },
-                onChanged2: (value) {
-                  setState(() {
-                    d = !value;
-                  });
-                },
-              ),
-              Checklist(
-                kata: "Lubricating Clamp",
-                nilai: e,
-                onChanged: (value) {
-                  setState(() {
-                    e = value;
-                  });
-                },
-                onChanged2: (value) {
-                  setState(() {
-                    e = !value;
-                  });
-                },
-              ),
-              Checklist(
-                kata: "Dust Proof Baffle",
-                nilai: f,
-                onChanged: (value) {
-                  setState(() {
-                    f = value;
-                  });
-                },
-                onChanged2: (value) {
-                  setState(() {
-                    f = !value;
                   });
                 },
               ),
@@ -174,14 +126,11 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
                         var nama = await db.myCollection
                             .document(firebaseUser.uid)
                             .get();
-                        await db.createUpdateMonthly(
+                        await db.createUpdateAnnual(
                             nama["nama"],
                             a,
                             b,
                             c,
-                            d,
-                            e,
-                            f,
                             widget.jenis,
                             checklist,
                             _dateText,

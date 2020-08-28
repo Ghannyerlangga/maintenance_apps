@@ -1,80 +1,49 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Services/database.dart';
+import 'package:maintenance_apps/Services/database_ficep.dart';
 import 'package:maintenance_apps/shared/cheklist.dart';
+import 'package:maintenance_apps/shared/header_checklist.dart';
 
-class Daily extends StatefulWidget {
+class Monthly extends StatefulWidget {
   final String value;
   final String hasil;
-  Daily({this.value, this.hasil});
-  static const String routeName = "/daily";
+  Monthly({this.hasil, this.value});
   @override
-  _DailyState createState() => _DailyState();
+  _MonthlyState createState() => _MonthlyState();
 }
 
-class _DailyState extends State<Daily> {
-  bool a = false;
-  bool b = false;
-  bool c = false;
-  bool d = false;
-  bool e = false;
-  bool f = false;
-  bool g = false;
-  bool h = false;
-  bool i = false;
-  DatabaseService db = DatabaseService();
+class _MonthlyState extends State<Monthly> {
+  bool a, b, c, d, e, f, g, h, i = false;
+  DatabaseFicep db = DatabaseFicep();
   String nama = "";
   String error = "";
-  String checklist = "Daily";
-  String mesin = "AMG";
+  String checklist = "Monthly";
+  String mesin = "FICEP";
 
-  final CollectionReference pengguna = Firestore.instance.collection('data');
+  final CollectionReference pengguna = Firestore.instance.collection("data");
 
   DateTime _dueDate = DateTime.now();
   String _dateText = '';
   String _timeText = '';
   String dokumen = '';
-
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      home: new Scaffold(
-        backgroundColor: Colors.blue[100],
-        appBar: new AppBar(
-          centerTitle: true,
-          title: Text(
-            'Daily Checklist'.toUpperCase(),
-          ),
-        ),
-        body: Container(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: lebar * 0.05),
-                margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: lebar * 0.60,
-                      child: Text(widget.hasil),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Ya"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: lebar * 0.15,
-                      child: Text("Tidak"),
-                    ),
-                  ],
-                ),
+    return new MaterialApp(
+        home: new Scaffold(
+            backgroundColor: Colors.blue[100],
+            appBar: new AppBar(
+              centerTitle: true,
+              title: Text(
+                'Monthly Checklist'.toUpperCase(),
               ),
+            ),
+            body: Container(
+                child: ListView(children: <Widget>[
+              HeaderChecklist(judul: widget.hasil),
               Checklist(
-                kata: "Rail Cleaning",
+                kata: "Pelumasan Gantry Wheels",
                 nilai: a,
                 onChanged: (value) {
                   setState(() {
@@ -88,7 +57,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Machine Cleaning",
+                kata: "Pengecekan Tightening Adjustments",
                 nilai: b,
                 onChanged: (value) {
                   setState(() {
@@ -102,7 +71,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Limit Switch Inspection",
+                kata: "Periksa Level Pelumas Drill/Bor",
                 nilai: c,
                 onChanged: (value) {
                   setState(() {
@@ -116,7 +85,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Linear Guide Cleaning",
+                kata: "Pemeriksaan Tightening Kamera",
                 nilai: d,
                 onChanged: (value) {
                   setState(() {
@@ -130,7 +99,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Cable Chain Inspection",
+                kata: "Pemeriksaan Proximity Transducers",
                 nilai: e,
                 onChanged: (value) {
                   setState(() {
@@ -144,7 +113,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Nozzle Cleaning",
+                kata: "Pemeriksaan Limit Switches",
                 nilai: f,
                 onChanged: (value) {
                   setState(() {
@@ -158,7 +127,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Oxygen Inspection (O2)",
+                kata: "Pemeriksaan Konektor dan Terminal",
                 nilai: g,
                 onChanged: (value) {
                   setState(() {
@@ -172,7 +141,7 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Elpiji Inspection (C3H8)",
+                kata: "Pemeriksaan Pengencangan Pipa ",
                 nilai: h,
                 onChanged: (value) {
                   setState(() {
@@ -186,7 +155,8 @@ class _DailyState extends State<Daily> {
                 },
               ),
               Checklist(
-                kata: "Nitrogen Inspection (N2)",
+                kata:
+                    "Pemeriksaan Keausan Pipa Fleksibel pada Hidrolik dan Pelumasan Sistem",
                 nilai: i,
                 onChanged: (value) {
                   setState(() {
@@ -220,7 +190,7 @@ class _DailyState extends State<Daily> {
                             await FirebaseAuth.instance.currentUser();
                         var nama =
                             await pengguna.document(firebaseUser.uid).get();
-                        await db.createAddDaily(
+                        await db.createAddMonthly(
                             nama["nama"],
                             a,
                             b,
@@ -241,10 +211,6 @@ class _DailyState extends State<Daily> {
                       }),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ]))));
   }
 }
