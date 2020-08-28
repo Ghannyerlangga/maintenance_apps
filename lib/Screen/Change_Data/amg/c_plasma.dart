@@ -50,6 +50,7 @@ class _ChangePlasmaState extends State<ChangePlasma> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -64,6 +65,7 @@ class _ChangePlasmaState extends State<ChangePlasma> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Tekanan Regulator Angin Kompresor",
                 nilai: a,

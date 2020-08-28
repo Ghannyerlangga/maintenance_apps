@@ -15,7 +15,10 @@ class Annual extends StatefulWidget {
 }
 
 class _AnnualState extends State<Annual> {
-  bool a, b, c = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
 
   DatabaseFicep db = DatabaseFicep();
   String checklist = "Semi-Annual";
@@ -32,6 +35,7 @@ class _AnnualState extends State<Annual> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return new MaterialApp(
       home: new Scaffold(
@@ -46,6 +50,7 @@ class _AnnualState extends State<Annual> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.hasil),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata:
                     "Periksa Sistem Pelumasan Operasi Fool-prool,Oil Arrival Point, dan Tightening",

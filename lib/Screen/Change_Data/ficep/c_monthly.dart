@@ -22,7 +22,15 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
   String dokumen = '';
   String checklist = '';
   String mesin = '';
-  bool a, b, c, d, e, f, g, h, i = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  bool e = false;
+  bool f = false;
+  bool g = false;
+  bool h = false;
+  bool i = false;
   DatabaseFicep db = DatabaseFicep();
   Future getData() async {
     final DocumentReference doc = Firestore.instance
@@ -52,6 +60,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -66,6 +75,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Pelumasan Gantry Wheels",
                 nilai: a,

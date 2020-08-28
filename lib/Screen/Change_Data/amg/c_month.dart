@@ -54,6 +54,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -68,6 +69,7 @@ class _ChangeMonthlyState extends State<ChangeMonthly> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Lubricating Rack & Ponion",
                 nilai: a,

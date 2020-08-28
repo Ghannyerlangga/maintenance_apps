@@ -22,7 +22,9 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
   String dokumen = '';
   String checklist = '';
   String mesin = '';
-  bool a, b, c = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
   DatabaseFicep db = DatabaseFicep();
   Future getData() async {
     final DocumentReference doc = Firestore.instance
@@ -46,6 +48,7 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -60,6 +63,7 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata:
                     "Periksa Sistem Pelumasan Operasi Fool-prool,Oil Arrival Point, dan Tightening",

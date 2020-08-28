@@ -22,7 +22,15 @@ class _ChangeDailyState extends State<ChangeDaily> {
   String dokumen = '';
   String checklist = '';
   String mesin = '';
-  bool a, b, c, d, e, f, g, h, i = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  bool e = false;
+  bool f = false;
+  bool g = false;
+  bool h = false;
+  bool i = false;
   DatabaseFicep db = DatabaseFicep();
   Future getData() async {
     final DocumentReference doc = Firestore.instance
@@ -37,7 +45,7 @@ class _ChangeDailyState extends State<ChangeDaily> {
         e = snapshot.data["reflektor"];
         f = snapshot.data["proximity tranducers"];
         g = snapshot.data["limit switches"];
-        h = snapshot.data["scrap plasma"];
+        h = snapshot.data["scraps plasma"];
         i = snapshot.data["kerak plasma"];
         mesin = snapshot.data["mesin"];
       });
@@ -52,6 +60,7 @@ class _ChangeDailyState extends State<ChangeDaily> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -66,6 +75,7 @@ class _ChangeDailyState extends State<ChangeDaily> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Membersihkan Kerak dari Rel",
                 nilai: a,

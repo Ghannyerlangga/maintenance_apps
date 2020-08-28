@@ -39,6 +39,7 @@ class _DailyState extends State<Daily> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -53,6 +54,7 @@ class _DailyState extends State<Daily> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.hasil),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Rail Cleaning",
                 nilai: a,

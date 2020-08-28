@@ -15,7 +15,8 @@ class Annual extends StatefulWidget {
 }
 
 class _AnnualState extends State<Annual> {
-  bool a, b = false;
+  bool a = false;
+  bool b = false;
 
   DatabaseService db = DatabaseService();
   String checklist = "Semi-Annual";
@@ -32,6 +33,7 @@ class _AnnualState extends State<Annual> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return new MaterialApp(
       home: new Scaffold(
@@ -46,6 +48,7 @@ class _AnnualState extends State<Annual> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.hasil),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Remote Control Battery",
                 nilai: a,

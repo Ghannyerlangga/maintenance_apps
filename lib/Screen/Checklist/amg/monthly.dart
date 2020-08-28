@@ -15,7 +15,12 @@ class Monthly extends StatefulWidget {
 }
 
 class _MonthlyState extends State<Monthly> {
-  bool a, b, c, d, e, f = false;
+  bool a = false;
+  bool b = false;
+  bool c = false;
+  bool d = false;
+  bool e = false;
+  bool f = false;
 
   DatabaseService db = DatabaseService();
   String nama = "";
@@ -32,6 +37,7 @@ class _MonthlyState extends State<Monthly> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return new MaterialApp(
       home: new Scaffold(
@@ -46,6 +52,7 @@ class _MonthlyState extends State<Monthly> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.hasil),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 kata: "Lubricating Rack & Ponion",
                 nilai: a,

@@ -46,6 +46,7 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     double lebar = MediaQuery.of(context).size.width;
     return MaterialApp(
       home: new Scaffold(
@@ -60,6 +61,7 @@ class _ChangeAnnualState extends State<ChangeAnnual> {
           child: ListView(
             children: <Widget>[
               HeaderChecklist(judul: widget.jenis),
+              SizedBox(height: size.height * 0.02),
               Checklist(
                 nilai: a,
                 onChanged: (bool value) {
