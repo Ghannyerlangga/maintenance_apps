@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
+import 'package:maintenance_apps/Screen/tools/components/background.dart';
 import 'package:maintenance_apps/Screen/tools/tambah_consumable.dart';
 import 'package:maintenance_apps/models/consumable.dart';
 import 'package:maintenance_apps/shared/loading.dart';
@@ -34,7 +35,7 @@ class _ListConsumableState extends State<ListConsumable> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Background(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Daftar Consumable'.toUpperCase()),
@@ -98,7 +99,7 @@ class _ListConsumableState extends State<ListConsumable> {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 730,
+        rightHandSideColumnWidth: 930,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -119,6 +120,8 @@ class _ListConsumableState extends State<ListConsumable> {
             children: <Widget>[
               _tabelCell(documents[index]['nama'].toString()),
               _tabelCell(documents[index]['jenis'].toString()),
+              _tabelCell(documents[index]['kapasitas'].toString()),
+              _tabelCell(documents[index]['tanggal_datang'].toString()),
               _tabelCell(documents[index]['part'].toString()),
               _tabelCell(documents[index]['jumlah'].toString()),
               _tabelCell(documents[index]['keterangan'].toString()),
@@ -167,7 +170,7 @@ class _ListConsumableState extends State<ListConsumable> {
         leftHandSideColBackgroundColor: Colors.blue[200],
         rightHandSideColBackgroundColor: Colors.blue[100],
       ),
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * 0.6,
     );
   }
 
@@ -190,6 +193,8 @@ class _ListConsumableState extends State<ListConsumable> {
       _getTitleItemWidget('No', 30.0),
       _getTitleItemWidget('Nama Consumable', 100.0),
       _getTitleItemWidget('Jenis', 100.0),
+      _getTitleItemWidget('Kapasitas', 100.0),
+      _getTitleItemWidget('Tanggal Kedatangan', 100.0),
       _getTitleItemWidget('Part Mesin', 100.0),
       _getTitleItemWidget('Jumlah', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),

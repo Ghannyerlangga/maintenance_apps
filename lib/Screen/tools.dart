@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/tools/components/tools_select.dart';
+import 'package:maintenance_apps/Screen/tools/daftar_jenis_mesin.dart';
+import 'package:maintenance_apps/Screen/tools/inOutList/in_out_list.dart';
 import 'package:maintenance_apps/Screen/tools/lihat_repair.dart';
 import 'package:maintenance_apps/Screen/tools/list_consumable.dart';
 import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
+import 'package:maintenance_apps/Screen/tools/list_sparepart.dart';
 import 'package:maintenance_apps/shared/button_menu.dart';
 
 class Tools extends StatelessWidget {
@@ -68,6 +72,36 @@ class Tools extends StatelessWidget {
                         },
                         image: "img/ConsumableIcon8.png",
                         text: "CONSUMABLE"),
+                  ]),
+              SizedBox(height: size.height * 0.03),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ButtonMenu(
+                        // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (contex) {
+                            return ListSparePart();
+                          }));
+                        },
+                        image: "img/ConsumableIcon8.png",
+                        text: "SPARE PART"),
+                  ]),
+              SizedBox(height: size.height * 0.03),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ButtonMenu(
+                        // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (contex) {
+                            return OutInList();
+                          }));
+                        },
+                        image: "img/ConsumableIcon8.png",
+                        text: "IN OUT LIST"),
                   ]),
             ],
           ),
