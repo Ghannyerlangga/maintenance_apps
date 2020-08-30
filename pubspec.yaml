@@ -59,18 +59,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - img/logo_wika.png
-     - img/logo_wika1.png
-     - img/logo_industri.png
-     - img/MaintenanceIcon8.png
-     - img/DocumentIcon8.png
-     - img/InstructionIcon8.png
-     - img/ToolIcon8.png
-     - img/qr-code.png
-     - img/ReportIcon8.png
-     - img/MachineFlatIcon.png
-     - img/repairFlatIcon.png
-     - img/ConsumableIcon8.png
+     - img/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

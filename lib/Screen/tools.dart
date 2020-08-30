@@ -21,89 +21,92 @@ class Tools extends StatelessWidget {
         ),
         backgroundColor: Colors.blue[100],
         body: ListView(children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: size.height * 0.1),
-              // Expanded(
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ButtonMenu(
-                      // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (contex) {
-                          return ListMesin();
-                        }));
-                      },
-                      image: "img/MachineFlatIcon.png",
-                      text: "LIST MACHINE",
-                    ),
-                  ]),
-              // ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ButtonMenu(
-                      // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (contex) {
-                          return ShowRepair();
-                        }));
-                      },
-                      image: "img/repairFlatIcon.png",
-                      text: "REPAIR",
-                    ),
-                  ]),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ButtonMenu(
+          Container(
+            margin: EdgeInsets.only(
+                top: size.height * 0.1, bottom: size.height * 0.1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Expanded(
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ButtonMenu(
                         // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (contex) {
-                            return ListConsumable();
+                            return ListMesin();
                           }));
                         },
-                        image: "img/ConsumableIcon8.png",
-                        text: "CONSUMABLE"),
-                  ]),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ButtonMenu(
+                        image: "img/MachineFlatIcon.png",
+                        text: "LIST MACHINE",
+                      ),
+                    ]),
+                // ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ButtonMenu(
                         // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (contex) {
-                            return ListSparePart();
+                            return ShowRepair();
                           }));
                         },
-                        image: "img/ConsumableIcon8.png",
-                        text: "SPARE PART"),
-                  ]),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ButtonMenu(
-                        // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (contex) {
-                            return OutInList();
-                          }));
-                        },
-                        image: "img/ConsumableIcon8.png",
-                        text: "IN OUT LIST"),
-                  ]),
-            ],
+                        image: "img/repairFlatIcon.png",
+                        text: "REPAIR",
+                      ),
+                    ]),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ButtonMenu(
+                          // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (contex) {
+                              return ListConsumable();
+                            }));
+                          },
+                          image: "img/ConsumableIcon8.png",
+                          text: "CONSUMABLE"),
+                    ]),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ButtonMenu(
+                          // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (contex) {
+                              return ListSparePart();
+                            }));
+                          },
+                          image: "img/SparepartFlatIcon.png",
+                          text: "SPARE PART"),
+                    ]),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ButtonMenu(
+                          // margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (contex) {
+                              return OutInList();
+                            }));
+                          },
+                          image: "img/process.png",
+                          text: "IN OUT LIST"),
+                    ]),
+              ],
+            ),
           ),
         ]));
   }
