@@ -18,12 +18,16 @@ class TambahRepair extends StatefulWidget {
 class _TambahRepairState extends State<TambahRepair> {
   bool _isLoading = false;
   bool _modeTambah = true;
+  TextEditingController _tipeController = TextEditingController();
   TextEditingController _tanggalRusak = TextEditingController();
   TextEditingController _tanggalPerbaikan = TextEditingController();
   TextEditingController _consumableController = TextEditingController();
   TextEditingController _keteranganController = TextEditingController();
   TextEditingController _pjController = TextEditingController();
   TextEditingController _sparePartController = TextEditingController();
+  TextEditingController _noInventarisController = TextEditingController();
+  TextEditingController _lokasiController = TextEditingController();
+  TextEditingController _jumlahController = TextEditingController();
   DateTime waktu = DateTime.now();
 
   DateTime tanggalRusak = DateTime.now();
@@ -40,6 +44,9 @@ class _TambahRepairState extends State<TambahRepair> {
     if (widget.mode != 'tambah') {
       _modeTambah = false;
       namaMesin = widget.repair.nama;
+      _jumlahController.text = widget.repair.jumlah;
+      _lokasiController.text = widget.repair.lokasi;
+      _noInventarisController.text = widget.repair.noInventaris;
       _tanggalRusak.text = widget.repair.tanggalRusak;
       _tanggalPerbaikan.text = widget.repair.tanggalPerbaikan;
       _consumableController.text = widget.repair.consumable;
@@ -62,24 +69,30 @@ class _TambahRepairState extends State<TambahRepair> {
   }
 
   tambahRepair(
+      String noInventaris,
       String nama,
       String tanggalRusak,
       String tanggalPerbaikan,
       String consumable,
+      String jumlah,
       String penanggungJawab,
       String sparePart,
+      String lokasi,
       String keterangan) async {
     setState(() {
       _isLoading = true;
     });
     await collection.add({
+      'no_inventaris': noInventaris,
       'jenis mesin': widget.mesin.listMesin[0].jenis,
-      'pj': penanggungJawab,
+      'teknisi': penanggungJawab,
       'spare part': sparePart,
       'nama': nama,
       'tanggal rusak': tanggalRusak,
       'tanggal perbaikan': tanggalPerbaikan,
       'consumable': consumable,
+      'jumlah': jumlah,
+      'lokasi': lokasi,
       'keterangan': keterangan,
       'time': waktu
     }).then((value) {
@@ -87,10 +100,14 @@ class _TambahRepairState extends State<TambahRepair> {
         setState(() {
           value.updateData({'id': value.documentID});
           namaMesin = null;
+          _noInventarisController.clear();
+          _lokasiController.clear();
           _tanggalRusak.clear();
           _tanggalPerbaikan.clear();
           _consumableController.clear();
           _keteranganController.clear();
+          _tipeController.clear();
+          _jumlahController.clear();
           _pjController.clear();
           _sparePartController.clear();
           _isLoading = false;
@@ -106,34 +123,44 @@ class _TambahRepairState extends State<TambahRepair> {
   }
 
   ubahRepair(
+      String noInventaris,
       String nama,
       String tanggalRusak,
       String tanggalPerbaikan,
       String consumable,
+      String jumlah,
       String penanggungJawab,
       String sparePart,
+      String lokasi,
       String keterangan) async {
     setState(() {
       _isLoading = true;
     });
     await collection.document(widget.repair.id).setData({
       'id': widget.repair.id,
+      'no_inventaris': noInventaris,
       'jenis mesin': widget.mesin.listMesin[0].jenis,
-      'pj': penanggungJawab,
+      'teknisi': penanggungJawab,
       'spare part': sparePart,
       'nama': nama,
       'tanggal rusak': tanggalRusak,
       'tanggal perbaikan': tanggalPerbaikan,
       'consumable': consumable,
+      'jumlah': jumlah,
+      'lokasi': lokasi,
       'keterangan': keterangan,
       'time': waktu
     }).then((value) {
       setState(() {
         namaMesin = null;
+        _noInventarisController.clear();
+        _lokasiController.clear();
         _tanggalRusak.clear();
         _tanggalPerbaikan.clear();
         _consumableController.clear();
         _keteranganController.clear();
+        _tipeController.clear();
+        _jumlahController.clear();
         _pjController.clear();
         _sparePartController.clear();
         _isLoading = false;
@@ -178,6 +205,8 @@ class _TambahRepairState extends State<TambahRepair> {
           : ListView(
               padding: EdgeInsets.fromLTRB(s * 0.1, 10, s * 0.1, 0),
               children: [
+                inputField(
+                    'No Inventaris', _noInventarisController, 'no inventaris'),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InputDecorator(
@@ -229,9 +258,10 @@ class _TambahRepairState extends State<TambahRepair> {
                   ),
                 ),
                 inputField('Consumable', _consumableController, 'consumable'),
-                inputField(
-                    'Penganggung jawab', _pjController, 'penganggung jawab'),
+                inputField('Jumlah', _jumlahController, 'jumlah'),
+                inputField('Teknisi', _pjController, 'teknisi'),
                 inputField('Spare part', _sparePartController, 'spare part'),
+                inputField('Lokasi', _lokasiController, 'lokasi'),
                 inputField('Keterangan', _keteranganController, 'keterangan'),
                 Padding(
                   padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
@@ -241,20 +271,26 @@ class _TambahRepairState extends State<TambahRepair> {
                       onPressed: () {
                         _modeTambah
                             ? tambahRepair(
+                                _noInventarisController.text,
                                 namaMesin,
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
+                                _jumlahController.text,
                                 _pjController.text,
                                 _sparePartController.text,
+                                _lokasiController.text,
                                 _keteranganController.text)
                             : ubahRepair(
+                                _noInventarisController.text,
                                 namaMesin,
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
+                                _jumlahController.text,
                                 _pjController.text,
                                 _sparePartController.text,
+                                _lokasiController.text,
                                 _keteranganController.text);
                       }),
                 )

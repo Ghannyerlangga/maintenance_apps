@@ -18,6 +18,8 @@ class _TambahConsumableState extends State<TambahConsumable> {
   bool _modeTambah = true;
   double s;
 
+  DateTime tanggalDatang = DateTime.now();
+
   CollectionReference consumableCollection =
       Firestore.instance.collection('consumable');
 
@@ -25,12 +27,16 @@ class _TambahConsumableState extends State<TambahConsumable> {
   TextEditingController _jenisController = TextEditingController();
   TextEditingController _partController = TextEditingController();
   TextEditingController _jumlahController = TextEditingController();
+  TextEditingController _tanggalDatangController = TextEditingController();
+  TextEditingController _kapasitasController = TextEditingController();
   TextEditingController _keteranganController = TextEditingController();
 
   @override
   void initState() {
     if (widget.mode != 'tambah') {
       _modeTambah = false;
+      _tanggalDatangController.text = widget.consumable.tanggalDatang;
+      _kapasitasController.text = widget.consumable.kapasitas;
       _namaController.text = widget.consumable.nama;
       _jenisController.text = widget.consumable.jenis;
       _partController.text = widget.consumable.part;
@@ -51,29 +57,46 @@ class _TambahConsumableState extends State<TambahConsumable> {
         });
   }
 
-  tambahConsumable(String nama, String jenis, String part, String jumlah,
-      String keterangan) async {
+  Future<Null> _pilihTanggal(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: tanggalDatang,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != tanggalDatang)
+      setState(() {
+        tanggalDatang = picked;
+        _tanggalDatangController.text = tanggalDatang.toString().split(' ')[0];
+      });
+  }
+
+  tambahConsumable(String nama, String jenis, String part, String tanggalDatang,
+      String kapasitas, String jumlah, String keterangan) async {
     setState(() {
       _isLoading = true;
     });
     await consumableCollection.add({
-      'id': consumableCollection.id,
+      'tanggal_datang': tanggalDatang,
       'jenis': jenis,
       'part': part,
+      'kapasitas': kapasitas,
       'nama': nama,
       'jumlah': jumlah,
       'keterangan': keterangan,
     }).then((value) {
-      setState(() {
-        _namaController.clear();
-        _jenisController.clear();
-        _partController.clear();
-        _keteranganController.clear();
-        _jumlahController.clear();
-        _isLoading = false;
-      });
       if (value.documentID != null) {
-        value.updateData({'id': value.documentID});
+        setState(() {
+          value.updateData({'id': value.documentID});
+          _namaController.clear();
+          _jenisController.clear();
+          _partController.clear();
+          _keteranganController.clear();
+          _jumlahController.clear();
+          _tanggalDatangController.clear();
+          _kapasitasController.clear();
+          _isLoading = false;
+        });
+
         showAlert(
             tipe: 'berhasil', pesan: 'Berhasil menambah data consumable baru');
       } else if (value.documentID == null) {
@@ -89,19 +112,20 @@ class _TambahConsumableState extends State<TambahConsumable> {
     });
   }
 
-  ubahConsumable(String nama, String jenis, String part, String jumlah,
-      String keterangan) async {
+  ubahConsumable(String nama, String jenis, String part, String tanggalDatang,
+      String kapasitas, String jumlah, String keterangan) async {
     setState(() {
       _isLoading = true;
     });
     print(widget.consumable.id);
-    await consumableCollection.document(widget.consumable.id).setData({
-      'id': widget.consumable.id,
+    await consumableCollection.document(widget.consumable.id).updateData({
       'jenis': jenis,
       'part': part,
       'nama': nama,
       'jumlah': jumlah,
       'keterangan': keterangan,
+      'tanggal_datang': tanggalDatang,
+      'kapasitas': kapasitas,
     }).then((value) {
       setState(() {
         _namaController.clear();
@@ -109,9 +133,11 @@ class _TambahConsumableState extends State<TambahConsumable> {
         _partController.clear();
         _keteranganController.clear();
         _jumlahController.clear();
+        _tanggalDatangController.clear();
+        _kapasitasController.clear();
         _isLoading = false;
       });
-      showAlert(tipe: 'berhasil', pesan: 'Berhasil mebgubah data consumable');
+      showAlert(tipe: 'berhasil', pesan: 'Berhasil mengubah data consumable');
     }).timeout(Duration(seconds: 10), onTimeout: () {
       setState(() {
         _isLoading = false;
@@ -138,6 +164,22 @@ class _TambahConsumableState extends State<TambahConsumable> {
                 inputField('Nama Consumable', _namaController, 'consumable'),
                 inputField('Jenis Mesin', _jenisController, 'jenis mesin'),
                 inputField('Part Mesin', _partController, 'spare part'),
+                inputField('Kapasitas', _kapasitasController, 'kapasitas'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    child: TextField(
+                      controller: _tanggalDatangController,
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Tanggal Kedatangan",
+                          hintText: 'tanggal kedatangan'),
+                      onTap: () {
+                        _pilihTanggal(context);
+                      },
+                    ),
+                  ),
+                ),
                 inputField('Jumlah', _jumlahController, 'jumlah'),
                 inputField('Keterangan', _keteranganController, 'keterangan'),
                 Padding(
@@ -151,15 +193,18 @@ class _TambahConsumableState extends State<TambahConsumable> {
                                 _namaController.text,
                                 _jenisController.text,
                                 _partController.text,
+                                _tanggalDatangController.text,
+                                _kapasitasController.text,
                                 _jumlahController.text,
                                 _keteranganController.text)
                             : ubahConsumable(
                                 _namaController.text,
                                 _jenisController.text,
                                 _partController.text,
+                                _tanggalDatangController.text,
+                                _kapasitasController.text,
                                 _jumlahController.text,
                                 _keteranganController.text);
-                        Navigator.pop(context);
                       }),
                 )
               ],

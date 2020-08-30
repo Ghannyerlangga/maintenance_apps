@@ -2,56 +2,39 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:maintenance_apps/Screen/tools/components/background.dart';
-import 'package:maintenance_apps/Screen/tools/tambah_rapair.dart';
-import 'package:maintenance_apps/models/mesin.dart';
-import 'package:maintenance_apps/models/repair.dart';
+import 'package:maintenance_apps/Screen/tools/inOutList/database.dart';
+import 'package:maintenance_apps/Screen/tools/inOutList/tambah_out_sparepart.dart';
+import 'package:maintenance_apps/models/outSparePart.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-class ShowRepair extends StatefulWidget {
+class ListOutSparePart extends StatefulWidget {
   @override
-  _ShowRepairState createState() => _ShowRepairState();
+  _ListOutSparePartState createState() => _ListOutSparePartState();
 }
 
-class _ShowRepairState extends State<ShowRepair> {
-  final CollectionReference repairCollection =
-      Firestore.instance.collection('repair');
-
-  Stream<QuerySnapshot> dataRepair;
+class _ListOutSparePartState extends State<ListOutSparePart> {
+  Stream<QuerySnapshot> dataOutSparePart;
   List<DocumentSnapshot> dataList;
-  QuerySnapshot dataMesin;
-  List<DocumentSnapshot> listMesin;
+  Database database = Database();
 
-  Repair repair;
-  List<Mesin> dataListMesin;
-
-  DaftarMesin daftarMesin;
+  OutSparePart outSparePart;
 
   @override
   void initState() {
-    dataRepair = getRepair();
-    //listMesin = getMesinData();
-    //mesin = DaftarMesin.fromJson(listMesin);
-    getMesinData();
-    //print(dataListMesin[0].nama);
+    dataOutSparePart = database.getOutSparePart();
     super.initState();
   }
 
-  getMesinData() async {
-    dataMesin = await Firestore.instance.collection('mesin').getDocuments();
-    listMesin = dataMesin.documents;
-    daftarMesin = DaftarMesin.fromJson(listMesin);
-  }
-
-  Stream<QuerySnapshot> getRepair() {
-    return repairCollection.orderBy("time", descending: false).snapshots();
-  }
+  // Stream<QuerySnapshot> getOutSparePart() {
+  //   return peminjamanMesinCollection.snapshots();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Background(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Daftar Perbaikan Mesin'.toUpperCase()),
+        title: Text('Daftar Out Spare Parts'.toUpperCase()),
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -60,59 +43,30 @@ class _ShowRepairState extends State<ShowRepair> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return TambahRepair(daftarMesin, 'tambah', repair);
+                    return TambahOutSparePart(isTambah: true);
                   }));
                 }),
           )
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: dataRepair,
+          stream: dataOutSparePart,
           builder: (builder, snapshot) {
             if (!snapshot.hasData) {
               return Loading();
             }
             dataList = snapshot.data.documents;
 
-            return _tableRepair(dataList);
+            return _table(dataList);
           }),
     );
   }
 
-  deleteRepair(String docId) async {
-    await Firestore.instance.collection('repair').document(docId).delete();
-  }
-
-  Future<Null> showDeleteDialog(
-    String docId,
-  ) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Yakin akan menhapus data ini?'),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    deleteRepair(docId);
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ya")),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Tidak'))
-            ],
-          );
-        });
-  }
-
-  Widget _tableRepair(List<DocumentSnapshot> documents) {
+  Widget _table(List<DocumentSnapshot> documents) {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 1330,
+        rightHandSideColumnWidth: 1130,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -131,16 +85,14 @@ class _ShowRepairState extends State<ShowRepair> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(documents[index]['no_inventaris'].toString()),
               _tabelCell(documents[index]['nama'].toString()),
-              _tabelCell(documents[index]['jenis mesin'].toString()),
-              _tabelCell(documents[index]['tanggal rusak'].toString()),
-              _tabelCell(documents[index]['tanggal perbaikan'].toString()),
-              _tabelCell(documents[index]['spare part'].toString()),
-              _tabelCell(documents[index]['consumable'].toString()),
+              _tabelCell(documents[index]['tipe'].toString()),
+              _tabelCell(documents[index]['kapasitas'].toString()),
               _tabelCell(documents[index]['jumlah'].toString()),
+              _tabelCell(documents[index]['part'].toString()),
+              _tabelCell(documents[index]['tanggal'].toString()),
               _tabelCell(documents[index]['teknisi'].toString()),
-              _tabelCell(documents[index]['lokasi'].toString()),
+              _tabelCell(documents[index]['admin'].toString()),
               _tabelCell(documents[index]['keterangan'].toString()),
               Container(
                 decoration: BoxDecoration(
@@ -160,10 +112,16 @@ class _ShowRepairState extends State<ShowRepair> {
                         label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
-                          repair = Repair.fromSnapshot(documents[index]);
+                          DocumentSnapshot snap = documents[index];
+                          snap.data.addAll({'id': snap.documentID});
+                          print(snap.data);
+                          outSparePart = OutSparePart.fromSnapshot(snap);
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              return TambahRepair(daftarMesin, 'ubah', repair);
+                              return TambahOutSparePart(
+                                isTambah: false,
+                                outSparePart: outSparePart,
+                              );
                             },
                           ));
                         },
@@ -205,16 +163,14 @@ class _ShowRepairState extends State<ShowRepair> {
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('No', 30.0),
-      _getTitleItemWidget('No Inventaris', 100.0),
-      _getTitleItemWidget('Nama Mesin', 100.0),
-      _getTitleItemWidget('Merk / Tipe', 100.0),
-      _getTitleItemWidget('Tanggal Kerusakan Mesin', 100.0),
-      _getTitleItemWidget('Tanggal Perbaikan Mesin', 100.0),
-      _getTitleItemWidget('Spare Part', 100.0),
-      _getTitleItemWidget('Consumable', 100.0),
+      _getTitleItemWidget('Nama Spare Part', 100.0),
+      _getTitleItemWidget('Tipe', 100.0),
+      _getTitleItemWidget('Kapasitas', 100.0),
       _getTitleItemWidget('Jumlah', 100.0),
+      _getTitleItemWidget('Part Mesin', 100.0),
+      _getTitleItemWidget('Tanggal', 100.0),
       _getTitleItemWidget('Teknisi', 100.0),
-      _getTitleItemWidget('Lokasi', 100.0),
+      _getTitleItemWidget('Admin', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),
       _getTitleItemWidget('Aksi', 200.0),
     ];
@@ -229,13 +185,38 @@ class _ShowRepairState extends State<ShowRepair> {
               bottom: BorderSide(color: Colors.black54, width: 1.0))),
       child: Text(
         label,
-        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
       width: width,
-      height: 75,
+      height: 50,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
       alignment: Alignment.center,
     );
+  }
+
+  Future<Null> showDeleteDialog(
+    String docId,
+  ) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Yakin akan menghapus data ini?'),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    database.deleteOutSparePart(docId);
+                    Navigator.pop(context);
+                  },
+                  child: Text("Ya")),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Tidak'))
+            ],
+          );
+        });
   }
 }

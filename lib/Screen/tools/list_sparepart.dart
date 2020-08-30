@@ -2,48 +2,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:maintenance_apps/Screen/tools/components/background.dart';
-import 'package:maintenance_apps/Screen/tools/tambah_rapair.dart';
-import 'package:maintenance_apps/models/mesin.dart';
-import 'package:maintenance_apps/models/repair.dart';
+import 'package:maintenance_apps/Screen/tools/tambah_sparepart.dart';
+import 'package:maintenance_apps/models/sparepart.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
-class ShowRepair extends StatefulWidget {
+class ListSparePart extends StatefulWidget {
   @override
-  _ShowRepairState createState() => _ShowRepairState();
+  _ListSparePartState createState() => _ListSparePartState();
 }
 
-class _ShowRepairState extends State<ShowRepair> {
-  final CollectionReference repairCollection =
-      Firestore.instance.collection('repair');
+class _ListSparePartState extends State<ListSparePart> {
+  final CollectionReference sparePartCollection =
+      Firestore.instance.collection('sparepart');
 
-  Stream<QuerySnapshot> dataRepair;
+  Stream<QuerySnapshot> dataSparePart;
   List<DocumentSnapshot> dataList;
-  QuerySnapshot dataMesin;
-  List<DocumentSnapshot> listMesin;
 
-  Repair repair;
-  List<Mesin> dataListMesin;
-
-  DaftarMesin daftarMesin;
+  SparePart sparePart;
 
   @override
   void initState() {
-    dataRepair = getRepair();
-    //listMesin = getMesinData();
-    //mesin = DaftarMesin.fromJson(listMesin);
-    getMesinData();
-    //print(dataListMesin[0].nama);
+    // TODO: implement initState
+    dataSparePart = getSparePart();
+
     super.initState();
   }
 
-  getMesinData() async {
-    dataMesin = await Firestore.instance.collection('mesin').getDocuments();
-    listMesin = dataMesin.documents;
-    daftarMesin = DaftarMesin.fromJson(listMesin);
-  }
-
-  Stream<QuerySnapshot> getRepair() {
-    return repairCollection.orderBy("time", descending: false).snapshots();
+  Stream<QuerySnapshot> getSparePart() {
+    return sparePartCollection.snapshots();
   }
 
   @override
@@ -51,7 +37,7 @@ class _ShowRepairState extends State<ShowRepair> {
     return Background(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Daftar Perbaikan Mesin'.toUpperCase()),
+        title: Text('Daftar Spare Part'.toUpperCase()),
         actions: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -60,14 +46,14 @@ class _ShowRepairState extends State<ShowRepair> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return TambahRepair(daftarMesin, 'tambah', repair);
+                    return TambahSparePart(isTambah: true);
                   }));
                 }),
           )
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: dataRepair,
+          stream: dataSparePart,
           builder: (builder, snapshot) {
             if (!snapshot.hasData) {
               return Loading();
@@ -79,8 +65,8 @@ class _ShowRepairState extends State<ShowRepair> {
     );
   }
 
-  deleteRepair(String docId) async {
-    await Firestore.instance.collection('repair').document(docId).delete();
+  deleteSpareSpart(String docId) async {
+    await Firestore.instance.collection('sparepart').document(docId).delete();
   }
 
   Future<Null> showDeleteDialog(
@@ -94,7 +80,7 @@ class _ShowRepairState extends State<ShowRepair> {
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
-                    deleteRepair(docId);
+                    deleteSpareSpart(docId);
                     Navigator.pop(context);
                   },
                   child: Text("Ya")),
@@ -112,7 +98,7 @@ class _ShowRepairState extends State<ShowRepair> {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 1330,
+        rightHandSideColumnWidth: 930,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -131,16 +117,12 @@ class _ShowRepairState extends State<ShowRepair> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(documents[index]['no_inventaris'].toString()),
               _tabelCell(documents[index]['nama'].toString()),
-              _tabelCell(documents[index]['jenis mesin'].toString()),
-              _tabelCell(documents[index]['tanggal rusak'].toString()),
-              _tabelCell(documents[index]['tanggal perbaikan'].toString()),
-              _tabelCell(documents[index]['spare part'].toString()),
-              _tabelCell(documents[index]['consumable'].toString()),
+              _tabelCell(documents[index]['tipe'].toString()),
+              _tabelCell(documents[index]['kapasitas'].toString()),
+              _tabelCell(documents[index]['tanggal_datang'].toString()),
+              _tabelCell(documents[index]['part_mesin'].toString()),
               _tabelCell(documents[index]['jumlah'].toString()),
-              _tabelCell(documents[index]['teknisi'].toString()),
-              _tabelCell(documents[index]['lokasi'].toString()),
               _tabelCell(documents[index]['keterangan'].toString()),
               Container(
                 decoration: BoxDecoration(
@@ -160,10 +142,16 @@ class _ShowRepairState extends State<ShowRepair> {
                         label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
-                          repair = Repair.fromSnapshot(documents[index]);
+                          DocumentSnapshot snap = documents[index];
+                          snap.data.addAll({'id': snap.documentID});
+                          print(snap.data);
+                          sparePart = SparePart.fromSnapshot(snap);
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              return TambahRepair(daftarMesin, 'ubah', repair);
+                              return TambahSparePart(
+                                isTambah: false,
+                                sparePart: sparePart,
+                              );
                             },
                           ));
                         },
@@ -205,16 +193,12 @@ class _ShowRepairState extends State<ShowRepair> {
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('No', 30.0),
-      _getTitleItemWidget('No Inventaris', 100.0),
-      _getTitleItemWidget('Nama Mesin', 100.0),
-      _getTitleItemWidget('Merk / Tipe', 100.0),
-      _getTitleItemWidget('Tanggal Kerusakan Mesin', 100.0),
-      _getTitleItemWidget('Tanggal Perbaikan Mesin', 100.0),
-      _getTitleItemWidget('Spare Part', 100.0),
-      _getTitleItemWidget('Consumable', 100.0),
+      _getTitleItemWidget('Nama Spare Part', 100.0),
+      _getTitleItemWidget('Tipe', 100.0),
+      _getTitleItemWidget('Kapasitas', 100.0),
+      _getTitleItemWidget('Tanggal Kedatangan', 100.0),
+      _getTitleItemWidget('Part Mesin', 100.0),
       _getTitleItemWidget('Jumlah', 100.0),
-      _getTitleItemWidget('Teknisi', 100.0),
-      _getTitleItemWidget('Lokasi', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),
       _getTitleItemWidget('Aksi', 200.0),
     ];
@@ -229,11 +213,11 @@ class _ShowRepairState extends State<ShowRepair> {
               bottom: BorderSide(color: Colors.black54, width: 1.0))),
       child: Text(
         label,
-        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
       width: width,
-      height: 75,
+      height: 50,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 5),
       alignment: Alignment.center,
     );

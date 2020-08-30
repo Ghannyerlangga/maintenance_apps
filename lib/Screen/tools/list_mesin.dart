@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
+import 'package:maintenance_apps/Screen/tools/components/background.dart';
 import 'package:maintenance_apps/Screen/tools/tambah_mesin.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 
@@ -27,7 +28,7 @@ class _ListMesinState extends State<ListMesin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Background(
       appBar: AppBar(
         centerTitle: true,
         actions: [
@@ -93,7 +94,7 @@ class _ListMesinState extends State<ListMesin> {
     return Container(
       child: HorizontalDataTable(
         leftHandSideColumnWidth: 30,
-        rightHandSideColumnWidth: 830,
+        rightHandSideColumnWidth: 1130,
         isFixedHeader: true,
         headerWidgets: _getTitleWidget(),
         leftSideItemBuilder: (context, index) {
@@ -112,11 +113,14 @@ class _ListMesinState extends State<ListMesin> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
+              _tabelCell(document[index]['no_inventaris'].toString()),
               _tabelCell(document[index]['nama']),
               _tabelCell(document[index]['jenis']),
               _tabelCell(document[index]['kapasitas']),
+              _tabelCell(document[index]['tahun_beli']),
               _tabelCell(document[index]['jumlah']),
               _tabelCell(document[index]['lokasi']),
+              _tabelCell(document[index]['kondisi']),
               _tabelCell(document[index]['keterangan']),
               Container(
                 decoration: BoxDecoration(
@@ -160,7 +164,7 @@ class _ListMesinState extends State<ListMesin> {
         leftHandSideColBackgroundColor: Colors.blue[200],
         rightHandSideColBackgroundColor: Colors.blue[100],
       ),
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * 0.6,
     );
   }
 
@@ -181,11 +185,14 @@ class _ListMesinState extends State<ListMesin> {
   List<Widget> _getTitleWidget() {
     return [
       _getTitleItemWidget('No', 30.0),
+      _getTitleItemWidget('No Inventaris', 100.0),
       _getTitleItemWidget('Nama Mesin', 100.0),
-      _getTitleItemWidget('Jenis Mesin', 100.0),
+      _getTitleItemWidget('Merek / Tipe', 100.0),
       _getTitleItemWidget('Kapasitas', 100.0),
+      _getTitleItemWidget('Tahun Pembelian', 100.0),
       _getTitleItemWidget('Jumlah', 100.0),
       _getTitleItemWidget('Lokasi', 100.0),
+      _getTitleItemWidget('Kondisi', 100.0),
       _getTitleItemWidget('Keterangan', 100.0),
       _getTitleItemWidget('Aksi', 200.0)
     ];

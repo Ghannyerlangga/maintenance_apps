@@ -19,8 +19,10 @@ class _TambahMesinState extends State<TambahMesin> {
 
   bool _isLoading = false;
 
-  List listJenisMesin = ["AMG", "COPYMPEX", "FICEP"];
+  List listJenisMesin = ["AMG", "CORYMPEX", "FICEP"];
+  List listKondisi = ["Baik", "Rusak"];
   String jenisMesin;
+  String kondisiMesin;
 
   TextEditingController _namaController = TextEditingController();
   TextEditingController _jenisController = TextEditingController();
@@ -29,15 +31,21 @@ class _TambahMesinState extends State<TambahMesin> {
   TextEditingController _lokasiController = TextEditingController();
   TextEditingController _keteranganController = TextEditingController();
   TextEditingController _kodeController = TextEditingController();
+  TextEditingController _noInventarisController = TextEditingController();
+  TextEditingController _tanggalDatangController = TextEditingController();
 
   bool _modeTambah = true;
+  DateTime tanggalDatang = DateTime.now();
 
   @override
   void initState() {
     if (widget.mode != 'tambah') {
       _modeTambah = false;
       _namaController.text = widget.mesin.nama;
+      _tanggalDatangController.text = widget.mesin.tahun_beli;
       jenisMesin = widget.mesin.jenis;
+      kondisiMesin = widget.mesin.kondisi;
+      _noInventarisController.text = widget.mesin.no_inventaris;
       _kapasitasController.text = widget.mesin.kapasitas;
       _jumlahController.text = widget.mesin.jumlah;
       _lokasiController.text = widget.mesin.lokasi;
@@ -114,10 +122,49 @@ class _TambahMesinState extends State<TambahMesin> {
                           }),
                     )),
                 inputField('Kode', _kodeController, 'kode mesin'),
+                inputField(
+                    "No Inventaris", _noInventarisController, 'no inventaris'),
                 inputField('Nama Mesin', _namaController, 'nama mesin'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    child: TextField(
+                      controller: _tanggalDatangController,
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Tanggal Pembelian Mesin",
+                          hintText: 'tanggal pembelian mesin'),
+                      onTap: () {
+                        _pilihTanggal(context);
+                      },
+                    ),
+                  ),
+                ),
                 inputField('Kapasitas', _kapasitasController, 'kapasitas'),
                 inputField('Jumlah', _jumlahController, 'jumlah'),
                 inputField('Lokasi', _lokasiController, 'lokasi'),
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InputDecorator(
+                      decoration: textInputDecoration.copyWith(
+                          hintText: "kondisi mesin",
+                          labelText: "Kondisi Mesin"),
+                      child: DropdownButton(
+                          isDense: true,
+                          hint: Text('kondisi mesin'),
+                          value: kondisiMesin,
+                          items: listKondisi.map((e) {
+                            return DropdownMenuItem(
+                              child: Text(e),
+                              value: e,
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              kondisiMesin = value;
+                            });
+                          }),
+                    )),
                 inputField('Keterangan', _keteranganController, 'keterangan'),
                 Padding(
                   padding: EdgeInsets.fromLTRB(s * 0.2, 0, s * 0.2, 0),
@@ -172,14 +219,17 @@ class _TambahMesinState extends State<TambahMesin> {
     });
     String kode = _kodeController.text;
     String nama = _namaController.text;
+    String noInventaris = _noInventarisController.text;
+    String tanggalPembelian = _tanggalDatangController.text;
+    String kondisi = kondisiMesin;
     String jenis = jenisMesin;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
     String keterangan = _keteranganController.text;
 
-    Mesin mesin =
-        Mesin(nama, jenis, kode, kapasitas, jumlah, lokasi, keterangan);
+    Mesin mesin = Mesin(nama, noInventaris, tanggalPembelian, kondisi, jenis,
+        kode, kapasitas, jumlah, lokasi, keterangan);
     await Firestore.instance
         .collection('mesin')
         .document(widget.mesin.kode)
@@ -189,12 +239,16 @@ class _TambahMesinState extends State<TambahMesin> {
       setState(() {
         _kodeController.clear();
         _namaController.clear();
+        _tanggalDatangController.clear();
+        _kapasitasController.clear();
         _jenisController.clear();
         _kapasitasController.clear();
         _jumlahController.clear();
         _lokasiController.clear();
         _keteranganController.clear();
+        _noInventarisController.clear();
         jenisMesin = null;
+        kondisi = null;
         _isLoading = false;
       });
       showAlert(tipe: 'berhasil', pesan: 'Berhasil mengubah data mesin');
@@ -206,31 +260,43 @@ class _TambahMesinState extends State<TambahMesin> {
   }
 
   tambahMesin() async {
+    setState(() {
+      _isLoading = true;
+    });
     String kode = _kodeController.text;
     String nama = _namaController.text;
+    String noInventaris = _noInventarisController.text;
+    String tanggalPembelian = _tanggalDatangController.text;
+    String kondisi = _kodeController.text;
     String jenis = jenisMesin;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
     String keterangan = _keteranganController.text;
-    setState(() {
-      _isLoading = true;
-    });
-    await database
-        .addMesin(kode, nama, jenis, kapasitas, jumlah, lokasi, keterangan)
+
+    Mesin mesin = Mesin(nama, noInventaris, tanggalPembelian, kondisi, jenis,
+        kode, kapasitas, jumlah, lokasi, keterangan);
+    await Firestore.instance
+        .collection('mesin')
+        .document(kode)
+        .setData(mesin.toJson())
         .then((value) {
+      print('berhasil menyimpan data');
       setState(() {
         _kodeController.clear();
         _namaController.clear();
+        _tanggalDatangController.clear();
+        _noInventarisController.clear();
         _jenisController.clear();
         _kapasitasController.clear();
         _jumlahController.clear();
         _lokasiController.clear();
         _keteranganController.clear();
         jenisMesin = null;
+        kondisi = null;
         _isLoading = false;
       });
-      showAlert(tipe: 'berhasil', pesan: 'Berhasil menambah data mesin baru');
+      showAlert(tipe: 'berhasil', pesan: 'Berhasil meyimpan data mesin');
     }).timeout(Duration(seconds: 10), onTimeout: () {
       showAlert(
           tipe: 'gagal', pesan: 'Gagal. Mohon periksa koneksi internet anda');
@@ -247,5 +313,18 @@ class _TambahMesinState extends State<TambahMesin> {
             tipe: tipe,
           );
         });
+  }
+
+  Future<Null> _pilihTanggal(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: tanggalDatang,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != tanggalDatang)
+      setState(() {
+        tanggalDatang = picked;
+        _tanggalDatangController.text = tanggalDatang.toString().split(' ')[0];
+      });
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:maintenance_apps/Screen/tools/components/tools_select.dart';
 import 'package:maintenance_apps/Screen/tools/daftar_jenis_mesin.dart';
+import 'package:maintenance_apps/Screen/tools/inOutList/in_out_list.dart';
 import 'package:maintenance_apps/Screen/tools/lihat_repair.dart';
 import 'package:maintenance_apps/Screen/tools/list_consumable.dart';
 import 'package:maintenance_apps/Screen/tools/list_mesin.dart';
+import 'package:maintenance_apps/Screen/tools/list_sparepart.dart';
 
 class Tools extends StatelessWidget {
   @override
@@ -15,8 +18,7 @@ class Tools extends StatelessWidget {
           centerTitle: true,
         ),
         backgroundColor: Colors.blue[100],
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
           children: <Widget>[
             // Expanded(
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -110,6 +112,19 @@ class Tools extends StatelessWidget {
                     )),
               ),
             ]),
+            Selection(
+              title: "Spare Part",
+              image: Image.asset(
+                "img/ConsumableIcon8.png",
+                width: 40,
+                height: 40,
+              ),
+              onPress: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ListSparePart();
+                }));
+              },
+            ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               Container(
                 margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -155,6 +170,19 @@ class Tools extends StatelessWidget {
                     )),
               ),
             ]),
+            Selection(
+              title: "In and Out List",
+              image: Image.asset(
+                "img/ToolIcon8.png",
+                width: 40,
+                height: 40,
+              ),
+              onPress: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return OutInList();
+                }));
+              },
+            )
           ],
         ));
   }

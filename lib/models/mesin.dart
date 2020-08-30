@@ -34,6 +34,9 @@ List<Mesin> _convertDataMesin(List<DocumentSnapshot> dataMap) {
 
 class Mesin {
   String nama;
+  String no_inventaris;
+  String tahun_beli;
+  String kondisi;
   String jenis;
   String kode;
   String kapasitas;
@@ -43,8 +46,17 @@ class Mesin {
 
   DocumentReference refernce;
 
-  Mesin(this.nama, this.jenis, this.kode, this.kapasitas, this.jumlah,
-      this.lokasi, this.keterangan);
+  Mesin(
+      this.nama,
+      this.no_inventaris,
+      this.tahun_beli,
+      this.kondisi,
+      this.jenis,
+      this.kode,
+      this.kapasitas,
+      this.jumlah,
+      this.lokasi,
+      this.keterangan);
 
   factory Mesin.fromSnapshot(DocumentSnapshot snapshot) {
     Mesin newMesin = Mesin.fromJson(snapshot.data);
@@ -60,6 +72,9 @@ class Mesin {
 Mesin _mesinFromJson(Map<dynamic, dynamic> json) {
   return Mesin(
       json['nama'] as String,
+      json['no_inventaris'] as String,
+      json['tahun_beli'] as String,
+      json['kondisi'] as String,
       json['jenis'] as String,
       json['kode'] as String,
       json['kapasitas'] as String,
@@ -70,6 +85,9 @@ Mesin _mesinFromJson(Map<dynamic, dynamic> json) {
 
 Map<dynamic, dynamic> _mesinToJson(Mesin instance) => <String, dynamic>{
       'nama': instance.nama,
+      'no_inventaris': instance.no_inventaris,
+      'tahun_beli': instance.tahun_beli,
+      'kondisi': instance.kondisi,
       'jenis': instance.jenis,
       'kode': instance.kode,
       'kapasitas': instance.kapasitas,
