@@ -207,26 +207,27 @@ class _TambahRepairState extends State<TambahRepair> {
               children: [
                 inputField(
                     'No Inventaris', _noInventarisController, 'no inventaris'),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputDecorator(
-                      decoration: textInputDecoration.copyWith(
-                          labelText: "Jenis Mesin", hintText: "jenis mesin"),
-                      child: DropdownButton(
-                        isDense: true,
-                        hint: Text("Pilih Nama Mesin"),
-                        value: namaMesin,
-                        items: widget.mesin.listMesin.map((item) {
-                          return DropdownMenuItem(
-                              child: Text(item.nama), value: item.nama);
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            namaMesin = value;
-                          });
-                        },
-                      ),
-                    )),
+                // Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: InputDecorator(
+                //       decoration: textInputDecoration.copyWith(
+                //           labelText: "Jenis Mesin", hintText: "jenis mesin"),
+                //       child: DropdownButton(
+                //         isDense: true,
+                //         hint: Text("Pilih Nama Mesin"),
+                //         value: namaMesin,
+                //         items: widget.mesin.listMesin.map((item) {
+                //           return DropdownMenuItem(
+                //               child: Text(item.nama), value: item.nama);
+                //         }).toList(),
+                //         onChanged: (value) {
+                //           setState(() {
+                //             namaMesin = value;
+                //           });
+                //         },
+                //       ),
+                //     )),
+                inputField('Jenis Mesin', _tipeController, 'jenis mesin'),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -272,7 +273,7 @@ class _TambahRepairState extends State<TambahRepair> {
                         _modeTambah
                             ? tambahRepair(
                                 _noInventarisController.text,
-                                namaMesin,
+                                _tipeController.text,
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
@@ -283,7 +284,7 @@ class _TambahRepairState extends State<TambahRepair> {
                                 _keteranganController.text)
                             : ubahRepair(
                                 _noInventarisController.text,
-                                namaMesin,
+                                _tipeController.text,
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,

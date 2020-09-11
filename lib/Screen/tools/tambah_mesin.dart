@@ -206,7 +206,7 @@ class _TambahMesinState extends State<TambahMesin> {
     String noInventaris = _noInventarisController.text;
     String tanggalPembelian = _tanggalDatangController.text;
     String kondisi = kondisiMesin;
-    String jenis = jenisMesin;
+    String jenis = _jenisController.text;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
@@ -231,7 +231,7 @@ class _TambahMesinState extends State<TambahMesin> {
         _lokasiController.clear();
         _keteranganController.clear();
         _noInventarisController.clear();
-        jenisMesin = null;
+        _jenisController.clear();
         kondisi = null;
         _isLoading = false;
       });
@@ -252,7 +252,7 @@ class _TambahMesinState extends State<TambahMesin> {
     String noInventaris = _noInventarisController.text;
     String tanggalPembelian = _tanggalDatangController.text;
     String kondisi = _kodeController.text;
-    String jenis = jenisMesin;
+    String jenis = _jenisController.text;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
@@ -276,7 +276,7 @@ class _TambahMesinState extends State<TambahMesin> {
         _jumlahController.clear();
         _lokasiController.clear();
         _keteranganController.clear();
-        jenisMesin = null;
+        _jenisController.clear();
         kondisi = null;
         _isLoading = false;
       });
