@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/laporan/harian.dart';
+import 'package:maintenance_apps/Screen/tools/components/inputField.dart';
 import 'package:maintenance_apps/Screen/tools/dialog.dart';
 import 'package:maintenance_apps/models/mesin.dart';
 import 'package:maintenance_apps/shared/constant.dart';
@@ -35,15 +36,17 @@ class _TambahMesinState extends State<TambahMesin> {
   TextEditingController _tanggalDatangController = TextEditingController();
 
   bool _modeTambah = true;
+  bool _kodeEnable = true;
   DateTime tanggalDatang = DateTime.now();
 
   @override
   void initState() {
     if (widget.mode != 'tambah') {
       _modeTambah = false;
+      _kodeEnable = false;
       _namaController.text = widget.mesin.nama;
       _tanggalDatangController.text = widget.mesin.tahun_beli;
-      jenisMesin = widget.mesin.jenis;
+      _jenisController.text = widget.mesin.jenis;
       kondisiMesin = widget.mesin.kondisi;
       _noInventarisController.text = widget.mesin.no_inventaris;
       _kapasitasController.text = widget.mesin.kapasitas;
@@ -72,56 +75,37 @@ class _TambahMesinState extends State<TambahMesin> {
               children: [
                 // Padding(
                 //     padding: const EdgeInsets.all(8.0),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: <Widget>[
-                //         Container(
-                //             width: MediaQuery.of(context).size.width * 0.20,
-                //             child: Text(
-                //               'Jenis Mesin',
-                //               style: TextStyle(fontWeight: FontWeight.bold),
-                //             )),
-                //         Container(
-                //           width: MediaQuery.of(context).size.width * 0.7,
-                //           child: DropdownButton(
-                //               hint: Text('jenis mesin'),
-                //               value: jenisMesin,
-                //               items: listJenisMesin.map((e) {
-                //                 return DropdownMenuItem(
-                //                   child: Text(e),
-                //                   value: e,
-                //                 );
-                //               }).toList(),
-                //               onChanged: (value) {
-                //                 setState(() {
-                //                   jenisMesin = value;
-                //                 });
-                //               }),
-                //         ),
-                //       ],
+                //     child: InputDecorator(
+                //       decoration: textInputDecoration.copyWith(
+                //           hintText: "jenis mesin", labelText: "Jenis Mesin"),
+                //       child: DropdownButton(
+                //           isDense: true,
+                //           hint: Text('jenis mesin'),
+                //           value: jenisMesin,
+                //           items: listJenisMesin.map((e) {
+                //             return DropdownMenuItem(
+                //               child: Text(e),
+                //               value: e,
+                //             );
+                //           }).toList(),
+                //           onChanged: (value) {
+                //             setState(() {
+                //               jenisMesin = value;
+                //             });
+                //           }),
                 //     )),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InputDecorator(
-                      decoration: textInputDecoration.copyWith(
-                          hintText: "jenis mesin", labelText: "Jenis Mesin"),
-                      child: DropdownButton(
-                          isDense: true,
-                          hint: Text('jenis mesin'),
-                          value: jenisMesin,
-                          items: listJenisMesin.map((e) {
-                            return DropdownMenuItem(
-                              child: Text(e),
-                              value: e,
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              jenisMesin = value;
-                            });
-                          }),
-                    )),
-                inputField('Kode', _kodeController, 'kode mesin'),
+                Input(
+                  leading: "Jenis Mesin",
+                  controller: _jenisController,
+                  hint: "jenis mesin",
+                ),
+                Input(
+                  leading: "Kode",
+                  controller: _kodeController,
+                  hint: "kode",
+                  enable: _kodeEnable,
+                ),
+
                 inputField(
                     "No Inventaris", _noInventarisController, 'no inventaris'),
                 inputField('Nama Mesin', _namaController, 'nama mesin'),
