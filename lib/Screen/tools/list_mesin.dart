@@ -132,12 +132,12 @@ class _ListMesinState extends State<ListMesin> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    FlatButton.icon(
-                        onPressed: () {
-                          showDeleteDialog(documents[index].documentID);
-                        },
-                        icon: Icon(Icons.delete_forever),
-                        label: Text('Hapus')),
+                    // FlatButton.icon(
+                    //     onPressed: () {
+                    //       showDeleteDialog(documents[index].documentID);
+                    //     },
+                    //     icon: Icon(Icons.delete_forever),
+                    //     label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
