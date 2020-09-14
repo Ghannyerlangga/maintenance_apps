@@ -47,7 +47,8 @@ class _TambahMesinState extends State<TambahMesin> {
       _namaController.text = widget.mesin.nama;
       _tanggalDatangController.text = widget.mesin.tahun_beli;
       _jenisController.text = widget.mesin.jenis;
-      kondisiMesin = widget.mesin.kondisi;
+      kondisiMesin = widget.mesin.kondisi[0].toUpperCase() +
+          widget.mesin.kondisi.substring(1);
       _noInventarisController.text = widget.mesin.no_inventaris;
       _kapasitasController.text = widget.mesin.kapasitas;
       _jumlahController.text = widget.mesin.jumlah;
