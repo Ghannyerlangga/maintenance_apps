@@ -47,7 +47,8 @@ class _TambahMesinState extends State<TambahMesin> {
       _namaController.text = widget.mesin.nama;
       _tanggalDatangController.text = widget.mesin.tahun_beli;
       _jenisController.text = widget.mesin.jenis;
-      kondisiMesin = widget.mesin.kondisi;
+      kondisiMesin = widget.mesin.kondisi[0].toUpperCase() +
+          widget.mesin.kondisi.substring(1);
       _noInventarisController.text = widget.mesin.no_inventaris;
       _kapasitasController.text = widget.mesin.kapasitas;
       _jumlahController.text = widget.mesin.jumlah;
@@ -206,7 +207,7 @@ class _TambahMesinState extends State<TambahMesin> {
     String noInventaris = _noInventarisController.text;
     String tanggalPembelian = _tanggalDatangController.text;
     String kondisi = kondisiMesin;
-    String jenis = jenisMesin;
+    String jenis = _jenisController.text;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
@@ -252,7 +253,7 @@ class _TambahMesinState extends State<TambahMesin> {
     String noInventaris = _noInventarisController.text;
     String tanggalPembelian = _tanggalDatangController.text;
     String kondisi = _kodeController.text;
-    String jenis = jenisMesin;
+    String jenis = _jenisController.text;
     String kapasitas = _kapasitasController.text;
     String jumlah = _jumlahController.text;
     String lokasi = _lokasiController.text;
