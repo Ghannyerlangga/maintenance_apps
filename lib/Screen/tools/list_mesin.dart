@@ -13,6 +13,7 @@ class ListMesin extends StatefulWidget {
 class _ListMesinState extends State<ListMesin> {
   Stream<QuerySnapshot> data;
   List<DocumentSnapshot> document;
+  List<String> jenisMesin = ["AMG", "CORYMPEX", "FICEP"];
 
   Mesin mesin;
 
@@ -132,12 +133,16 @@ class _ListMesinState extends State<ListMesin> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    // FlatButton.icon(
-                    //     onPressed: () {
-                    //       showDeleteDialog(documents[index].documentID);
-                    //     },
-                    //     icon: Icon(Icons.delete_forever),
-                    //     label: Text('Hapus')),
+                    FlatButton.icon(
+                        onPressed: () {
+                          if (jenisMesin.contains(document[index]['jenis'])) {
+                            return;
+                          } else {
+                            showDeleteDialog(document[index].documentID);
+                          }
+                        },
+                        icon: Icon(Icons.delete_forever),
+                        label: Text('Hapus')),
                     FlatButton.icon(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
