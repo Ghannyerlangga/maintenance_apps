@@ -23,6 +23,8 @@ class _TambahRepairState extends State<TambahRepair> {
   TextEditingController _tanggalPerbaikan = TextEditingController();
   TextEditingController _consumableController = TextEditingController();
   TextEditingController _keteranganController = TextEditingController();
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _jenisController = TextEditingController();
   TextEditingController _pjController = TextEditingController();
   TextEditingController _sparePartController = TextEditingController();
   TextEditingController _noInventarisController = TextEditingController();
@@ -43,7 +45,8 @@ class _TambahRepairState extends State<TambahRepair> {
   void initState() {
     if (widget.mode != 'tambah') {
       _modeTambah = false;
-      namaMesin = widget.repair.nama;
+      _jenisController.text = widget.repair.jenisMesin;
+      _namaController.text = widget.repair.nama;
       _jumlahController.text = widget.repair.jumlah;
       _lokasiController.text = widget.repair.lokasi;
       _noInventarisController.text = widget.repair.noInventaris;
@@ -71,6 +74,7 @@ class _TambahRepairState extends State<TambahRepair> {
   tambahRepair(
       String noInventaris,
       String nama,
+      String jenis,
       String tanggalRusak,
       String tanggalPerbaikan,
       String consumable,
@@ -84,7 +88,7 @@ class _TambahRepairState extends State<TambahRepair> {
     });
     await collection.add({
       'no_inventaris': noInventaris,
-      'jenis mesin': widget.mesin.listMesin[0].jenis,
+      'jenis mesin': jenis,
       'teknisi': penanggungJawab,
       'spare part': sparePart,
       'nama': nama,
@@ -103,6 +107,8 @@ class _TambahRepairState extends State<TambahRepair> {
           _noInventarisController.clear();
           _lokasiController.clear();
           _tanggalRusak.clear();
+          _namaController.clear();
+          _jenisController.clear();
           _tanggalPerbaikan.clear();
           _consumableController.clear();
           _keteranganController.clear();
@@ -125,6 +131,7 @@ class _TambahRepairState extends State<TambahRepair> {
   ubahRepair(
       String noInventaris,
       String nama,
+      String jenis,
       String tanggalRusak,
       String tanggalPerbaikan,
       String consumable,
@@ -139,7 +146,7 @@ class _TambahRepairState extends State<TambahRepair> {
     await collection.document(widget.repair.id).setData({
       'id': widget.repair.id,
       'no_inventaris': noInventaris,
-      'jenis mesin': widget.mesin.listMesin[0].jenis,
+      'jenis mesin': jenis,
       'teknisi': penanggungJawab,
       'spare part': sparePart,
       'nama': nama,
@@ -207,6 +214,7 @@ class _TambahRepairState extends State<TambahRepair> {
               children: [
                 inputField(
                     'No Inventaris', _noInventarisController, 'no inventaris'),
+<<<<<<< HEAD
                 // Padding(
                 //     padding: const EdgeInsets.all(8.0),
                 //     child: InputDecorator(
@@ -228,6 +236,10 @@ class _TambahRepairState extends State<TambahRepair> {
                 //       ),
                 //     )),
                 inputField('Jenis Mesin', _tipeController, 'jenis mesin'),
+=======
+                inputField("Nama Mesin", _namaController, "nama mesin"),
+                inputField("Jenis Mesin", _jenisController, "jenis mesin"),
+>>>>>>> tools
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -273,7 +285,12 @@ class _TambahRepairState extends State<TambahRepair> {
                         _modeTambah
                             ? tambahRepair(
                                 _noInventarisController.text,
+<<<<<<< HEAD
                                 _tipeController.text,
+=======
+                                _namaController.text,
+                                _jenisController.text,
+>>>>>>> tools
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
@@ -284,7 +301,12 @@ class _TambahRepairState extends State<TambahRepair> {
                                 _keteranganController.text)
                             : ubahRepair(
                                 _noInventarisController.text,
+<<<<<<< HEAD
                                 _tipeController.text,
+=======
+                                _namaController.text,
+                                _jenisController.text,
+>>>>>>> tools
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
