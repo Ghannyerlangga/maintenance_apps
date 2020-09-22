@@ -186,8 +186,7 @@ reportHarianView(context, DocumentSnapshot mesin, String namaUser) async {
     material.Navigator.pushReplacement(
       context,
       material.MaterialPageRoute(
-        builder: (_) =>
-            data.documents.isEmpty ? Loading() : PdfViewerPage(path),
+        builder: (_) => PdfViewerPage(path),
       ),
     );
   });
