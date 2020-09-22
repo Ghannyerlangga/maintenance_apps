@@ -214,32 +214,8 @@ class _TambahRepairState extends State<TambahRepair> {
               children: [
                 inputField(
                     'No Inventaris', _noInventarisController, 'no inventaris'),
-<<<<<<< HEAD
-                // Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: InputDecorator(
-                //       decoration: textInputDecoration.copyWith(
-                //           labelText: "Jenis Mesin", hintText: "jenis mesin"),
-                //       child: DropdownButton(
-                //         isDense: true,
-                //         hint: Text("Pilih Nama Mesin"),
-                //         value: namaMesin,
-                //         items: widget.mesin.listMesin.map((item) {
-                //           return DropdownMenuItem(
-                //               child: Text(item.nama), value: item.nama);
-                //         }).toList(),
-                //         onChanged: (value) {
-                //           setState(() {
-                //             namaMesin = value;
-                //           });
-                //         },
-                //       ),
-                //     )),
-                inputField('Jenis Mesin', _tipeController, 'jenis mesin'),
-=======
                 inputField("Nama Mesin", _namaController, "nama mesin"),
                 inputField("Jenis Mesin", _jenisController, "jenis mesin"),
->>>>>>> tools
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -285,12 +261,8 @@ class _TambahRepairState extends State<TambahRepair> {
                         _modeTambah
                             ? tambahRepair(
                                 _noInventarisController.text,
-<<<<<<< HEAD
-                                _tipeController.text,
-=======
                                 _namaController.text,
                                 _jenisController.text,
->>>>>>> tools
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
@@ -301,12 +273,8 @@ class _TambahRepairState extends State<TambahRepair> {
                                 _keteranganController.text)
                             : ubahRepair(
                                 _noInventarisController.text,
-<<<<<<< HEAD
-                                _tipeController.text,
-=======
                                 _namaController.text,
                                 _jenisController.text,
->>>>>>> tools
                                 _tanggalRusak.text,
                                 _tanggalPerbaikan.text,
                                 _consumableController.text,
