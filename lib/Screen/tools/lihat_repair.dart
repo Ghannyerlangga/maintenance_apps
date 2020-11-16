@@ -131,7 +131,7 @@ class _ShowRepairState extends State<ShowRepair> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(documents[index]['no_inventaris'].toString()),
+              _tabelCell(documents[index]['noInvent'].toString()),
               _tabelCell(documents[index]['nama'].toString()),
               _tabelCell(documents[index]['jenis mesin'].toString()),
               _tabelCell(documents[index]['tanggal rusak'].toString()),

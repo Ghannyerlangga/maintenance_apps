@@ -87,7 +87,7 @@ class _TambahRepairState extends State<TambahRepair> {
       _isLoading = true;
     });
     await collection.add({
-      'no_inventaris': noInventaris,
+      'noInvent': noInventaris,
       'jenis mesin': jenis,
       'teknisi': penanggungJawab,
       'spare part': sparePart,
@@ -145,7 +145,7 @@ class _TambahRepairState extends State<TambahRepair> {
     });
     await collection.document(widget.repair.id).setData({
       'id': widget.repair.id,
-      'no_inventaris': noInventaris,
+      'noInvent': noInventaris,
       'jenis mesin': jenis,
       'teknisi': penanggungJawab,
       'spare part': sparePart,

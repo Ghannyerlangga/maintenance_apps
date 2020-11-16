@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/tools/components/inputField.dart';
 import 'package:maintenance_apps/Screen/tools/dialog.dart';
-import 'package:maintenance_apps/Screen/tools/inOutList/database.dart';
-import 'package:maintenance_apps/models/outConsumable.dart';
 import 'package:maintenance_apps/models/outConsumable.dart';
 import 'package:maintenance_apps/Screen/tools/components/form.dart' as form;
 import 'package:maintenance_apps/shared/loading.dart';
@@ -50,7 +48,6 @@ class _TambahOutConsumableState extends State<TambahOutConsumable> {
       _keteranganController.text = widget.outConsumable.keterangan;
       _modeTambah = false;
     }
-    // TODO: implement initState
     super.initState();
   }
 

@@ -48,7 +48,6 @@ class _TambahSparePartState extends State<TambahSparePart> {
       _keteranganController.text = widget.sparePart.keterangan;
       _modeTambah = false;
     }
-    // TODO: implement initState
     super.initState();
   }
 

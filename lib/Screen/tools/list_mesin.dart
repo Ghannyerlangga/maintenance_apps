@@ -114,11 +114,11 @@ class _ListMesinState extends State<ListMesin> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(document[index]['no_inventaris'].toString()),
+              _tabelCell(document[index]['noInvent'].toString()),
               _tabelCell(document[index]['nama']),
               _tabelCell(document[index]['jenis']),
               _tabelCell(document[index]['kapasitas']),
-              _tabelCell(document[index]['tahun_beli']),
+              _tabelCell(document[index]['tahunBeli']),
               _tabelCell(document[index]['jumlah']),
               _tabelCell(document[index]['lokasi']),
               _tabelCell(document[index]['kondisi']),

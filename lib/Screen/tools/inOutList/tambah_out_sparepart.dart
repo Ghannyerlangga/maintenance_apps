@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maintenance_apps/Screen/tools/components/inputField.dart';
 import 'package:maintenance_apps/Screen/tools/dialog.dart';
-import 'package:maintenance_apps/Screen/tools/inOutList/database.dart';
 import 'package:maintenance_apps/models/outSparePart.dart';
 import 'package:maintenance_apps/Screen/tools/components/form.dart' as form;
 import 'package:maintenance_apps/shared/loading.dart';
@@ -49,7 +48,6 @@ class _TambahOutSparePartState extends State<TambahOutSparePart> {
       _keteranganController.text = widget.outSparePart.keterangan;
       _modeTambah = false;
     }
-    // TODO: implement initState
     super.initState();
   }
 

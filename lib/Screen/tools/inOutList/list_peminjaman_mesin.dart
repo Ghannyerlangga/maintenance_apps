@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:maintenance_apps/Screen/tools/components/background.dart';
 import 'package:maintenance_apps/Screen/tools/inOutList/tambah_peminjaman_mesin.dart';
-import 'package:maintenance_apps/Screen/tools/tambah_sparepart.dart';
 import 'package:maintenance_apps/models/peminjaman_mesin.dart';
-import 'package:maintenance_apps/models/sparepart.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class ListPeminjamanMesin extends StatefulWidget {
@@ -24,7 +22,6 @@ class _ListPeminjamanMesinState extends State<ListPeminjamanMesin> {
 
   @override
   void initState() {
-    // TODO: implement initState
     dataSparePart = getPeminjamanMesin();
 
     super.initState();
@@ -122,7 +119,7 @@ class _ListPeminjamanMesinState extends State<ListPeminjamanMesin> {
         rightSideItemBuilder: (context, index) {
           return Row(
             children: <Widget>[
-              _tabelCell(documents[index]['no_inventaris'].toString()),
+              _tabelCell(documents[index]['noInvent'].toString()),
               _tabelCell(documents[index]['nama'].toString()),
               _tabelCell(documents[index]['tipe'].toString()),
               _tabelCell(documents[index]['kapasitas'].toString()),

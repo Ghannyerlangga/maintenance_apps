@@ -4,9 +4,7 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:maintenance_apps/Screen/tools/components/background.dart';
 import 'package:maintenance_apps/Screen/tools/inOutList/database.dart';
 import 'package:maintenance_apps/Screen/tools/inOutList/tambah_out_consumable.dart';
-import 'package:maintenance_apps/Screen/tools/inOutList/tambah_out_sparepart.dart';
 import 'package:maintenance_apps/models/outConsumable.dart';
-import 'package:maintenance_apps/models/outSparePart.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class ListOutConsumable extends StatefulWidget {

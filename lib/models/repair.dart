@@ -44,7 +44,7 @@ class Repair {
 Repair _mesinFromJson(Map<dynamic, dynamic> json) {
   return Repair(
       json['id'] as String,
-      json['no_inventaris'] as String,
+      json['noInvent'] as String,
       json['jenis mesin'] as String,
       json['nama'] as String,
       json['tanggal rusak'] as String,
@@ -60,7 +60,7 @@ Repair _mesinFromJson(Map<dynamic, dynamic> json) {
 Map<dynamic, dynamic> _mesinToJson(Repair instance) => <String, dynamic>{
       'id': instance.id,
       'jenis mesin': instance.jenisMesin,
-      'no_inventaris': instance.noInventaris,
+      'noInvent': instance.noInventaris,
       'nama': instance.nama,
       'tanggal rusak': instance.tanggalRusak,
       'tanggal perbaikan': instance.tanggalPerbaikan,

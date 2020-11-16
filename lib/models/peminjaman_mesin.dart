@@ -47,7 +47,7 @@ class PeminjamanMesin {
 PeminjamanMesin _mesinFromJson(Map<dynamic, dynamic> json) {
   return PeminjamanMesin(
       json['id'] as String,
-      json['no_inventaris'] as String,
+      json['noInvent'] as String,
       json['nama'] as String,
       json['tipe'] as String,
       json['kapasitas'] as String,
@@ -64,7 +64,7 @@ PeminjamanMesin _mesinFromJson(Map<dynamic, dynamic> json) {
 Map<dynamic, dynamic> _mesinToJson(PeminjamanMesin instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'no_inventaris': instance.noInventaris,
+      'noInvent': instance.noInventaris,
       'nama': instance.nama,
       'tipe': instance.tipe,
       'kapasitas': instance.kapasitas,

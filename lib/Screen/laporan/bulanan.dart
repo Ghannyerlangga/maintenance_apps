@@ -38,7 +38,7 @@ reportBulananView(context, DocumentSnapshot mesin, String namaUser) async {
   String dust;
   String gasHoses;
   String rack;
-  String z_axis;
+  String zAxis;
 
   List<List<String>> listCheck = new List();
 
@@ -74,9 +74,9 @@ reportBulananView(context, DocumentSnapshot mesin, String namaUser) async {
     }
 
     if (dataList[indice].data['z-axis'] == true) {
-      z_axis = 'ya';
+      zAxis = 'ya';
     } else {
-      z_axis = 'tidak';
+      zAxis = 'tidak';
     }
 
     List<String> recind = <String>[
@@ -85,7 +85,7 @@ reportBulananView(context, DocumentSnapshot mesin, String namaUser) async {
       dust,
       gasHoses,
       rack,
-      z_axis,
+      zAxis,
       dataList[indice].data['user'],
       dataList[indice].data['waktu'] + " " + dataList[indice].data['jam'],
     ];

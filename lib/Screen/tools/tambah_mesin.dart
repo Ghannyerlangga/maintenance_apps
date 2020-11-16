@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:maintenance_apps/Screen/laporan/harian.dart';
 import 'package:maintenance_apps/Screen/tools/components/inputField.dart';
 import 'package:maintenance_apps/Screen/tools/dialog.dart';
 import 'package:maintenance_apps/models/mesin.dart';
@@ -45,11 +44,11 @@ class _TambahMesinState extends State<TambahMesin> {
       _modeTambah = false;
       _kodeEnable = false;
       _namaController.text = widget.mesin.nama;
-      _tanggalDatangController.text = widget.mesin.tahun_beli;
+      _tanggalDatangController.text = widget.mesin.tahunBeli;
       _jenisController.text = widget.mesin.jenis;
       kondisiMesin = widget.mesin.kondisi[0].toUpperCase() +
           widget.mesin.kondisi.substring(1);
-      _noInventarisController.text = widget.mesin.no_inventaris;
+      _noInventarisController.text = widget.mesin.noInvent;
       _kapasitasController.text = widget.mesin.kapasitas;
       _jumlahController.text = widget.mesin.jumlah;
       _lokasiController.text = widget.mesin.lokasi;

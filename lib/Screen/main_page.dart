@@ -91,20 +91,11 @@ class _MainPage extends State<MainPage> {
                   children: <Widget>[
                     Container(
                       // color: Colors.white,
-                      padding: EdgeInsets.fromLTRB(0, 10.0, 5.0, 0),
-                      child: Image.asset(
-                        "img/logo_wika1.png",
-                        height: size.height * 0.10,
-                        width: size.width * 0.40,
-                      ),
-                    ),
-                    Container(
-                      // color: Colors.white,
-                      padding: EdgeInsets.fromLTRB(0, 10.0, 10.0, 0),
+                      padding: EdgeInsets.fromLTRB(0, 10.0, 0, 0),
                       child: Image.asset(
                         "img/logo_industri.png",
                         height: size.height * 0.10,
-                        width: size.width * 0.40,
+                        width: size.width * 0.80,
                       ),
                     ),
                   ],

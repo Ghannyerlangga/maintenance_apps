@@ -4,7 +4,6 @@ import 'package:maintenance_apps/Screen/tools/components/form.dart' as form;
 import 'package:maintenance_apps/Screen/tools/components/inputField.dart';
 import 'package:maintenance_apps/Screen/tools/dialog.dart';
 import 'package:maintenance_apps/models/peminjaman_mesin.dart';
-import 'package:maintenance_apps/models/sparepart.dart';
 import 'package:maintenance_apps/shared/loading.dart';
 
 class TambahPeminjamanMesin extends StatefulWidget {
@@ -63,7 +62,6 @@ class _TambahPeminjamanMesinState extends State<TambahPeminjamanMesin> {
       _keteranganController.text = widget.peminjamanMesin.keterangan;
       _modeTambah = false;
     }
-    // TODO: implement initState
     super.initState();
   }
 
@@ -227,7 +225,7 @@ class _TambahPeminjamanMesinState extends State<TambahPeminjamanMesin> {
       _isLoading = true;
     });
     await collectionReference.add({
-      "no_inventaris": noInventaris,
+      "noInvent": noInventaris,
       "nama": nama,
       "tipe": tipe,
       "kapasitas": kapasitas,
@@ -285,7 +283,7 @@ class _TambahPeminjamanMesinState extends State<TambahPeminjamanMesin> {
       _isLoading = true;
     });
     await collectionReference.document(widget.peminjamanMesin.id).updateData({
-      'no_inventaris': noInventaris,
+      'noInvent': noInventaris,
       'nama': nama,
       'tipe': tipe,
       'kapasitas': kapasitas,

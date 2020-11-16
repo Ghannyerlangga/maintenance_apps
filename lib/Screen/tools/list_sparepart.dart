@@ -22,7 +22,6 @@ class _ListSparePartState extends State<ListSparePart> {
 
   @override
   void initState() {
-    // TODO: implement initState
     dataSparePart = getSparePart();
 
     super.initState();

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maintenance_apps/Screen/laporan/view.dart';
 import 'package:maintenance_apps/Services/database.dart';
-import 'package:maintenance_apps/shared/loading.dart';
 import 'package:pdf/pdf.dart';
 import 'dart:io';
 import 'package:pdf/widgets.dart';
